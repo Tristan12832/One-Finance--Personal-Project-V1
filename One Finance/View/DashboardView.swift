@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @State private var isFavorite = true
-    @State private var isMarked = true
+    @StateObject var exampleData = ExampleAccounts()
     
     let columns = [
         GridItem(.adaptive(minimum: 200))
@@ -24,8 +23,8 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(0..<3, id: \.self) { _ in
-                            AccountCellView(name: "Account Name", icon: "house.fill", amount: 2000, isFavorite: $isFavorite, isMarked: $isMarked)
+                        ForEach(exampleData.example_Accounts.indices) { index in
+                            AccountCellView(name: exampleData.example_Accounts[index].name, icon: exampleData.example_Accounts[index].icon, amount: Double(exampleData.example_Accounts[index].totalBalance), isFavorite: $exampleData.example_Accounts[index].isFavorite, isMarked: $exampleData.example_Accounts[index].isMarked)
                         }
                     }
                     .padding(.horizontal, 30)
@@ -37,8 +36,8 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(0..<3, id: \.self) { _ in
-                            AccountCellView(name: "Account Name", icon: "house.fill", amount: 2000, isFavorite: $isFavorite, isMarked: $isMarked)
+                        ForEach(exampleData.example_Accounts.indices) { index in
+                            AccountCellView(name: exampleData.example_Accounts[index].name, icon: exampleData.example_Accounts[index].icon, amount: Double(exampleData.example_Accounts[index].totalBalance), isFavorite: $exampleData.example_Accounts[index].isFavorite, isMarked: $exampleData.example_Accounts[index].isMarked)
                         }
                     }
                     .padding(.horizontal, 30)
@@ -50,8 +49,8 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(0..<3, id: \.self) { _ in
-                            AccountCellView(name: "Account Name", icon: "house.fill", amount: 2000, isFavorite: $isFavorite, isMarked: $isMarked)
+                        ForEach(exampleData.example_Accounts.indices) { index in
+                            AccountCellView(name: exampleData.example_Accounts[index].name, icon: exampleData.example_Accounts[index].icon, amount: Double(exampleData.example_Accounts[index].totalBalance), isFavorite: $exampleData.example_Accounts[index].isFavorite, isMarked: $exampleData.example_Accounts[index].isMarked)
                         }
                     }
                     .padding(.horizontal, 30)
@@ -61,8 +60,9 @@ struct DashboardView: View {
             }
             .background(.lightBackground5)
             
-            .navigationTitle("Dashboard")
+            .navigationTitle("Accounts")
         }
+
         
     }
     
