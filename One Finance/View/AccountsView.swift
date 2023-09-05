@@ -14,21 +14,21 @@ struct AccountsView: View {
         GridItem(.adaptive(minimum: 200))
     ]
     
-    enum FilterType {
-        case none, favorite, marked
-    }
-    let filter: FilterType
-    
-    var filteredAccounts: [Account] {
-        switch filter {
-        case .none:
-            return exampleData.example_Accounts
-        case .favorite:
-            return exampleData.example_Accounts.filter {$0.isFavorite}
-        case .marked:
-            return exampleData.example_Accounts.filter{$0.isMarked}
-        }
-    }
+//    enum FilterType {
+//        case none, favorite, marked
+//    }
+//    let filter: FilterType
+//
+//    var filteredAccounts: [Account] {
+//        switch filter {
+//        case .none:
+//            return exampleData.example_Accounts
+//        case .favorite:
+//            return exampleData.example_Accounts.filter {$0.isFavorite}
+//        case .marked:
+//            return exampleData.example_Accounts.filter{$0.isMarked}
+//        }
+//    }
     
     var body: some View {
         NavigationStack {
@@ -97,7 +97,7 @@ struct AccountsView_Previews: PreviewProvider {
                 SidebarPreview()
             }
         } detail: {
-            AccountsView(filter: .none)
+            AccountsView()
         }
         .tint(.myGreenApple_light)
         .previewDevice("Preview Full")
@@ -105,7 +105,7 @@ struct AccountsView_Previews: PreviewProvider {
         NavigationSplitView {
             SidebarPreview()
         } detail: {
-            AccountsView(filter: .none)
+            AccountsView()
         }
         .tint(.myGreenApple_light)
         .previewInterfaceOrientation(.landscapeRight)
