@@ -64,7 +64,7 @@ struct AccountCellView_Previews: PreviewProvider {
         NavigationSplitView(sidebar: {
             SidebarPreview()
         }, detail: {
-            AccountCellView(name: "Account", icon: "house.fill", amount: 10000, isFavorite: .constant(true), isMarked: .constant(true))
+            AccountCellView(name: "Account", icon: "house.fill", amount: 10000, isFavorite: .constant(true), isMarked: .constant(false))
         })
             .previewDisplayName("Preview")
             .previewInterfaceOrientation(.landscapeRight)

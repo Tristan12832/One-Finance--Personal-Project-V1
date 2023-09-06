@@ -9,26 +9,10 @@ import SwiftUI
 
 struct AccountsView: View {
     @StateObject var exampleData = ExampleAccounts()
-    
     let columns = [
         GridItem(.adaptive(minimum: 200))
     ]
     
-//    enum FilterType {
-//        case none, favorite, marked
-//    }
-//    let filter: FilterType
-//
-//    var filteredAccounts: [Account] {
-//        switch filter {
-//        case .none:
-//            return exampleData.example_Accounts
-//        case .favorite:
-//            return exampleData.example_Accounts.filter {$0.isFavorite}
-//        case .marked:
-//            return exampleData.example_Accounts.filter{$0.isMarked}
-//        }
-//    }
     
     var body: some View {
         NavigationStack {
@@ -39,8 +23,8 @@ struct AccountsView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(exampleData.example_Accounts.indices) { index in
-                            AccountCellView(name: exampleData.example_Accounts[index].name, icon: exampleData.example_Accounts[index].icon, amount: Double(exampleData.example_Accounts[index].totalBalance), isFavorite: $exampleData.example_Accounts[index].isFavorite, isMarked: $exampleData.example_Accounts[index].isMarked)
+                        ForEach(exampleData.isFavoriteFilter.indices) { index in
+                            AccountCellView(name: exampleData.isFavoriteFilter[index].name, icon: exampleData.isFavoriteFilter[index].icon, amount: Double(exampleData.isFavoriteFilter[index].totalBalance), isFavorite: $exampleData.isFavoriteFilter[index].isFavorite, isMarked: $exampleData.isFavoriteFilter[index].isMarked)
                         }
                     }
                     .padding(.horizontal, 30)
@@ -52,8 +36,8 @@ struct AccountsView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(exampleData.example_Accounts.indices) { index in
-                            AccountCellView(name: exampleData.example_Accounts[index].name, icon: exampleData.example_Accounts[index].icon, amount: Double(exampleData.example_Accounts[index].totalBalance), isFavorite: $exampleData.example_Accounts[index].isFavorite, isMarked: $exampleData.example_Accounts[index].isMarked)
+                        ForEach(exampleData.isMarkedFilter.indices) { index in
+                            AccountCellView(name: exampleData.isMarkedFilter[index].name, icon: exampleData.isMarkedFilter[index].icon, amount: Double(exampleData.isMarkedFilter[index].totalBalance), isFavorite: $exampleData.isMarkedFilter[index].isFavorite, isMarked: $exampleData.isMarkedFilter[index].isMarked)
                         }
                     }
                     .padding(.horizontal, 30)

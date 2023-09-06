@@ -10,4 +10,5 @@ import SwiftUI
 
 class Acounts: ObservableObject {
     @Published public var accounts = [Account]()
+    
 }
