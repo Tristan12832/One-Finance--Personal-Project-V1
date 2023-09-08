@@ -61,6 +61,7 @@ struct AccountsView: View {
             .background(.lightBackground5)
             
             .navigationTitle("Accounts")
+            .toolbarBackground(Color.lightBackground5)
         }
         
     }
@@ -83,7 +84,7 @@ struct AccountsView_Previews: PreviewProvider {
         } detail: {
             AccountsView()
         }
-        .tint(.myGreenApple_light)
+        .tint(.accentColor)
         .previewDevice("Preview Full")
         
         NavigationSplitView {
@@ -91,7 +92,7 @@ struct AccountsView_Previews: PreviewProvider {
         } detail: {
             AccountsView()
         }
-        .tint(.myGreenApple_light)
+        .tint(.accentColor)
         .previewInterfaceOrientation(.landscapeRight)
         .previewDevice("Preview landscapeRight")
         

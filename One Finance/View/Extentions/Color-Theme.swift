@@ -9,8 +9,18 @@ import Foundation
 import SwiftUI
 
 
-extension ShapeStyle where Self == Color {
+struct MyGreenApple: ShapeStyle {
+    func resolve(in environment: EnvironmentValues) -> some ShapeStyle {
+        if environment.colorScheme == .light {
+            return Color.myGreenApple_light.blendMode(.lighten)
+        } else {
+            return Color.myGreenApple_dark.blendMode(.darken)
+        }
+    }
+}
 
+extension ShapeStyle where Self == Color {
+    
     //MARK: My color accent
     static var myGreenApple_light: Color {
         Color(red: 0.0, green: 0.56, blue: 0.0)
@@ -46,7 +56,7 @@ extension ShapeStyle where Self == Color {
         Color(red: 0.84, green: 0.85, blue: 0.86)
     }
 
-    static var lightBackground5: Color {
+    static var lightBackground5 : Color {
         Color(red: 0.89, green: 0.90, blue: 0.91)
     }
     

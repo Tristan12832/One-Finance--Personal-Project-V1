@@ -62,6 +62,8 @@ struct DashboardView: View {
             .background(.lightBackground5)
             
             .navigationTitle("Accounts")
+            .toolbarBackground(Color.lightBackground5)
+
         }
 
         

@@ -47,12 +47,12 @@ struct AccountCellListView: View {
         }
         .padding()
         .background(.lightBackground4)
-        .padding(6)
+        .padding(8)
         .background(.myGreenApple_light)
         .cornerRadius(8)
         .overlay{
             RoundedRectangle(cornerRadius: 8)
-                .stroke(.lightBackground5, lineWidth: 4)
+                .stroke(.lightBackground5, lineWidth: 6)
         }
         .fixedSize(horizontal: false, vertical: true)
         
