@@ -27,7 +27,8 @@ struct Sidebar: View {
             NavigationLink(value: Panel.accounts) {
                 Label("Accounts", systemImage: "person.crop.circle")
             }
-
+            
+            //Futur
             NavigationLink(value: Panel.history) {
                 Label("History", systemImage: "clock.fill")
             }

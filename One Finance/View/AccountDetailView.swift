@@ -12,10 +12,13 @@ import SwiftUI
 /// - AmountView component
 /// 
 struct AccountDetailView: View {
+    
+    @StateObject var model = ExampleAccounts()
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             HStack {
-                Text("Account X")
+                Text("Account: \(model.example_Accounts[0].name)")
                     .font(.system(size: 40, weight: .bold, design: .default))
                 .padding(.horizontal, 30)
                 
@@ -23,11 +26,11 @@ struct AccountDetailView: View {
             }
             
             VStack(spacing: 16) {
-                AmountView(title: "Total Account", amount: 600, backgroundColor: .myGreenApple_light)
+                AmountView(title: "Total Account", amount: model.example_Accounts[0].totalBalance, backgroundColor: .myGreenApple_light)
                 
                 HStack(spacing: 16){
-                    AmountView(title: "Income", amount: 2200, backgroundColor: .complementaryColor_light)
-                    AmountView(title: "Expense", amount: 1600, backgroundColor: .red)
+                    AmountView(title: "Income", amount: model.example_Accounts[0].totalIncome, backgroundColor: .complementaryColor_light)
+                    AmountView(title: "Expense", amount: model.example_Accounts[0].totalExpense, backgroundColor: .red)
                 }
             }
             .padding(.horizontal, 30)
@@ -81,15 +84,15 @@ struct AccountDetailView: View {
                     .padding(.vertical, 8)
                 }
                 
-                ForEach(0..<100) { _ in
-                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "Expense Name", amount: 566)
+                ForEach(model.example_Accounts.indices) { index in
+                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: model.example_Accounts[1].payements[index].name, amount: model.example_Accounts[1].payements[index].amount)
                 }
                 .padding(1)
              }
             .padding(.vertical, 30)
             .padding(.horizontal, 30)
         }
-        
+        .toolbarBackground(Color.lightBackground5)
         .background(.lightBackground5)
 
     }
@@ -100,7 +103,7 @@ struct HeaderAccountView_Previews: PreviewProvider {
     
     ///init the sidebar to display on "Preview"
     struct SidebarPreview: View {
-        @State private var selection: Panel? = Panel.accounts
+        @State private var selection: Panel? = Panel.dashboard
         var body: some View {
             Sidebar(selection: $selection)
         }

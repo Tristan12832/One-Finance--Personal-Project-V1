@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @StateObject var exampleData = ExampleAccounts()
+    @StateObject var model = ExampleAccounts()
     
     let columns = [
         GridItem(.adaptive(minimum: 200))
@@ -24,8 +24,8 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(exampleData.example_Accounts.indices) { index in
-                            AccountCellView(name: exampleData.example_Accounts[index].name, icon: exampleData.example_Accounts[index].icon, amount: Double(exampleData.example_Accounts[index].totalBalance), isFavorite: $exampleData.example_Accounts[index].isFavorite, isMarked: $exampleData.example_Accounts[index].isMarked)
+                        ForEach(model.example_Accounts.indices) { index in
+                            AccountCellView(name: model.example_Accounts[index].name, icon: model.example_Accounts[index].icon, amount: Double(model.example_Accounts[index].totalBalance), isFavorite: $model.example_Accounts[index].isFavorite, isMarked: $model.example_Accounts[index].isMarked)
                         }
                     }
                     .padding(.horizontal, 30)
@@ -37,8 +37,8 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(exampleData.example_Accounts.indices) { index in
-                            AccountCellView(name: exampleData.example_Accounts[index].name, icon: exampleData.example_Accounts[index].icon, amount: Double(exampleData.example_Accounts[index].totalBalance), isFavorite: $exampleData.example_Accounts[index].isFavorite, isMarked: $exampleData.example_Accounts[index].isMarked)
+                        ForEach(model.example_Accounts.indices) { index in
+                            AccountCellView(name: model.example_Accounts[index].name, icon: model.example_Accounts[index].icon, amount: Double(model.example_Accounts[index].totalBalance), isFavorite: $model.example_Accounts[index].isFavorite, isMarked: $model.example_Accounts[index].isMarked)
                         }
                     }
                     .padding(.horizontal, 30)
@@ -50,8 +50,8 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(exampleData.example_Accounts.indices) { index in
-                            AccountCellView(name: exampleData.example_Accounts[index].name, icon: exampleData.example_Accounts[index].icon, amount: Double(exampleData.example_Accounts[index].totalBalance), isFavorite: $exampleData.example_Accounts[index].isFavorite, isMarked: $exampleData.example_Accounts[index].isMarked)
+                        ForEach(model.example_Accounts.indices) { index in
+                            AccountCellView(name: model.example_Accounts[index].name, icon: model.example_Accounts[index].icon, amount: Double(model.example_Accounts[index].totalBalance), isFavorite: $model.example_Accounts[index].isFavorite, isMarked: $model.example_Accounts[index].isMarked)
                         }
                     }
                     .padding(.horizontal, 30)
@@ -74,7 +74,7 @@ struct DashboardView: View {
 struct DashboardView_Previews: PreviewProvider {
     ///init the sidebar to display on "Preview"
     struct SidebarPreview: View {
-        @State private var selection: Panel? = Panel.accounts
+        @State private var selection: Panel? = Panel.dashboard
         var body: some View {
             Sidebar(selection: $selection)
         }
