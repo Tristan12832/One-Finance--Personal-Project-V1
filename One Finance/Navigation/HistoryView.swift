@@ -9,12 +9,32 @@ import SwiftUI
 
 struct HistoryView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Working Progress !!!")
+            .font(.system(size: 48, weight: .bold, design: .rounded))
     }
 }
 
 struct HistoryView_Previews: PreviewProvider {
+    
+    ///init the "Preview" to display on
+    struct Preview: View {
+        @StateObject private var model = ExampleAccounts()
+        @State private var navigationSelection: Panel? = Panel.dashboard
+        var body: some View {
+            DashboardView(model: model, navigationSelection: $navigationSelection)
+        }
+    }
+    
     static var previews: some View {
         HistoryView()
+            .previewDisplayName("Preview Standard")
+        NavigationSplitView {
+            Sidebar(selection: .constant(.dashboard))
+        } detail: {
+            Preview()
+                .background(.lightBackground5)
+        }
+        .previewInterfaceOrientation(.landscapeRight)
+        .previewDevice("iPad Air (5th generation)")
     }
 }

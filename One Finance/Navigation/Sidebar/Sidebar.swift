@@ -52,6 +52,8 @@ struct Sidebar: View {
 
 //MARK: Preview
 struct Sidebar_Previews: PreviewProvider {
+    
+    ///init the sidebar to display on "Preview"
     struct Preview: View {
         @State private var selection: Panel? = Panel.accounts
         var body: some View {
@@ -65,9 +67,16 @@ struct Sidebar_Previews: PreviewProvider {
         } detail: {
            Text("Detail!")
         }
-        .previewInterfaceOrientation(.landscapeLeft)
+        .previewInterfaceOrientation(.portrait)
         .tint(Color.myGreenApple_light)
 
-        Preview()
+        NavigationSplitView {
+            Preview()
+        } detail: {
+           Text("Detail!")
+        }
+        .previewInterfaceOrientation(.landscapeRight)
+        .tint(Color.myGreenApple_light)
+
     }
 }

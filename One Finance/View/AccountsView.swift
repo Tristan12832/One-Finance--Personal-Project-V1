@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountsView: View {
-    @ObservedObject var model = ExampleAccounts()
+    @ObservedObject var model: ExampleAccounts
     
     let columns = [
         GridItem(.adaptive(minimum: 200))
@@ -25,7 +25,12 @@ struct AccountsView: View {
                     
                     LazyVGrid(columns: columns, spacing: 18) {
                         ForEach(model.isFavoriteFilter.indices) { index in
-                            AccountCellView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: Double(model.isFavoriteFilter[index].totalBalance), isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
+                            NavigationLink {
+                                AccountDetailView(model: model.isFavoriteFilter[index])
+                            } label: {
+                                AccountCellView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: Double(model.isFavoriteFilter[index].totalBalance), isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
+                            }
+
                         }
                     }
                     .padding(.horizontal, 30)
@@ -38,7 +43,12 @@ struct AccountsView: View {
                     
                     LazyVGrid(columns: columns, spacing: 18) {
                         ForEach(model.isMarkedFilter.indices) { index in
-                            AccountCellView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
+                            NavigationLink {
+                                AccountDetailView(model: model.isMarkedFilter[index])
+                            } label: {
+                                AccountCellView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
+                            }
+
                         }
                     }
                     .padding(.horizontal, 30)
@@ -51,7 +61,12 @@ struct AccountsView: View {
                     
                     LazyVGrid(columns: columns, spacing: 18) {
                         ForEach(model.example_Accounts.indices) { index in
-                            AccountCellView(name: model.example_Accounts[index].name, icon: model.example_Accounts[index].icon, amount: Double(model.example_Accounts[index].totalBalance), isFavorite: $model.example_Accounts[index].isFavorite, isMarked: $model.example_Accounts[index].isMarked)
+                            NavigationLink {
+                                AccountDetailView(model: model.example_Accounts[index])
+                            } label: {
+                                AccountCellView(name: model.example_Accounts[index].name, icon: model.example_Accounts[index].icon, amount: Double(model.example_Accounts[index].totalBalance), isFavorite: $model.example_Accounts[index].isFavorite, isMarked: $model.example_Accounts[index].isMarked)
+                            }
+
                         }
                     }
                     .padding(.horizontal, 30)
@@ -69,7 +84,7 @@ struct AccountsView: View {
 }
 
 struct AccountsView_Previews: PreviewProvider {
-    ///init the sidebar to display on "Preview"
+    ///init the "Preview" to display on 
     struct Preview: View {
         @StateObject private var model = ExampleAccounts()
         var body: some View {
@@ -77,9 +92,28 @@ struct AccountsView_Previews: PreviewProvider {
         }
     }
     
+    ///init the sidebar to display on "Preview"
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.accounts
+        var body: some View {
+            Sidebar(selection: $selection)
+        }
+    }
+    
     static var previews: some View {
         NavigationStack {
             Preview()
         }
+        .previewDisplayName("Preview Standard")
+
+        NavigationSplitView {
+            SidebarPreview()
+        } detail: {
+            Preview()
+        }
+        .previewDevice("iPad Air (5th generation)")
+        .previewInterfaceOrientation(.landscapeRight)
+        .previewDisplayName("Preview iPad")
+
     }
 }

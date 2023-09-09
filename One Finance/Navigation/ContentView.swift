@@ -11,22 +11,27 @@ struct ContentView: View {
     @ObservedObject var model: ExampleAccounts
     
     @State private var selection: Panel? = Panel.dashboard
-    @State private var ppath = NavigationPath()
+    @State private var path = NavigationPath()
 
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationSplitView {
+            Sidebar(selection: $selection)
+                .toolbarBackground(Color.lightBackground5)
+        } detail: {
+            NavigationStack(path: $path) {
+                DetailColumn(selection: $selection, model: model)
+            }
+            .toolbarBackground(Color.lightBackground5)
         }
-        .padding()
+        .onChange(of: selection) { _ in
+            path.removeLast(path.count)
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     
-    ///init the sidebar to display on "Preview"
+    ///init the "Preview" to display 
     struct Preview: View {
         @StateObject private var model = ExampleAccounts()
         var body: some View {
@@ -34,7 +39,22 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
     
+//    ///init the sidebar to display on "Preview"
+//    struct SidebarPreview: View {
+//        @State private var selection: Panel? = Panel.accounts
+//        var body: some View {
+//            Sidebar(selection: $selection)
+//        }
+//    }
+    
     static var previews: some View {
         Preview()
+            .previewDisplayName("Preview Standard")
+
+        Preview()
+            .previewInterfaceOrientation(.landscapeRight)
+            .previewDevice("iPad Air (5th generation)")
+            .previewDisplayName("Preview iPad")
+
     }
 }

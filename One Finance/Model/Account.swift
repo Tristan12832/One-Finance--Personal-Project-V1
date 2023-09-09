@@ -7,13 +7,13 @@
 
 import Foundation
 
-class Account: Identifiable {
+class Account: Identifiable, ObservableObject {
     var id = UUID()
-    var name: String = ""
-    var icon: String = ""
-    var payements = [PayementActivity]()
-    var isFavorite: Bool
-    var isMarked: Bool
+    @Published var name: String = ""
+    @Published var icon: String = ""
+    @Published var payements = [PayementActivity]()
+    @Published var isFavorite: Bool
+    @Published var isMarked: Bool
     
     var totalIncome: Double {
         let total = payements

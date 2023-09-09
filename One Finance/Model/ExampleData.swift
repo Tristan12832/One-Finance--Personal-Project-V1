@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 class ExampleAccounts: ObservableObject {
-    
     @Published var example_Accounts: [Account] = [
         Account(id: UUID(), name: "Future expenditure", icon: "creditcard.fill", payements: [
             PayementActivity(name: "MacBook Pro 16", amount: 4000, type: .expense),

@@ -9,12 +9,15 @@ import SwiftUI
 
 struct ProjectsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Working Progress !!!")
+            .font(.system(size: 48, weight: .bold, design: .rounded))
     }
 }
 
 struct ProjectsView_Previews: PreviewProvider {
     static var previews: some View {
         ProjectsView()
+            .previewDisplayName("Preview Standard")
+
     }
 }

@@ -13,12 +13,12 @@ import SwiftUI
 /// 
 struct AccountDetailView: View {
     
-    @StateObject var model = ExampleAccounts()
+    @ObservedObject var model: Account
 
     var body: some View {
         ScrollView(showsIndicators: false) {
             HStack {
-                Text("Account: \(model.example_Accounts[0].name)")
+                Text("Account: \(model.name)")
                     .font(.system(size: 40, weight: .bold, design: .default))
                 .padding(.horizontal, 30)
                 
@@ -26,11 +26,11 @@ struct AccountDetailView: View {
             }
             
             VStack(spacing: 16) {
-                AmountView(title: "Total Account", amount: model.example_Accounts[0].totalBalance, backgroundColor: .myGreenApple_light)
+                AmountView(title: "Total Account", amount: model.totalBalance, backgroundColor: .myGreenApple_light)
                 
                 HStack(spacing: 16){
-                    AmountView(title: "Income", amount: model.example_Accounts[0].totalIncome, backgroundColor: .complementaryColor_light)
-                    AmountView(title: "Expense", amount: model.example_Accounts[0].totalExpense, backgroundColor: .red)
+                    AmountView(title: "Income", amount: model.totalIncome, backgroundColor: .complementaryColor_light)
+                    AmountView(title: "Expense", amount: model.totalExpense, backgroundColor: .red)
                 }
             }
             .padding(.horizontal, 30)
@@ -84,8 +84,8 @@ struct AccountDetailView: View {
                     .padding(.vertical, 8)
                 }
                 
-                ForEach(model.example_Accounts.indices) { index in
-                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: model.example_Accounts[1].payements[index].name, amount: model.example_Accounts[1].payements[index].amount)
+                ForEach($model.payements.indices) { index in
+                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: model.payements[index].name, amount: model.payements[index].amount)
                 }
                 .padding(1)
              }
@@ -101,35 +101,43 @@ struct AccountDetailView: View {
 //MARK: Preview
 struct HeaderAccountView_Previews: PreviewProvider {
     
+    ///init the "Preview" to display 
+    struct Preview: View {
+        @StateObject private var model =  Account(name: "Future expenditure", icon: "creditcard.fill", payements: [
+            PayementActivity(name: "MacBook Pro 16", amount: 4000, type: .expense),
+            PayementActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, type: .expense),
+            PayementActivity(name: "September Bonus", amount: 2200, type: .income),
+            PayementActivity(name: "Basic balance", amount: 3000, type: .income)
+        ], isFavorite: true, isMarked: false)
+        var body: some View {
+            AccountDetailView(model: model)
+        }
+    }
+    
     ///init the sidebar to display on "Preview"
     struct SidebarPreview: View {
-        @State private var selection: Panel? = Panel.dashboard
+        @State private var selection: Panel? = Panel.accounts
         var body: some View {
             Sidebar(selection: $selection)
         }
     }
     
     static var previews: some View {
-        NavigationSplitView {
-            SidebarPreview()
-        } detail: {
-            AccountDetailView()
+        NavigationStack {
+            Preview()
         }
-        .previewDisplayName("Preview")
+        .previewDisplayName("Preview Standard")
         .previewInterfaceOrientation(.landscapeRight)
         .tint(.myGreenApple_light)
         
         NavigationSplitView {
-            NavigationStack{
-                SidebarPreview()
-            }
+            SidebarPreview()
         } detail: {
-            AccountDetailView()
+            Preview()
+                .background(.lightBackground5)
         }
-        .previewDevice("iPhone 14")
-        .previewDisplayName("Preview iPhone")
-        .previewInterfaceOrientation(.portrait)
-        .tint(.myGreenApple_light)
+        .previewInterfaceOrientation(.landscapeRight)
+        .previewDevice("iPad Air (5th generation)")
         
     }
 }
