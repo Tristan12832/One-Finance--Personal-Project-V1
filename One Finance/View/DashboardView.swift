@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @StateObject var model = ExampleAccounts()
-    
+    @ObservedObject var model = ExampleAccounts()
+    @Binding var navigationSelection: Panel?
+
     let columns = [
         GridItem(.adaptive(minimum: 200))
     ]
@@ -73,34 +74,18 @@ struct DashboardView: View {
 
 struct DashboardView_Previews: PreviewProvider {
     ///init the sidebar to display on "Preview"
-    struct SidebarPreview: View {
-        @State private var selection: Panel? = Panel.dashboard
+    struct Preview: View {
+        @StateObject private var model = ExampleAccounts()
+        @State private var navigationSelection: Panel? = Panel.dashboard
         var body: some View {
-            Sidebar(selection: $selection)
+            DashboardView(model: model, navigationSelection: $navigationSelection)
         }
     }
     
     static var previews: some View {
-        
-        NavigationSplitView {
-            NavigationStack{
-                SidebarPreview()
-            }
-        } detail: {
-            DashboardView()
+        NavigationStack{
+            Preview()
         }
-        .tint(.myGreenApple_light)
-        .previewDevice("Preview Full")
-        
-        NavigationSplitView {
-            SidebarPreview()
-        } detail: {
-            DashboardView()
-        }
-        .tint(.myGreenApple_light)
-        .previewInterfaceOrientation(.landscapeRight)
-        .previewDevice("Preview landscapeRight")
-        
         
     }
 }

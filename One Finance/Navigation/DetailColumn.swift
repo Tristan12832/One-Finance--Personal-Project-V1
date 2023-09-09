@@ -10,9 +10,20 @@ import SwiftUI
 struct DetailColumn: View {
     
     @Binding var selection: Panel?
+    @ObservedObject var model: ExampleAccounts
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        switch selection ?? .dashboard {
+        case .dashboard:
+            DashboardView(model: model, navigationSelection: $selection)
+        case .accounts:
+            AccountsView(model: model)
+            //MARK: FUTUR
+        case .history:
+            HistoryView()
+        case .projects:
+            ProjectsView()
+        }
     }
 }
 
@@ -23,7 +34,7 @@ struct DetailColumn_Previews: PreviewProvider {
         @State private var selection: Panel? = Panel.dashboard
         @StateObject private var model = ExampleAccounts()
         var body: some View {
-            DetailColumn(selection: $selection)
+            DetailColumn(selection: $selection, model: model)
         }
     }
     

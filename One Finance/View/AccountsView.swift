@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AccountsView: View {
-    @StateObject var model = ExampleAccounts()
+    @ObservedObject var model = ExampleAccounts()
+    
     let columns = [
         GridItem(.adaptive(minimum: 200))
     ]
@@ -69,32 +70,16 @@ struct AccountsView: View {
 
 struct AccountsView_Previews: PreviewProvider {
     ///init the sidebar to display on "Preview"
-    struct SidebarPreview: View {
-        @State private var selection: Panel? = Panel.dashboard
+    struct Preview: View {
+        @StateObject private var model = ExampleAccounts()
         var body: some View {
-            Sidebar(selection: $selection)
+            AccountsView(model: model)
         }
     }
     
     static var previews: some View {
-        NavigationSplitView {
-            NavigationStack{
-                SidebarPreview()
-            }
-        } detail: {
-            AccountsView()
+        NavigationStack {
+            Preview()
         }
-        .tint(.accentColor)
-        .previewDevice("Preview Full")
-        
-        NavigationSplitView {
-            SidebarPreview()
-        } detail: {
-            AccountsView()
-        }
-        .tint(.accentColor)
-        .previewInterfaceOrientation(.landscapeRight)
-        .previewDevice("Preview landscapeRight")
-        
     }
 }
