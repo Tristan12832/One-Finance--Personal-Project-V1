@@ -46,7 +46,6 @@ struct Sidebar: View {
         .scrollContentBackground(.hidden)
         .background(.lightBackground5)
         .tint(Color.myGreenApple_light)
-
     }
 }
 

@@ -18,7 +18,7 @@ struct AccountDetailView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             HStack {
-                Text("Account: \(model.name)")
+                Text(model.name)
                     .font(.system(size: 40, weight: .bold, design: .default))
                 .padding(.horizontal, 30)
                 
@@ -94,7 +94,30 @@ struct AccountDetailView: View {
         }
         .toolbarBackground(Color.lightBackground5)
         .background(.lightBackground5)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    //more action
+                } label: {
+                    Image(systemName: "questionmark.circle")
+                        .font(.system(.title2))
 
+                }
+
+            }
+            
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                   //more action
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(.title2))
+                }
+
+            }
+
+        }
+        
     }
 }
 
@@ -127,7 +150,7 @@ struct HeaderAccountView_Previews: PreviewProvider {
             Preview()
         }
         .previewDisplayName("Preview Standard")
-        .previewInterfaceOrientation(.landscapeRight)
+        .previewInterfaceOrientation(.portrait)
         .tint(.myGreenApple_light)
         
         NavigationSplitView {

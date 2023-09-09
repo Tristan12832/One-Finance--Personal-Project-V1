@@ -38,7 +38,7 @@ struct AccountCellView: View {
                 
             }
             .background(.lightBackground4)
-            .frame(maxWidth: 250, idealHeight: 400)
+            .frame(maxWidth: 270, idealHeight: 420)
             .cornerRadius(8)
             .overlay{
                 RoundedRectangle(cornerRadius: 8)
@@ -85,8 +85,9 @@ struct HeaderviewCell: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            Text(acoounName)
-                .foregroundColor(.white)
+                Text(acoounName)
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.leading)
             
             Spacer()
             

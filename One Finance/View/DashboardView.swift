@@ -78,7 +78,29 @@ struct DashboardView: View {
             .toolbarBackground(Color.lightBackground5)
 
         }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    //more action
+                } label: {
+                    Image(systemName: "questionmark.circle")
+                        .font(.system(.title2))
 
+                }
+
+            }
+            
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                   //more action
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(.title2))
+                }
+
+            }
+
+        }
         
     }
     
