@@ -10,11 +10,36 @@ import SwiftUI
 //MARK: AccountCellView
 ///Below are the components:
 /// - AmountView component
-/// 
+
+enum TransactionDisplayType {
+    case all
+    case income
+    case expense
+}
+
 struct AccountDetailView: View {
     
     @ObservedObject var model: Account
+    
+    @State private var listType: TransactionDisplayType = .all
+    @State private var selectedPaymentActivity: PaymentActivity?
 
+
+    var paymentDataForView: [PaymentActivity] {
+        switch listType {
+        case .all:
+            return model.payments.sorted(by:  {$0.date?.compare($1.date!) == .orderedDescending})
+        case .income:
+            return model.payments
+                    .filter { $0.type == .income }
+                    .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+        case .expense:
+            return model.payments
+                    .filter { $0.type == .expense }
+                    .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+        }
+    }
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             HStack {
@@ -58,6 +83,7 @@ struct AccountDetailView: View {
                                 .background(.myGreenApple_light)
                                 .onTapGesture {
                                     //FUTUR
+                                    self.listType = .all
                                 }
                             Text("Income")
                                 .padding(3)
@@ -66,6 +92,7 @@ struct AccountDetailView: View {
                                 .background(.complementaryColor_light)
                                 .onTapGesture {
                                     //FUTUR
+                                    self.listType = .income
                                 }
                             Text("Expense")
                                 .padding(3)
@@ -74,6 +101,7 @@ struct AccountDetailView: View {
                                 .background(Color.red)
                                 .onTapGesture {
                                     //FUTUR
+                                    self.listType = .expense
                                 }
                         }
                         .font(.system(.headline, design: .rounded))
@@ -84,8 +112,8 @@ struct AccountDetailView: View {
                     .padding(.vertical, 8)
                 }
                 
-                ForEach($model.payements.indices) { index in
-                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: model.payements[index].name, amount: model.payements[index].amount, date: model.payements[index].date)
+                ForEach($model.payments.indices) { index in
+                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: model.payments[index].name, amount: model.payments[index].amount, date: model.payments[index].date)
                 }
                 .padding(1)
              }
@@ -126,11 +154,11 @@ struct HeaderAccountView_Previews: PreviewProvider {
     
     ///init the "Preview" to display 
     struct Preview: View {
-        @StateObject private var model =  Account(name: "Future expenditure", icon: "creditcard.fill", payements: [
-            PayementActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
-            PayementActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
-            PayementActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
-            PayementActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
+        @StateObject private var model =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+            PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
+            PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
+            PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
+            PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
         ], isFavorite: true, isMarked: false)
         var body: some View {
             AccountDetailView(model: model)

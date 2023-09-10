@@ -11,7 +11,7 @@ enum TypePayement: String {
     case income, expense
 }
 
-struct PayementActivity: Identifiable {
+struct PaymentActivity: Identifiable {
     var id = UUID()
     let name: String
     let amount: Double

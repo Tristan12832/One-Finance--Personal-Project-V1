@@ -7,16 +7,41 @@
 
 import Foundation
 
+enum TypePayementActivity {
+    case all, income, expense
+}
+
 class Account: Identifiable, ObservableObject {
     var id = UUID()
     @Published var name: String = ""
     @Published var icon: String = ""
-    @Published var payements = [PayementActivity]()
+    @Published var payments = [PaymentActivity]()
     @Published var isFavorite: Bool
     @Published var isMarked: Bool
     
+    var datePayment: [PaymentActivity] {
+        get { return payments.sorted(by: {$0.date?.compare($1.date!) == .orderedDescending}) }
+    }
+    
+    var datePaymentIncome: [PaymentActivity] {
+        get {
+            return payments
+                .filter { $0.type == .income }
+                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+        }
+
+    }
+    var datePaymentExpense: [PaymentActivity] {
+        get {
+            return payments
+                .filter { $0.type == .expense }
+                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+        }
+
+    }
+    
     var totalIncome: Double {
-        let total = payements
+        let total = payments
             .filter {
                 $0.type == .income
             }.reduce(0) {
@@ -27,7 +52,7 @@ class Account: Identifiable, ObservableObject {
     }
     
     var totalExpense: Double {
-        let total = payements
+        let total = payments
             .filter {
                 $0.type == .expense
             }.reduce(0) {
@@ -42,11 +67,11 @@ class Account: Identifiable, ObservableObject {
     }
     
     
-    init(id: UUID = UUID(), name: String, icon: String, payements: [PayementActivity] = [PayementActivity](), isFavorite: Bool, isMarked: Bool) {
+    init(id: UUID = UUID(), name: String, icon: String, payments: [PaymentActivity] = [PaymentActivity](), isFavorite: Bool, isMarked: Bool) {
         self.id = id
         self.name = name
         self.icon = icon
-        self.payements = payements
+        self.payments = payments
         self.isFavorite = isFavorite
         self.isMarked = isMarked
     }
