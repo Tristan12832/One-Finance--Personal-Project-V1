@@ -85,7 +85,7 @@ struct AccountDetailView: View {
                 }
                 
                 ForEach($model.payements.indices) { index in
-                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: model.payements[index].name, amount: model.payements[index].amount)
+                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: model.payements[index].name, amount: model.payements[index].amount, date: model.payements[index].date)
                 }
                 .padding(1)
              }
@@ -127,10 +127,10 @@ struct HeaderAccountView_Previews: PreviewProvider {
     ///init the "Preview" to display 
     struct Preview: View {
         @StateObject private var model =  Account(name: "Future expenditure", icon: "creditcard.fill", payements: [
-            PayementActivity(name: "MacBook Pro 16", amount: 4000, type: .expense),
-            PayementActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, type: .expense),
-            PayementActivity(name: "September Bonus", amount: 2200, type: .income),
-            PayementActivity(name: "Basic balance", amount: 3000, type: .income)
+            PayementActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
+            PayementActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
+            PayementActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
+            PayementActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
         ], isFavorite: true, isMarked: false)
         var body: some View {
             AccountDetailView(model: model)

@@ -15,5 +15,11 @@ struct PayementActivity: Identifiable {
     var id = UUID()
     let name: String
     let amount: Double
+    let date: Date?
     let type: TypePayement
+///WARING !!!
+//    var formattedDate: String {
+//        date?.formatted(date: .abbreviated, time: .omitted) ?? "N/A"
+//    }
 }
+
