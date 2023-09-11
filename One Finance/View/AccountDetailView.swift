@@ -25,18 +25,21 @@ struct AccountDetailView: View {
     @State private var selectedPaymentActivity: PaymentActivity?
 
 
-    var paymentDataForView: [PaymentActivity] {
+    private var paymentDataForView: [PaymentActivity] {
         switch listType {
         case .all:
-            return model.payments.sorted(by:  {$0.date?.compare($1.date!) == .orderedDescending})
+            return model.payments
+                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
         case .income:
             return model.payments
-                    .filter { $0.type == .income }
-                    .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+                .filter { $0.type == .income }
+                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+
         case .expense:
             return model.payments
-                    .filter { $0.type == .expense }
-                    .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+                .filter { $0.type == .expense }
+                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+
         }
     }
     
@@ -112,8 +115,8 @@ struct AccountDetailView: View {
                     .padding(.vertical, 8)
                 }
                 
-                ForEach($model.payments.indices) { index in
-                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: model.payments[index].name, amount: model.payments[index].amount, date: model.payments[index].date)
+                ForEach(paymentDataForView.indices, id: \.self) { index in
+                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
                 }
                 .padding(1)
              }

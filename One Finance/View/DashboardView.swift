@@ -25,7 +25,7 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(model.isFavoriteFilter.indices) { index in
+                        ForEach(model.isFavoriteFilter.indices, id: \.self) { index in
                             NavigationLink {
                                 AccountDetailView(model: model.isFavoriteFilter[index])
                             } label: {
@@ -42,7 +42,7 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(model.isMarkedFilter.indices) { index in
+                        ForEach(model.isMarkedFilter.indices, id: \.self) { index in
                             NavigationLink {
                                 AccountDetailView(model: model.isMarkedFilter[index])
                             } label: {
@@ -59,7 +59,7 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(model.example_Accounts.indices) { index in
+                        ForEach(model.example_Accounts.indices, id: \.self) { index in
                             NavigationLink {
                                 AccountDetailView(model: model.example_Accounts[index])
                             } label: {

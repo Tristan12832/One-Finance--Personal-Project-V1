@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PayementActivityCell: View {
-    
+
     var icon: String
     var nameActivity: String
     var amount: Double

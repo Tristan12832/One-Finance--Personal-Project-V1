@@ -20,7 +20,11 @@ class Account: Identifiable, ObservableObject {
     @Published var isMarked: Bool
     
     var datePayment: [PaymentActivity] {
-        get { return payments.sorted(by: {$0.date?.compare($1.date!) == .orderedDescending}) }
+        get {
+            return payments
+                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+        }
+        set { payments = payments }
     }
     
     var datePaymentIncome: [PaymentActivity] {
@@ -29,14 +33,17 @@ class Account: Identifiable, ObservableObject {
                 .filter { $0.type == .income }
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
         }
+        set { payments = payments.filter({$0.type == .income}) }
 
     }
+
     var datePaymentExpense: [PaymentActivity] {
         get {
             return payments
                 .filter { $0.type == .expense }
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
         }
+        set { payments = payments.filter({$0.type == .expense}) }
 
     }
     
