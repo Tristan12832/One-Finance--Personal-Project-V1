@@ -13,7 +13,7 @@ struct PayementActivityCell: View {
     var nameActivity: String
     var amount: Double
     var date: Date?
-    
+
     var body: some View {
         HStack(spacing: 8) {
             HStack {

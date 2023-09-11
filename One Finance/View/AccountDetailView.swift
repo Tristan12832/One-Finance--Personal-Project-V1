@@ -71,9 +71,14 @@ struct AccountDetailView: View {
                         Text("Detail")
                             .font(.system(.title, design: .rounded, weight: .bold))
                         Spacer()
-                        Image(systemName: "arrow.up.arrow.down")
-                            .font(.system(.title3, design: .rounded, weight: .bold))
-                            .foregroundColor(.myGreenApple_light)
+                        Button {
+                            //MARK: FUTUR
+                        } label: {
+                            Image(systemName: "arrow.up.arrow.down")
+                                .font(.system(.title3, design: .rounded, weight: .bold))
+                                .foregroundColor(.myGreenApple_light)
+                        }
+
 
                     }
                     //MARK: Detail
@@ -85,7 +90,6 @@ struct AccountDetailView: View {
                                 .foregroundColor(.white)
                                 .background(.myGreenApple_light)
                                 .onTapGesture {
-                                    //FUTUR
                                     self.listType = .all
                                 }
                             Text("Income")
@@ -94,7 +98,6 @@ struct AccountDetailView: View {
                                 .foregroundColor(.white)
                                 .background(.complementaryColor_light)
                                 .onTapGesture {
-                                    //FUTUR
                                     self.listType = .income
                                 }
                             Text("Expense")
@@ -103,7 +106,6 @@ struct AccountDetailView: View {
                                 .foregroundColor(.white)
                                 .background(Color.red)
                                 .onTapGesture {
-                                    //FUTUR
                                     self.listType = .expense
                                 }
                         }
@@ -116,7 +118,7 @@ struct AccountDetailView: View {
                 }
                 
                 ForEach(paymentDataForView.indices, id: \.self) { index in
-                    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
+                    PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
                 }
                 .padding(1)
              }
