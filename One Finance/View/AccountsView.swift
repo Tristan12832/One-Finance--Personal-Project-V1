@@ -74,10 +74,10 @@ struct AccountsView: View {
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
-            .background(.lightBackground5)
+            .background(.backgroundColor5)
             
             .navigationTitle("Accounts")
-            .toolbarBackground(Color.lightBackground5)
+            .toolbarBackground(Color.backgroundColor5)
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {

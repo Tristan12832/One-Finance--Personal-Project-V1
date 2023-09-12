@@ -15,7 +15,7 @@ enum TransactionDisplayType_AmountDetailViewView {
     case expense
 }
 
-struct AmountDetailViewView: View {
+struct DetailView: View {
     
     @ObservedObject var model: Account
     
@@ -54,7 +54,7 @@ struct AmountDetailViewView: View {
             }
             .frame(maxWidth: .infinity)
             .frame(height: 140)
-            .background(.myGreenApple_light)
+            .background(.myGreen)
             
             VStack(alignment: .leading, spacing: 2) {
                 HStack {
@@ -70,7 +70,7 @@ struct AmountDetailViewView: View {
                             y: .value("Balance", item.amount),
                             series: .value("Company", "A")
                         )
-                        .foregroundStyle(.myGreenApple_light)
+                        .foregroundStyle(.myGreen)
                     }
                     ForEach(model.payments, id: \.date) { item in
                         LineMark(
@@ -78,7 +78,7 @@ struct AmountDetailViewView: View {
                             y: .value("Income", item.amount),
                             series: .value("Company", "B")
                         )
-                        .foregroundStyle(.complementaryColor_light)
+                        .foregroundStyle(.complementary)
                     }
                     ForEach(model.payments, id: \.date) { item in
                         LineMark(
@@ -106,7 +106,7 @@ struct AmountDetailViewView: View {
                         } label: {
                             Image(systemName: "arrow.up.arrow.down")
                                 .font(.system(.title3, design: .rounded, weight: .bold))
-                                .foregroundColor(.myGreenApple_light)
+                                .foregroundColor(Color.myGreen)
                         }
 
 
@@ -119,7 +119,7 @@ struct AmountDetailViewView: View {
                                 .padding(3)
                                 .padding(.horizontal, 10)
                                 .foregroundColor(.white)
-                                .background(.myGreenApple_light)
+                                .background(Color.myGreen)
                                 .onTapGesture {
                                     self.listType = .all
                                 }
@@ -127,7 +127,7 @@ struct AmountDetailViewView: View {
                                 .padding(3)
                                 .padding(.horizontal, 10)
                                 .foregroundColor(.white)
-                                .background(.complementaryColor_light)
+                                .background(Color.complementary)
                                 .onTapGesture {
                                     self.listType = .income
                                 }
@@ -157,12 +157,12 @@ struct AmountDetailViewView: View {
             .padding(.vertical, 15)
             .padding(.horizontal, 5)
         }
-        .background(.lightBackground5)
+        .background(.backgroundColor5)
 
     }
 }
 
-struct AmountDetailViewView_Previews: PreviewProvider {
+struct DetailView_Previews: PreviewProvider {
     
     ///init the "Preview" to display
     struct Preview: View {
@@ -173,11 +173,12 @@ struct AmountDetailViewView_Previews: PreviewProvider {
             PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
         ], isFavorite: true, isMarked: false)
         var body: some View {
-            AmountDetailViewView(model: model)
+            DetailView(model: model)
         }
     }
     static var previews: some View {
         Preview()
+            .preferredColorScheme(.dark)
             .previewLayout(.sizeThatFits)
     }
 }

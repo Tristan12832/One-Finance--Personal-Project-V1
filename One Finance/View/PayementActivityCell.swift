@@ -34,7 +34,7 @@ struct PayementActivityCell: View {
                     .frame(width: 120)
                     .frame(maxWidth: 140)
                     .frame(height: 40)
-                    .background(Color.lightBackground5)
+                    .background(.backgroundColor5)
                     .cornerRadius(8)
                     .padding(.horizontal, 2)
 
@@ -52,10 +52,10 @@ struct PayementActivityCell: View {
         .fixedSize(horizontal: false, vertical: true)
         .padding(2)
         .padding(.vertical, 4)
-        .background(.lightBackground4)
+        .background(.backgroundColor4)
         .cornerRadius(8)
         .padding(4)
-        .background(.lightBackground3)
+        .background(.backgroundColor3)
         .cornerRadius(8)
     }
 }

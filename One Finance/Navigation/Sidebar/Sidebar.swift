@@ -44,8 +44,8 @@ struct Sidebar: View {
         }
         .navigationTitle("Menu")
         .scrollContentBackground(.hidden)
-        .background(.lightBackground5)
-        .tint(Color.myGreenApple_light)
+        .background(.backgroundColor5)
+        .tint(Color.myGreen)
     }
 }
 
@@ -67,7 +67,7 @@ struct Sidebar_Previews: PreviewProvider {
            Text("Detail!")
         }
         .previewInterfaceOrientation(.portrait)
-        .tint(Color.myGreenApple_light)
+        .tint(Color.myGreen)
 
         NavigationSplitView {
             Preview()
@@ -75,7 +75,7 @@ struct Sidebar_Previews: PreviewProvider {
            Text("Detail!")
         }
         .previewInterfaceOrientation(.landscapeRight)
-        .tint(Color.myGreenApple_light)
+        .tint(Color.myGreen)
 
     }
 }

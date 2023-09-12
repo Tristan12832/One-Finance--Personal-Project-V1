@@ -33,7 +33,7 @@ struct AmountView: View {
 
 struct AmountView_Previews: PreviewProvider {
     static var previews: some View {
-        AmountView(title: "Test", amount: 9999, backgroundColor: .myGreenApple_light)
+        AmountView(title: "Test", amount: 9999, backgroundColor: .myGreen)
             .previewLayout(.sizeThatFits)
     }
 }

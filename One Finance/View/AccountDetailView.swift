@@ -52,10 +52,10 @@ struct AccountDetailView: View {
             }
             
             VStack(spacing: 16) {
-                AmountView(title: "Total Account", amount: model.totalBalance, backgroundColor: .myGreenApple_light)
+                AmountView(title: "Total Account", amount: model.totalBalance, backgroundColor: .myGreen)
                 
                 HStack(spacing: 16){
-                    AmountView(title: "Income", amount: model.totalIncome, backgroundColor: .complementaryColor_light)
+                    AmountView(title: "Income", amount: model.totalIncome, backgroundColor: .complementary)
                     AmountView(title: "Expense", amount: model.totalExpense, backgroundColor: .red)
                 }
             }
@@ -74,7 +74,7 @@ struct AccountDetailView: View {
                         } label: {
                             Image(systemName: "arrow.up.arrow.down")
                                 .font(.system(.title3, design: .rounded, weight: .bold))
-                                .foregroundColor(.myGreenApple_light)
+                                .foregroundColor(.myGreen)
                         }
 
 
@@ -86,7 +86,7 @@ struct AccountDetailView: View {
                                 .padding(3)
                                 .padding(.horizontal, 10)
                                 .foregroundColor(.white)
-                                .background(.myGreenApple_light)
+                                .background(.myGreen)
                                 .onTapGesture {
                                     self.listType = .all
                                 }
@@ -94,7 +94,7 @@ struct AccountDetailView: View {
                                 .padding(3)
                                 .padding(.horizontal, 10)
                                 .foregroundColor(.white)
-                                .background(.complementaryColor_light)
+                                .background(.complementary)
                                 .onTapGesture {
                                     self.listType = .income
                                 }
@@ -123,8 +123,8 @@ struct AccountDetailView: View {
             .padding(.vertical, 30)
             .padding(.horizontal, 30)
         }
-        .toolbarBackground(Color.lightBackground5)
-        .background(.lightBackground5)
+        .toolbarBackground(Color.backgroundColor5)
+        .background(.backgroundColor5)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
@@ -182,13 +182,13 @@ struct HeaderAccountView_Previews: PreviewProvider {
         }
         .previewDisplayName("Preview Standard")
         .previewInterfaceOrientation(.portrait)
-        .tint(.myGreenApple_light)
+        .tint(.myGreen)
         
         NavigationSplitView {
             SidebarPreview()
         } detail: {
             Preview()
-                .background(.lightBackground5)
+                .background(.backgroundColor5)
         }
         .previewInterfaceOrientation(.landscapeRight)
         .previewDevice("iPad Air (5th generation)")

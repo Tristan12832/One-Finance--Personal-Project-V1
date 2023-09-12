@@ -32,7 +32,7 @@ struct HistoryView_Previews: PreviewProvider {
             Sidebar(selection: .constant(.dashboard))
         } detail: {
             Preview()
-                .background(.lightBackground5)
+                .background(.backgroundColor5)
         }
         .previewInterfaceOrientation(.landscapeRight)
         .previewDevice("iPad Air (5th generation)")

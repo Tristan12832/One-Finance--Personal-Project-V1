@@ -25,7 +25,7 @@ struct AccountCellListView: View {
         HStack {
             IconViewAccountListViewCell(icon: icon)
             
-            InfoAccountViewCell(acoounName: name, amount: amount, backgroundColor: .lightBackground5)
+            InfoAccountViewCell(acoounName: name, amount: amount, backgroundColor: .backgroundColor5)
             
             Spacer()
             
@@ -46,13 +46,13 @@ struct AccountCellListView: View {
             .padding(.horizontal, 5)
         }
         .padding()
-        .background(.lightBackground4)
+        .background(.backgroundColor4)
         .padding(8)
-        .background(.myGreenApple_light)
+        .background(.myGreen)
         .cornerRadius(8)
         .overlay{
             RoundedRectangle(cornerRadius: 8)
-                .stroke(.lightBackground5, lineWidth: 6)
+                .stroke(.backgroundColor5, lineWidth: 6)
         }
         .fixedSize(horizontal: false, vertical: true)
         
@@ -80,7 +80,7 @@ struct AccountCellListView_Previews: PreviewProvider {
             AccountCellListView(name: "Account Name", icon: "house.fill", amount: 5000, isFavorite: .constant(true), isMarked: .constant(true))
         }
         .previewDisplayName("Preview Without Sidebar")
-        .tint(Color.myGreenApple_light)
+        .tint(Color.myGreen)
         .preferredColorScheme(.light)
         
         NavigationSplitView {
@@ -99,7 +99,7 @@ struct AccountCellListView_Previews: PreviewProvider {
         }
         .previewDisplayName("Preview With Sidebar -landscapeLeft")
         .previewInterfaceOrientation(.landscapeRight)
-        .tint(Color.myGreenApple_light)
+        .tint(Color.myGreen)
         .preferredColorScheme(.light)
         
         NavigationSplitView {
@@ -115,7 +115,7 @@ struct AccountCellListView_Previews: PreviewProvider {
         }
         .previewDisplayName("Preview With Sidebar")
         .previewInterfaceOrientation(.portrait)
-        .tint(Color.myGreenApple_light)
+        .tint(Color.myGreen)
         .preferredColorScheme(.light)
         
     }

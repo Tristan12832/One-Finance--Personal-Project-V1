@@ -24,7 +24,7 @@ struct AccountCellView: View {
     var body: some View {
             ZStack {
                 VStack(alignment:.center) {
-                    HeaderviewCell(acoounName: name, backgroundColor: .myGreenApple_light, isFavorite: $isFavorite, isMarked: $isMarked)
+                    HeaderviewCell(acoounName: name, backgroundColor: .myGreen, isFavorite: $isFavorite, isMarked: $isMarked)
                     
                     Spacer()
                     
@@ -32,17 +32,17 @@ struct AccountCellView: View {
                     
                     Spacer()
                     
-                    AmountViewCell(amount: amount, backgroundColor: .myGreenApple_light)
+                    AmountViewCell(amount: amount, backgroundColor: .myGreen)
                 }
                 .fixedSize(horizontal: false, vertical: false)
                 
             }
-            .background(.lightBackground4)
+            .background(.backgroundColor4)
             .frame(maxWidth: 270, idealHeight: 420)
             .cornerRadius(8)
             .overlay{
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.lightBackground5, lineWidth: 2)
+                    .stroke(Color.backgroundColor5, lineWidth: 2)
         }
             .fixedSize(horizontal: false, vertical: true)
         
@@ -68,8 +68,8 @@ struct AccountCellView_Previews: PreviewProvider {
         })
             .previewDisplayName("Preview")
             .previewInterfaceOrientation(.landscapeRight)
-            .tint(Color.myGreenApple_light)
-            .preferredColorScheme(.light)
+            .tint(Color.myGreen)
+            .previewLayout(.sizeThatFits)
        
     }
 }

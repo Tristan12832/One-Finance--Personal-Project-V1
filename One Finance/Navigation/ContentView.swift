@@ -16,12 +16,12 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             Sidebar(selection: $selection)
-                .toolbarBackground(Color.lightBackground5)
+                .toolbarBackground(Color.backgroundColor5)
         } detail: {
             NavigationStack(path: $path) {
                 DetailColumn(selection: $selection, model: model)
             }
-            .toolbarBackground(Color.lightBackground5)
+            .toolbarBackground(Color.backgroundColor5)
         }
         .onChange(of: selection) { _ in
             path.removeLast(path.count)

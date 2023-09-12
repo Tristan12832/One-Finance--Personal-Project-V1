@@ -72,10 +72,10 @@ struct DashboardView: View {
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
-            .background(.lightBackground5)
+            .background(.backgroundColor5)
             
             .navigationTitle("Dashboar")
-            .toolbarBackground(Color.lightBackground5)
+            .toolbarBackground(Color.backgroundColor5)
 
         }
         .toolbar {
@@ -134,7 +134,7 @@ struct DashboardView_Previews: PreviewProvider {
             SidebarPreview()
         } detail: {
             Preview()
-                .background(.lightBackground5)
+                .background(.backgroundColor5)
         }
         .previewInterfaceOrientation(.landscapeRight)
         .previewDevice("iPad Air (5th generation)")
