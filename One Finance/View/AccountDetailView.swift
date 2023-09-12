@@ -195,28 +195,7 @@ struct HeaderAccountView_Previews: PreviewProvider {
         .previewInterfaceOrientation(.landscapeRight)
         .previewDevice("iPad Air (5th generation)")
         
+       
     }
 }
 
-//MARK: AmountView component
-struct AmountView: View {
-    
-    var title: String
-    var amount: Double
-    var backgroundColor: Color
-    
-    var body: some View {
-        VStack(alignment: .center) {
-            Text(title)
-            Text(amount, format: .localCurrency)
-        }
-        .padding(.horizontal, 5)
-        .frame(minWidth: 0, maxWidth: .infinity)
-        .frame(height: 100)
-        .font(.system(.largeTitle, design: .rounded, weight: .bold))
-        .foregroundColor(.white)
-        .background(backgroundColor)
-        .cornerRadius(8)
-        
-    }
-}

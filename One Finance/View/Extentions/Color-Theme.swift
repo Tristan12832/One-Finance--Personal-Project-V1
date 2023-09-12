@@ -8,17 +8,6 @@
 import Foundation
 import SwiftUI
 
-
-struct MyGreenApple: ShapeStyle {
-    func resolve(in environment: EnvironmentValues) -> some ShapeStyle {
-        if environment.colorScheme == .light {
-            return Color.myGreenApple_light.blendMode(.lighten)
-        } else {
-            return Color.myGreenApple_dark.blendMode(.darken)
-        }
-    }
-}
-
 extension ShapeStyle where Self == Color {
     
     //MARK: My color accent
