@@ -76,6 +76,7 @@
 				6A98AE7D2AA620350044D52A /* AccountsView.swift */,
 				6A7B6DF82A9F257600FD0E2B /* AccountDetailView.swift */,
 				6A9F33EF2AA11B5800840FB1 /* DashboardView.swift */,
+				6A1539FB2AB05712000782F4 /* DetailView.swift */,
 				6A4710492AACA0E900DB0BC1 /* HistoryView.swift */,
 				6A47104B2AACA11000DB0BC1 /* ProjectsView.swift */,
 				6AD5AADB2A9D36CF0069D0DE /* Extentions */,
@@ -88,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				6A1539F92AB051A5000782F4 /* AmountView.swift */,
-				6A1539FB2AB05712000782F4 /* DetailView.swift */,
 				6A98AE7A2AA5BFED0044D52A /* PayementActivityCell.swift */,
 				6A21B79D2A9A2EBD00F211E8 /* AccountCellView.swift */,
 				6AD5AADC2A9DDA5C0069D0DE /* AccountCellListView.swift */,

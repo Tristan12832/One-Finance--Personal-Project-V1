@@ -22,7 +22,8 @@ struct AccountDetailView: View {
     @State private var listType: TransactionDisplayType = .all
     @State private var selectedPaymentActivity: PaymentActivity?
 
-
+    @State private var showingDetailView = false
+    
     private var paymentDataForView: [PaymentActivity] {
         switch listType {
         case .all:
@@ -53,10 +54,18 @@ struct AccountDetailView: View {
             
             VStack(spacing: 16) {
                 AmountView(title: "Total Account", amount: model.totalBalance, backgroundColor: .myGreen)
-                
+                    .onTapGesture {
+                        self.showingDetailView = true
+                    }
                 HStack(spacing: 16){
                     AmountView(title: "Income", amount: model.totalIncome, backgroundColor: .complementary)
+                        .onTapGesture {
+                            self.showingDetailView = true
+                        }
                     AmountView(title: "Expense", amount: model.totalExpense, backgroundColor: .red)
+                        .onTapGesture {
+                            self.showingDetailView = true
+                        }
                 }
             }
             .padding(.horizontal, 30)
@@ -125,6 +134,12 @@ struct AccountDetailView: View {
         }
         .toolbarBackground(Color.backgroundColor5)
         .background(.backgroundColor5)
+//        .sheet(isPresented: $showingDetailView, content: {
+//        })
+        .fullScreenCover(isPresented: $showingDetailView, content: {
+            DetailView(model: model)
+
+        })
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
