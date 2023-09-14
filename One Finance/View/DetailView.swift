@@ -22,25 +22,14 @@ struct DetailView: View {
     
     @State private var listType: TransactionDisplayType_AmountDetailViewView = .all
     @State private var selectedPaymentActivity: PaymentActivity?
-    
-    private var paymentDate: [PaymentActivity] {
-        switch listType {
-        case .all:
-            return model.payments
-        case .income:
-            return model.payments
-                .filter { $0.type == .income }
-        case .expense:
-            return model.payments
-                .filter { $0.type == .expense }
-        }
-    }
+
     
     private var paymentDataForView: [PaymentActivity] {
         switch listType {
         case .all:
             return model.payments
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+
         case .income:
             return model.payments
                 .filter { $0.type == .income }
@@ -58,13 +47,18 @@ struct DetailView: View {
         ScrollView {
             VStack {
                 HStack {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 5) {
                         Text("Total Balance")
                             .font(.system(.largeTitle, design: .rounded, weight: .bold))
                             .foregroundColor(.white)
+                            .padding(.top)
+                        
+                        Text("\(model.totalBalance, format: .localCurrency)")
+                            .font(.system(.title, design: .rounded, weight: .bold))
+                            .foregroundColor(.white)
                     }
                     .padding()
-                    
+
                     Spacer()
                     
                     Button {
@@ -89,32 +83,14 @@ struct DetailView: View {
                         .font(.system(.title, design: .rounded, weight: .bold))
                     Spacer()
                 }
+                //MARK: CHART
                 ///GRAPHIQUE ICI!!!!
-                Chart {
-                    ForEach(model.payments, id: \.date) { item in
-                        //                        LineMark(
-                        //                            x: .value("Date", item.date!),
-                        //                            y: .value("Balance", item.amount),
-                        //                            series: .value("PaymentActivity", "all")
-                        //                        )
-                        LineMark(x: .value("Date", item.date!), y: .value("Amount", item.amount), series: .value("PaymentActivity", "all"))
-                            .foregroundStyle(.myGreen)
-                    }
-                    //                    ForEach(model.payments, id: \.date) { item in
-                    //                        LineMark(
-                    //                            x: .value("Date", item.date!),
-                    //                            y: .value("Income", item.amount),
-                    //                            series: .value("PaymentActivity", "icome")
-                    //                        )
-                    //                        .foregroundStyle(.complementary)
-                    //                    }
-                    //                    ForEach(model.payments, id: \.date) { item in
-                    //                        LineMark(x: .value("Date", item.date!), y: .value("Expense", item.amount),
-                    //                            series: .value("PaymentActivity", "expense")
-                    //
-                    //                        )
-                    //                        .foregroundStyle(.red)
-                    //                    }
+                Chart(model.payments) {
+                    LineMark(
+                        x: .value("Month", $0.date!),
+                        y: .value("Amount", $0.amount)
+                    )
+                    .foregroundStyle(by: .value("City", $0.type.rawValue))
                 }
                 
             }
@@ -198,7 +174,9 @@ struct DetailView_Previews: PreviewProvider {
             PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .distantPast, type: .expense),
             PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
             PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
-            PaymentActivity(name: "Basic balance", amount: 3000, date: .distantFuture, type: .income)
+            PaymentActivity(name: "Basic balance", amount: 3000, date: .distantFuture, type: .income),
+            PaymentActivity(name: "Food", amount: 500, date: .distantFuture, type: .expense)
+
         ], isFavorite: true, isMarked: false)
         var body: some View {
             DetailView(model: model)
