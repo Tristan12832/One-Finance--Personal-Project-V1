@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountsView: View {
-    @ObservedObject var model: ExampleAccounts
+    @ObservedObject var model: Acounts
     
     let columns = [
         GridItem(.adaptive(minimum: 200))
@@ -60,11 +60,11 @@ struct AccountsView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(model.example_Accounts.indices, id: \.self) { index in
+                        ForEach(model.accounts.indices, id: \.self) { index in
                             NavigationLink {
-                                AccountDetailView(model: model.example_Accounts[index])
+                                AccountDetailView(model: model.accounts[index])
                             } label: {
-                                AccountCellView(name: model.example_Accounts[index].name, icon: model.example_Accounts[index].icon, amount: Double(model.example_Accounts[index].totalBalance), isFavorite: $model.example_Accounts[index].isFavorite, isMarked: $model.example_Accounts[index].isMarked)
+                                AccountCellView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
                             }
 
                         }
@@ -108,7 +108,7 @@ struct AccountsView: View {
 struct AccountsView_Previews: PreviewProvider {
     ///init the "Preview" to display on 
     struct Preview: View {
-        @StateObject private var model = ExampleAccounts()
+        @StateObject private var model = Acounts()
         var body: some View {
             AccountsView(model: model)
         }

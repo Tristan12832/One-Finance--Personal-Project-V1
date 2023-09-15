@@ -9,13 +9,11 @@ import SwiftUI
 
 @main
 struct One_FinanceApp: App {
-//    @Environment(\.colorScheme) var colorScheme
-    @StateObject private var model = ExampleAccounts()
+    @StateObject private var model = Acounts()
 
     var body: some Scene {
         WindowGroup {
             ContentView(model: model)
-//                .preferredColorScheme(.light)
         }
     }
 }

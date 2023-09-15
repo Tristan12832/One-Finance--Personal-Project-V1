@@ -22,7 +22,9 @@ struct AccountDetailView: View {
     @State private var listType: TransactionDisplayType = .all
     @State private var selectedPaymentActivity: PaymentActivity?
 
-    @State private var showingDetailView = false
+    @State private var showingTotalDetailView = false
+    @State private var shwoingIncomeDetailView = false
+    @State private var shwoingExpenseDetailView = false
     
     private var paymentDataForView: [PaymentActivity] {
         switch listType {
@@ -56,16 +58,16 @@ struct AccountDetailView: View {
             VStack(spacing: 16) {
                 AmountView(title: "Total Account", amount: model.totalBalance, backgroundColor: .myGreen)
                     .onTapGesture {
-                        self.showingDetailView = true
+                        self.showingTotalDetailView = true
                     }
                 HStack(spacing: 16){
                     AmountView(title: "Income", amount: model.totalIncome, backgroundColor: .complementary)
                         .onTapGesture {
-                            self.showingDetailView = true
+                            self.shwoingIncomeDetailView = true
                         }
                     AmountView(title: "Expense", amount: model.totalExpense, backgroundColor: .red)
                         .onTapGesture {
-                            self.showingDetailView = true
+                            self.shwoingExpenseDetailView = true
                         }
                 }
             }
@@ -135,11 +137,14 @@ struct AccountDetailView: View {
         }
         .toolbarBackground(Color.backgroundColor5)
         .background(.backgroundColor5)
-//        .sheet(isPresented: $showingDetailView, content: {
-//        })
-        .fullScreenCover(isPresented: $showingDetailView, content: {
+        .fullScreenCover(isPresented: $showingTotalDetailView, content: {
             TotalDetailView(model: model)
-
+        })
+        .fullScreenCover(isPresented: $shwoingIncomeDetailView, content: {
+            IncomeDetailView(model: model)
+        })
+        .fullScreenCover(isPresented: $shwoingExpenseDetailView, content: {
+            ExpenseDetailView(model: model)
         })
         .toolbar {
             ToolbarItem(placement: .primaryAction) {

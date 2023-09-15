@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var model: ExampleAccounts
+    @ObservedObject var model: Acounts
     
     @State private var selection: Panel? = Panel.dashboard
     @State private var path = NavigationPath()
@@ -33,9 +33,9 @@ struct ContentView_Previews: PreviewProvider {
     
     ///init the "Preview" to display 
     struct Preview: View {
-        @StateObject private var model = ExampleAccounts()
+        @StateObject private var model = Acounts()
         var body: some View {
-            ContentView(model: ExampleAccounts())
+            ContentView(model: Acounts())
         }
     }
     
