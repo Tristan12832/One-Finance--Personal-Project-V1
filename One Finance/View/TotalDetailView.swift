@@ -15,7 +15,7 @@ enum TransactionDisplayType_AmountDetailViewView {
     case expense
 }
 
-struct DetailView: View {
+struct TotalDetailView: View {
     @Environment(\.dismiss) var dismiss
     
     @ObservedObject var model: Account
@@ -90,7 +90,6 @@ struct DetailView: View {
                         x: .value("Month", $0.date!),
                         y: .value("Amount", $0.amount)
                     )
-                    .foregroundStyle(by: .value("City", $0.type.rawValue))
                 }
                 
             }
@@ -166,20 +165,20 @@ struct DetailView: View {
     }
 }
 
-struct DetailView_Previews: PreviewProvider {
+struct TotalDetailView_Previews: PreviewProvider {
     
     ///init the "Preview" to display
     struct Preview: View {
         @StateObject private var model =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
-            PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .distantPast, type: .expense),
-            PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
-            PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
-            PaymentActivity(name: "Basic balance", amount: 3000, date: .distantFuture, type: .income),
-            PaymentActivity(name: "Food", amount: 500, date: .distantFuture, type: .expense)
+            PaymentActivity(name: "Salery", amount: 2000, date: .distantPast, type: .income),
+            PaymentActivity(name: "September Bonus", amount: 200, date: .now, type: .income),
+            PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
+            PaymentActivity(name: "Food", amount: 500, date: .distantFuture, type: .expense),
+            PaymentActivity(name: "Feed", amount: 200, date: .distantFuture, type: .expense)
 
         ], isFavorite: true, isMarked: false)
         var body: some View {
-            DetailView(model: model)
+            TotalDetailView(model: model)
         }
     }
     static var previews: some View {

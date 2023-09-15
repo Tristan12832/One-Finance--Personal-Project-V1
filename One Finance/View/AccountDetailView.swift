@@ -29,6 +29,7 @@ struct AccountDetailView: View {
         case .all:
             return model.payments
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+
         case .income:
             return model.payments
                 .filter { $0.type == .income }
@@ -137,7 +138,7 @@ struct AccountDetailView: View {
 //        .sheet(isPresented: $showingDetailView, content: {
 //        })
         .fullScreenCover(isPresented: $showingDetailView, content: {
-            DetailView(model: model)
+            TotalDetailView(model: model)
 
         })
         .toolbar {
