@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IconSelector: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     @Binding var selectedIcon: String
     
     private let icons = [
@@ -30,12 +30,12 @@ struct IconSelector: View {
                     Button {
                         selectedIcon = index
                     } label: {
-                        RoundedRectangle(cornerRadius: 6)
+                        RoundedRectangle(cornerRadius: 8)
                         .frame(width: 64, height: 64)
-                        .foregroundColor(index == selectedIcon ? .backgroundColor2 : .backgroundColor3)
+                        .foregroundColor(index == selectedIcon ? .backgroundColor4 : .backgroundColor5)
                         .overlay(
                             Image(systemName: index)
-                                .foregroundColor(.primary)
+                                .foregroundColor(index == selectedIcon ? .myGreen : .primary)
                                 .font(.system(size: 32))
                                 .fixedSize()
                         )
@@ -44,6 +44,8 @@ struct IconSelector: View {
 
                 }
             }
+            .padding(4)
+            .background(colorScheme == .light ? .white : .black)
         }
     }
 }
@@ -56,6 +58,6 @@ struct IconSelector_Previews: PreviewProvider {
         IconSelector(selectedIcon: $previewSelectedIcon)
             .padding(.vertical)
             .previewLayout(.sizeThatFits)
-            .background(.backgroundColor4)
+
     }
 }
