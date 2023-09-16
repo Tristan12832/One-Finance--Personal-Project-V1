@@ -32,6 +32,8 @@
 		6AD5AADD2A9DDA5C0069D0DE /* AccountCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD5AADC2A9DDA5C0069D0DE /* AccountCellListView.swift */; };
 		6AEFBE432AB492050091A930 /* IncomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEFBE422AB492050091A930 /* IncomeDetailView.swift */; };
 		6AEFBE452AB494470091A930 /* ExpenseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEFBE442AB494470091A930 /* ExpenseDetailView.swift */; };
+		6AEFBE482AB588870091A930 /* IconSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEFBE472AB588870091A930 /* IconSelector.swift */; };
+		6AEFBE4A2AB58EC00091A930 /* NewAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEFBE492AB58EC00091A930 /* NewAccountView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		6AD5AADC2A9DDA5C0069D0DE /* AccountCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCellListView.swift; sourceTree = "<group>"; };
 		6AEFBE422AB492050091A930 /* IncomeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDetailView.swift; sourceTree = "<group>"; };
 		6AEFBE442AB494470091A930 /* ExpenseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailView.swift; sourceTree = "<group>"; };
+		6AEFBE472AB588870091A930 /* IconSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconSelector.swift; path = "One Finance/View/IconSelector.swift"; sourceTree = SOURCE_ROOT; };
+		6AEFBE492AB58EC00091A930 /* NewAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewAccountView.swift; path = Component/NewAccountView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 		6A21B79B2A9A2E0F00F211E8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6AEFBE492AB58EC00091A930 /* NewAccountView.swift */,
 				6AEFBE462AB4954E0091A930 /* DetailViews */,
 				6A98AE7D2AA620350044D52A /* AccountsView.swift */,
 				6A7B6DF82A9F257600FD0E2B /* AccountDetailView.swift */,
@@ -92,6 +97,7 @@
 		6A21B79C2A9A2E2800F211E8 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				6AEFBE472AB588870091A930 /* IconSelector.swift */,
 				6A1539F92AB051A5000782F4 /* AmountView.swift */,
 				6A98AE7A2AA5BFED0044D52A /* PayementActivityCell.swift */,
 				6A21B79D2A9A2EBD00F211E8 /* AccountCellView.swift */,
@@ -264,6 +270,7 @@
 				6A3C4FCB2A98C9FD00FE891D /* One_FinanceApp.swift in Sources */,
 				6A47104C2AACA11000DB0BC1 /* ProjectsView.swift in Sources */,
 				6A1539FC2AB05712000782F4 /* TotalDetailView.swift in Sources */,
+				6AEFBE4A2AB58EC00091A930 /* NewAccountView.swift in Sources */,
 				6A5036412A9A7F880012822B /* FormatStyle-LocalCurrency.swift in Sources */,
 				6A98AE842AA676DC0044D52A /* Accounts.swift in Sources */,
 				6AEFBE452AB494470091A930 /* ExpenseDetailView.swift in Sources */,
@@ -279,6 +286,7 @@
 				6A4710482AAC95F900DB0BC1 /* DetailColumn.swift in Sources */,
 				6A47104A2AACA0E900DB0BC1 /* HistoryView.swift in Sources */,
 				6A98AE862AA677490044D52A /* ExampleData.swift in Sources */,
+				6AEFBE482AB588870091A930 /* IconSelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

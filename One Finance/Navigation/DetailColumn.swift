@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailColumn: View {
     
     @Binding var selection: Panel?
-    @ObservedObject var model: Acounts
+    @ObservedObject var model: Accounts
     
     var body: some View {
         switch selection ?? .dashboard {
@@ -32,7 +32,7 @@ struct DetailColumn_Previews: PreviewProvider {
     ///init the sidebar to display on "Preview"
     struct Preview: View {
         @State private var selection: Panel? = Panel.dashboard
-        @StateObject private var model = Acounts()
+        @StateObject private var model = Accounts()
         var body: some View {
             DetailColumn(selection: $selection, model: model)
         }

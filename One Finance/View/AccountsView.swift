@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountsView: View {
-    @ObservedObject var model: Acounts
+    @ObservedObject var model: Accounts
     
     let columns = [
         GridItem(.adaptive(minimum: 200))
@@ -108,7 +108,7 @@ struct AccountsView: View {
 struct AccountsView_Previews: PreviewProvider {
     ///init the "Preview" to display on 
     struct Preview: View {
-        @StateObject private var model = Acounts()
+        @StateObject private var model = Accounts()
         var body: some View {
             AccountsView(model: model)
         }

@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct One_FinanceApp: App {
-    @StateObject private var model = Acounts()
+    @StateObject private var model = Accounts()
 
     var body: some Scene {
         WindowGroup {

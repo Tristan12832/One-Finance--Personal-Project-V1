@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @ObservedObject var model: Acounts
+    @ObservedObject var model: Accounts
     @Binding var navigationSelection: Panel?
 
     let columns = [
@@ -109,7 +109,7 @@ struct DashboardView: View {
 struct DashboardView_Previews: PreviewProvider {
     ///init the "Preview" to display on
     struct Preview: View {
-        @StateObject private var model = Acounts()
+        @StateObject private var model = Accounts()
         @State private var navigationSelection: Panel? = Panel.dashboard
         var body: some View {
             DashboardView(model: model, navigationSelection: $navigationSelection)

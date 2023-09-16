@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class Acounts: ObservableObject {
+class Accounts: ObservableObject {
     @Published public var accounts = [Account]()
     
     var isFavoriteFilter: [Account] {
