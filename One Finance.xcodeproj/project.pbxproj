@@ -66,7 +66,7 @@
 		6AEFBE422AB492050091A930 /* IncomeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDetailView.swift; sourceTree = "<group>"; };
 		6AEFBE442AB494470091A930 /* ExpenseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailView.swift; sourceTree = "<group>"; };
 		6AEFBE472AB588870091A930 /* IconSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconSelector.swift; path = "One Finance/View/IconSelector.swift"; sourceTree = SOURCE_ROOT; };
-		6AEFBE492AB58EC00091A930 /* NewAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewAccountView.swift; path = Component/NewAccountView.swift; sourceTree = "<group>"; };
+		6AEFBE492AB58EC00091A930 /* NewAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountView.swift; sourceTree = "<group>"; };
 		6AEFBE4B2AB5A4C50091A930 /* MainCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainCustomButton.swift; path = "One Finance/View/MainCustomButton.swift"; sourceTree = SOURCE_ROOT; };
 		6AEFBE4D2AB61A190091A930 /* NewPaymentActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPaymentActivity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,8 +85,7 @@
 		6A21B79B2A9A2E0F00F211E8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6AEFBE492AB58EC00091A930 /* NewAccountView.swift */,
-				6AEFBE4D2AB61A190091A930 /* NewPaymentActivity.swift */,
+				6AEFBE4F2AB62C010091A930 /* CreatViews */,
 				6AEFBE462AB4954E0091A930 /* DetailViews */,
 				6A98AE7D2AA620350044D52A /* AccountsView.swift */,
 				6A7B6DF82A9F257600FD0E2B /* AccountDetailView.swift */,
@@ -196,6 +195,15 @@
 				6AEFBE442AB494470091A930 /* ExpenseDetailView.swift */,
 			);
 			path = DetailViews;
+			sourceTree = "<group>";
+		};
+		6AEFBE4F2AB62C010091A930 /* CreatViews */ = {
+			isa = PBXGroup;
+			children = (
+				6AEFBE492AB58EC00091A930 /* NewAccountView.swift */,
+				6AEFBE4D2AB61A190091A930 /* NewPaymentActivity.swift */,
+			);
+			path = CreatViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
