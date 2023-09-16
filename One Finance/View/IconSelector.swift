@@ -46,6 +46,7 @@ struct IconSelector: View {
             }
             .padding(4)
             .background(colorScheme == .light ? .white : .black)
+            .cornerRadius(8)
         }
     }
 }

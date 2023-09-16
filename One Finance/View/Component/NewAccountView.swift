@@ -22,7 +22,7 @@ struct NewAccountView: View {
                 VStack(spacing: 32) {
                     VStack(alignment: .leading) {
                         Text(nameAccount == "" ? "New account" : nameAccount)
-                        TextField("write name account", text: $nameAccount)
+                        TextField("Write... Ex: Curently Account", text: $nameAccount)
                             .padding(8)
                             .background(colorScheme == .light ? .white : .black)
                             .cornerRadius(8)
@@ -41,7 +41,7 @@ struct NewAccountView: View {
                         }
                     }
                     //BUTTON HERE
-                    Spacer()
+                    Spacer(minLength: 25)
                     MainCustomButton(title: "Creat !") {
                         print("Creat !")
                     }
@@ -52,6 +52,7 @@ struct NewAccountView: View {
             .toolbarBackground(Color.backgroundColor5)
             .background(.backgroundColor5)
             .navigationTitle("Creat account")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {

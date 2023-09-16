@@ -21,7 +21,7 @@ struct MainCustomButton: View {
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(.complementary)
+                    .background(.myGreen)
                     .cornerRadius(.infinity)
         }
     }
