@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum TypePayement: String {
+enum TypePayement: String, RawRepresentable, CaseIterable {
     case income, expense
 }
 
-struct PaymentActivity: Identifiable {
+class PaymentActivity: Identifiable, ObservableObject {
     var id = UUID()
     var name: String = ""
     var amount: Double = 0.0
@@ -27,13 +27,13 @@ struct PaymentActivity: Identifiable {
             return "arrowtriangle.down.circle.fill"
         }
     }
-//    init(id: UUID = UUID(), name: String, amount: Double, date: Date? = nil, type: TypePayement) {
-//        self.id = id
-//        self.name = name
-//        self.amount = amount
-//        self.date = date
-//        self.type = type
-//    }
+    init(id: UUID = UUID(), name: String, amount: Double, date: Date? = nil, type: TypePayement) {
+        self.id = id
+        self.name = name
+        self.amount = amount
+        self.date = date
+        self.type = type
+    }
 ///WARING !!!
 //    var formattedDate: String {
 //        date?.formatted(date: .abbreviated, time: .omitted) ?? "N/A"

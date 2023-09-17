@@ -26,6 +26,8 @@ struct AccountDetailView: View {
     @State private var shwoingIncomeDetailView = false
     @State private var shwoingExpenseDetailView = false
     
+    @State private var shwoingNewPaymentActivity = false
+    
     private var paymentDataForView: [PaymentActivity] {
         switch listType {
         case .all:
@@ -160,7 +162,7 @@ struct AccountDetailView: View {
             
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                   //more action
+                    shwoingNewPaymentActivity = true
                 } label: {
                     Image(systemName: "plus")
                         .font(.system(.title2))
@@ -168,6 +170,9 @@ struct AccountDetailView: View {
 
             }
 
+        }
+        .fullScreenCover(isPresented: $shwoingNewPaymentActivity) {
+            NewPaymentActivity(model: model)
         }
         
     }

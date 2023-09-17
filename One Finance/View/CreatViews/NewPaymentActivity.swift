@@ -11,12 +11,13 @@ struct NewPaymentActivity: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
 
-    @ObservedObject var account: Account
-    
-    @State var namePaymentActivity = ""
-    @State var amount: Double
-    @State var date = Date.now
-    @State var type = ["Income", "Expense"]
+    @ObservedObject var model: Account
+
+    @State private var namePaymentActivity = ""
+    @State private var amount = 0.0
+    @State private var date = Date.now
+    @State private var type: TypePayement = .expense
+//    @State private var types = ["Income", "Expense"]
     
     var body: some View {
         NavigationStack {
@@ -45,8 +46,8 @@ struct NewPaymentActivity: View {
                     VStack(alignment: .leading) {
                         Text("Type Payment Activity")
                         Picker("Type", selection: $type) {
-                            ForEach(type, id: \.self) {
-                                Text($0)
+                            ForEach(TypePayement.allCases, id: \.self) { item in
+                                Text(item.rawValue)
                             }
                         }
                         .pickerStyle(.segmented)
@@ -70,7 +71,9 @@ struct NewPaymentActivity: View {
                     //BUTTON HERE
                     Spacer(minLength: 25)
                     MainCustomButton(title: "Creat !") {
-                        print("Add  !")
+                        let newPaymentActivity = PaymentActivity(name: namePaymentActivity, amount: amount, date: date, type: type)
+                        model.payments.append(newPaymentActivity)
+                        dismiss()
                     }
                 }
                 .padding(.horizontal, 10)
@@ -99,8 +102,16 @@ struct NewPaymentActivity: View {
 
 struct NewPaymentActivity_Previews: PreviewProvider {
     
+    ///init the "Preview" to display
+    struct Preview: View {
+        @StateObject private var model = Accounts()
+        var body: some View {
+            NewPaymentActivity(model:  Account(name: "test", icon: "house.fil", isFavorite: false, isMarked: false))
+        }
+    }
+    
     static var previews: some View {
-        NewPaymentActivity(account: Account(name: "Tristan's Account", icon: "house.fill", isFavorite: false, isMarked: false), amount: 300 )
+        Preview()
         
     }
 }

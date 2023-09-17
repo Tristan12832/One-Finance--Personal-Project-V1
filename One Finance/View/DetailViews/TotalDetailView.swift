@@ -85,7 +85,7 @@ struct TotalDetailView: View {
                 }
                 //MARK: CHART
                 ///GRAPHIQUE ICI!!!!
-                Chart(model.payments) {
+                Chart(paymentDataForView) {
                     LineMark(
                         x: .value("Month", $0.date!),
                         y: .value("Amount", $0.amount)

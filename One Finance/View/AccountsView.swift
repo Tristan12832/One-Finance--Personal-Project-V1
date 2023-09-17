@@ -14,7 +14,8 @@ struct AccountsView: View {
         GridItem(.adaptive(minimum: 200))
     ]
     
-    
+    @State private var showingNewAccount = false
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -93,7 +94,7 @@ struct AccountsView: View {
             
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                   //more action
+                   showingNewAccount = true
                 } label: {
                     Image(systemName: "plus")
                         .font(.system(.title2))
@@ -102,6 +103,10 @@ struct AccountsView: View {
             }
 
         }
+        .sheet(isPresented: $showingNewAccount) {
+            NewAccountView(model: model)
+        }
+        
     }
 }
 
