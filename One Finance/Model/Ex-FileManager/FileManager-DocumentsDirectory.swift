@@ -4,7 +4,6 @@
 //
 //  Created by Tristan Stenuit on 17/09/2023.
 //
-
 import Foundation
 
 extension FileManager {
