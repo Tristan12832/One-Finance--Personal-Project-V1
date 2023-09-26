@@ -25,7 +25,7 @@ class Accounts: ObservableObject {
         }
     }
     
-    static let preview: [Account] = [
+    static var preview: [Account] = [
         Account(id: UUID(), name: "Future expenditure", icon: "creditcard.fill", payments: [
             PaymentActivity(name: "MacBook Pro 16 M2 Max", amount: 4000, date: .distantFuture, type: .expense),
             PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .distantFuture, type: .expense),
