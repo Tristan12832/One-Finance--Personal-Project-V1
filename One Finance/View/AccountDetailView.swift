@@ -47,8 +47,13 @@ struct AccountDetailView: View {
         }
     }
     
+    func delete(at offsets: IndexSet) {
+        model.payments.remove(atOffsets: offsets)
+    }
+    
+    
     var body: some View {
-        ScrollView(showsIndicators: false) {
+        VStack {
             HStack {
                 Text(model.name)
                     .font(.system(size: 40, weight: .bold, design: .default))
@@ -128,16 +133,22 @@ struct AccountDetailView: View {
                     }
                     .padding(.vertical, 8)
                 }
-                
-                ForEach(paymentDataForView.indices, id: \.self) { index in
-                    PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
+                .padding(.horizontal, 30)
+                .padding(.vertical, 8)
+
+                List {
+                    ForEach(paymentDataForView.indices, id: \.self) { index in
+                        PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
+                    }
+                    .onDelete(perform: delete)
+                    .frame(maxWidth: .infinity)
                 }
-                .padding(1)
+                .frame(maxWidth: .infinity)
+
              }
-            .padding(.vertical, 30)
-            .padding(.horizontal, 30)
-        }
-        .toolbarBackground(Color.backgroundColor5)
+
+
+            .toolbarBackground(Color.backgroundColor5)
         .background(.backgroundColor5)
         .fullScreenCover(isPresented: $showingTotalDetailView, content: {
             TotalDetailView(model: model)
@@ -174,7 +185,8 @@ struct AccountDetailView: View {
         .fullScreenCover(isPresented: $shwoingNewPaymentActivity) {
             NewPaymentActivity(model: model)
         }
-        
+
+        }
     }
 }
 

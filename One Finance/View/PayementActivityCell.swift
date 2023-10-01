@@ -45,7 +45,7 @@ struct PayementActivityCell: View {
 
             }
             .frame(width: 200, alignment: .trailing)
-            .fixedSize(horizontal: true, vertical: false)
+            .fixedSize(horizontal: true, vertical: true)
 
         }
         .frame(maxWidth: .infinity)
