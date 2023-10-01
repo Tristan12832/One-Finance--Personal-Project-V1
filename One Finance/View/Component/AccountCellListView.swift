@@ -14,30 +14,30 @@ import SwiftUI
 
 
 struct AccountCellListView: View {
-    
-    var name: String
-    var icon: String
-    var amount: Double
-    @Binding var isFavorite: Bool
-    @Binding var isMarked: Bool
+    @ObservedObject var account : Account
+    //    var name: String
+    //    var icon: String
+    //    var amount: Double
+    //    @Binding var isFavorite: Bool
+    //    @Binding var isMarked: Bool
     
     var body: some View {
         HStack {
-            IconViewAccountListViewCell(icon: icon)
+            IconViewAccountListViewCell(icon: account.icon)
             
-            InfoAccountViewCell(acoounName: name, amount: amount, backgroundColor: .backgroundColor5)
+            InfoAccountViewCell(acoounName: account.name, amount: account.totalBalance, backgroundColor: .backgroundColor5)
             
             Spacer()
             
             //MARK: FAVORI and MARK
             HStack(spacing: 5) {
-                if isFavorite {
+                if account.isFavorite {
                     Image(systemName: "star.fill")
                         .foregroundColor(.yellow)
                         .font(.system(.title2, weight: .semibold))
                 }
                 
-                if isMarked {
+                if account.isMarked {
                     Image(systemName: "flag.fill")
                         .foregroundColor(.red)
                         .font(.system(.title2, weight: .semibold))
@@ -55,7 +55,17 @@ struct AccountCellListView: View {
                 .stroke(.backgroundColor5, lineWidth: 6)
         }
         .fixedSize(horizontal: false, vertical: true)
-        
+        .contextMenu{
+            Button {
+                self.account.isFavorite.toggle()
+            } label: {
+                HStack {
+                    Text(account.isFavorite ? "Remove from favorites" : "Mark as favorite")
+                    Image(systemName: "star")
+                }
+            }
+            
+        }
     }
 }
 
@@ -72,12 +82,12 @@ struct AccountCellListView_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationStack {
-            AccountCellListView(name: "Account Name", icon: "house.fill", amount: 5000, isFavorite: .constant(true), isMarked: .constant(true))
+            AccountCellListView(account: Account(name: "Test", icon: "house.fill", isFavorite: false, isMarked: true))
         }
         .previewDisplayName("AccountCellListView")
         
         NavigationStack {
-            AccountCellListView(name: "Account Name", icon: "house.fill", amount: 5000, isFavorite: .constant(true), isMarked: .constant(true))
+            AccountCellListView(account: Account(name: "Test", icon: "house.fill", isFavorite: false, isMarked: true))
         }
         .previewDisplayName("Preview Without Sidebar")
         .tint(Color.myGreen)
@@ -90,7 +100,7 @@ struct AccountCellListView_Previews: PreviewProvider {
         } detail: {
             List {
                 ForEach(0..<10) { _ in
-                    AccountCellListView(name: "Account Name", icon: "house.fill", amount: 5000, isFavorite: .constant(true), isMarked: .constant(true))
+                    AccountCellListView(account: Account(name: "Test", icon: "house.fill", isFavorite: false, isMarked: true))
                 }
                 .listRowSeparator(.hidden)
             }
@@ -107,7 +117,7 @@ struct AccountCellListView_Previews: PreviewProvider {
         } detail: {
             List {
                 ForEach(0..<10) { _ in
-                    AccountCellListView(name: "Account Name", icon: "house.fill", amount: 5000, isFavorite: .constant(true), isMarked: .constant(true))                        .listRowSeparator(.hidden)
+                    AccountCellListView(account: Account(name: "Test", icon: "house.fill", isFavorite: true, isMarked: true))                        .listRowSeparator(.hidden)
                 }
             }
             .listStyle(.plain)

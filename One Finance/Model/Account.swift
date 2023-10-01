@@ -18,7 +18,7 @@ class Account: Identifiable, ObservableObject {
     @Published var payments = [PaymentActivity]()
     @Published var isFavorite: Bool
     @Published var isMarked: Bool
-    
+
     var totalIncome: Double {
         let total = payments
             .filter {
@@ -41,7 +41,7 @@ class Account: Identifiable, ObservableObject {
         return total
     }
     
-   var totalBalance: Double {
+    var totalBalance: Double {
         return totalIncome - totalExpense
     }
     
