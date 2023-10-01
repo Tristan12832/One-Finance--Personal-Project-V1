@@ -34,12 +34,7 @@ struct AccountsView: View {
                             NavigationLink {
                                 AccountDetailView(model: model.isFavoriteFilter[index])
                             } label: {
-//                                AccountCellView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: model.isFavoriteFilter[index].totalBalance, isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
-                                AccountCellView(account: Account(
-                                    name: model.isFavoriteFilter[index].name,
-                                    icon: model.isFavoriteFilter[index].icon,
-                                    isFavorite: model.isFavoriteFilter[index].isFavorite,
-                                    isMarked: model.isFavoriteFilter[index].isMarked))
+                                AccountCellView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: model.isFavoriteFilter[index].totalBalance, isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
                             }
                         }
                     }
@@ -56,12 +51,7 @@ struct AccountsView: View {
                             NavigationLink {
                                 AccountDetailView(model: model.isMarkedFilter[index])
                             } label: {
-//                                AccountCellView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
-                                AccountCellView(account: Account(
-                                    name: model.isMarkedFilter[index].name,
-                                    icon: model.isMarkedFilter[index].icon,
-                                    isFavorite: model.isMarkedFilter[index].isFavorite,
-                                    isMarked: model.isMarkedFilter[index].isMarked))
+                                AccountCellView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
                             }
                         }
                     }
@@ -78,12 +68,7 @@ struct AccountsView: View {
                             NavigationLink {
                                 AccountDetailView(model: model.accounts[index])
                             } label: {
-//                                AccountCellView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
-                                AccountCellView(account: Account(
-                                    name: model.accounts[index].name,
-                                    icon: model.accounts[index].icon,
-                                    isFavorite: model.accounts[index].isFavorite,
-                                    isMarked: model.accounts[index].isMarked))
+                                AccountCellView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
                             }
                         }
                     }

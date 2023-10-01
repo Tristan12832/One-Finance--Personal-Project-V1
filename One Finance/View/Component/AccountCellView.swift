@@ -14,25 +14,23 @@ import SwiftUI
 /// - IconAccountCell component
 
 struct AccountCellView: View {
-    @ObservedObject var account : Account
-
-//    var name: String
-//    var icon: String
-//    var amount: Double
-//    @Binding var isFavorite: Bool
-//    @Binding var isMarked: Bool
+    var name: String
+    var icon: String
+    var amount: Double
+    @Binding var isFavorite: Bool
+    @Binding var isMarked: Bool
     
     var body: some View {
             ZStack {
                 VStack(alignment:.center) {
-                    HeaderviewCell(acoounName: account.name, backgroundColor: .myGreen, isFavorite: $account.isFavorite, isMarked: $account.isMarked)
+                    HeaderviewCell(acoounName: name, backgroundColor: .myGreen, isFavorite: $isFavorite, isMarked: $isMarked)
                     Spacer()
                     
-                    IconAccountCell(icon: account.icon, iconeColor: .primary)
+                    IconAccountCell(icon: icon, iconeColor: .primary)
                     
                     Spacer()
                     
-                    AmountViewCell(amount: account.totalBalance, backgroundColor: .myGreen)
+                    AmountViewCell(amount: amount, backgroundColor: .myGreen)
                 }
                 .fixedSize(horizontal: false, vertical: false)
                 
@@ -47,18 +45,18 @@ struct AccountCellView: View {
             .fixedSize(horizontal: false, vertical: true)
             .contextMenu{
                 Button {
-                    self.account.isFavorite.toggle()
+                    self.isFavorite.toggle()
                 } label: {
                     HStack {
-                        Text(account.isFavorite ? "Remove from favorites" : "Mark as favorite")
+                        Text(isFavorite ? "Remove from favorites" : "Mark as favorite")
                         Image(systemName: "star")
                     }
                 }
                 Button {
-                    self.account.isMarked.toggle()
+                    self.isMarked.toggle()
                 } label: {
                     HStack {
-                        Text(account.isMarked ? "Remove from marked" : "Mark as marked")
+                        Text(isMarked ? "Remove from marked" : "Mark as marked")
                         Image(systemName: "flag")
                     }
                 }
@@ -82,7 +80,7 @@ struct AccountCellView_Previews: PreviewProvider {
         NavigationSplitView(sidebar: {
             SidebarPreview()
         }, detail: {
-            AccountCellView(account: Account(name: "Account", icon: "house.fill", isFavorite: true, isMarked: true))
+            AccountCellView(name: "Account", icon: "house.fill", amount: 5000, isFavorite: .constant(false), isMarked: .constant(false))
         })
             .previewDisplayName("Preview")
             .previewInterfaceOrientation(.portrait)
@@ -94,7 +92,6 @@ struct AccountCellView_Previews: PreviewProvider {
 
 //MARK: HeaderviewCell component
 struct HeaderviewCell: View {
-//    @ObservedObject var account : Account
 
     var acoounName: String
     var backgroundColor: Color
