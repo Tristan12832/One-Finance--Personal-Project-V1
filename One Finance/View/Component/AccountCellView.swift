@@ -111,9 +111,7 @@ struct HeaderviewCell: View {
 
 //MARK: AmountViewCell component
 struct AmountViewCell: View {
-    
-    var amount: Double
-    var backgroundColor: Color
+    @ObservedObject var model: Account
 
     var body: some View {
         Text(amount, format: .localCurrency)
