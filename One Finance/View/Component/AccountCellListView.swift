@@ -64,7 +64,14 @@ struct AccountCellListView: View {
                     Image(systemName: "star")
                 }
             }
-            
+            Button {
+                self.account.isMarked.toggle()
+            } label: {
+                HStack {
+                    Text(account.isMarked ? "Remove from marked" : "Mark as marked")
+                    Image(systemName: "flag")
+                }
+            }
         }
     }
 }
