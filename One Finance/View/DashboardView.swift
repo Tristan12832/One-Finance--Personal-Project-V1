@@ -17,6 +17,9 @@ struct DashboardView: View {
     
     @State private var showingNewAccount = false
 
+    func removeItems(at indexSet: IndexSet) {
+        self.model.accounts.remove(atOffsets: indexSet)
+    }
     
     var body: some View {
         NavigationStack {
@@ -34,6 +37,8 @@ struct DashboardView: View {
                                 AccountCellView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: model.isFavoriteFilter[index].totalBalance, isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
                             }
                         }
+                        .onDelete(perform: self.removeItems)
+
                     }
                     .padding(.horizontal, 30)
                     
@@ -51,6 +56,8 @@ struct DashboardView: View {
                                 AccountCellView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
                             }
                         }
+                        .onDelete(perform: self.removeItems)
+
                     }
                     .padding(.horizontal, 30)
                     
@@ -68,6 +75,8 @@ struct DashboardView: View {
                                 AccountCellView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
                             }
                         }
+                        .onDelete(perform: self.removeItems)
+
                     }
                     .padding(.horizontal, 30)
                     
