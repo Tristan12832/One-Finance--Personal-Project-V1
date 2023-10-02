@@ -20,7 +20,6 @@ struct AccountsView: View {
         model.accounts.remove(atOffsets: indexSet)
     }
     
-    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -37,6 +36,8 @@ struct AccountsView: View {
                                 AccountCellView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: model.isFavoriteFilter[index].totalBalance, isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
                             }
                         }
+                        .onDelete(perform: removeItems)
+
                     }
                     .padding(.horizontal, 30)
                     
@@ -54,6 +55,8 @@ struct AccountsView: View {
                                 AccountCellView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
                             }
                         }
+                        .onDelete(perform: removeItems)
+
                     }
                     .padding(.horizontal, 30)
                     
@@ -71,6 +74,8 @@ struct AccountsView: View {
                                 AccountCellView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
                             }
                         }
+                        .onDelete(perform: removeItems)
+
                     }
                     .padding(.horizontal, 30)
                     
@@ -97,7 +102,7 @@ struct AccountsView: View {
             
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                   showingNewAccount = true
+                    self.showingNewAccount = true
                 } label: {
                     Image(systemName: "plus")
                         .font(.system(.title2))

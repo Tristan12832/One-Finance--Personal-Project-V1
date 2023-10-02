@@ -139,17 +139,20 @@ struct AccountDetailView: View {
                 List {
                     ForEach(paymentDataForView.indices, id: \.self) { index in
                         PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
+                            .listRowSeparator(.hidden)
+
                     }
                     .onDelete(perform: delete)
-                    .frame(maxWidth: .infinity)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .listRowBackground(Color.backgroundColor5)
+
                 }
-                .frame(maxWidth: .infinity)
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .background(Color.backgroundColor5)
+            }
+            .background(.backgroundColor5)
 
-             }
-
-
-            .toolbarBackground(Color.backgroundColor5)
-        .background(.backgroundColor5)
         .fullScreenCover(isPresented: $showingTotalDetailView, content: {
             TotalDetailView(model: model)
         })
@@ -187,6 +190,8 @@ struct AccountDetailView: View {
         }
 
         }
+        .toolbarBackground(Color.backgroundColor5)
+        .background(.backgroundColor5)
     }
 }
 
