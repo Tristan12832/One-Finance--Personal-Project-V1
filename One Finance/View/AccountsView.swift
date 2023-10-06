@@ -16,77 +16,69 @@ struct AccountsView: View {
     
     @State private var showingNewAccount = false
 
-    func removeItems(at indexSet: IndexSet) {
-        self.model.accounts.remove(atOffsets: indexSet)
-    }
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment:.leading, spacing: 18){
+            List {
+                Section {
+                    ForEach(model.isFavoriteFilter.indices, id: \.self) { index in
+                        NavigationLink {
+                            AccountDetailView(model: model.isFavoriteFilter[index])
+                        } label: {
+                            AccountCellListView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: model.isFavoriteFilter[index].totalBalance, isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
+                        }
+                    }
+                    .onDelete(perform: self.model.removeAccount)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.backgroundColor5)
+                    
+                } header: {
                     Text("Favorite")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, 30)
-                    
-                    LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(model.isFavoriteFilter.indices, id: \.self) { index in
-                            NavigationLink {
-                                AccountDetailView(model: model.isFavoriteFilter[index])
-                            } label: {
-                                AccountCellView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: model.isFavoriteFilter[index].totalBalance, isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
-                            }
+                }
+                .headerProminence(.increased)
+                
+                Section {
+                    ForEach(model.isMarkedFilter.indices, id: \.self) { index in
+                        NavigationLink {
+                            AccountDetailView(model: model.isMarkedFilter[index])
+                        } label: {
+                            AccountCellListView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
                         }
-                        .onDelete(perform: self.removeItems)
-
                     }
-                    .padding(.horizontal, 30)
+                    .onDelete(perform: self.model.removeAccount)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.backgroundColor5)
                     
-                    Spacer()
-                    
+                } header: {
                     Text("Marked")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, 30)
-                    
-                    LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(model.isMarkedFilter.indices, id: \.self) { index in
-                            NavigationLink {
-                                AccountDetailView(model: model.isMarkedFilter[index])
-                            } label: {
-                                AccountCellView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
-                            }
-                        }
-                        .onDelete(perform: self.removeItems)
-
-                    }
-                    .padding(.horizontal, 30)
-                    
-                    Spacer()
-                    
-                    Text("All Accounts")
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, 30)
-                    
-                    LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(model.accounts.indices, id: \.self) { index in
-                            NavigationLink {
-                                AccountDetailView(model: model.accounts[index])
-                            } label: {
-                                AccountCellView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
-                            }
-                        }
-                        .onDelete(perform: self.removeItems)
-
-                    }
-                    .padding(.horizontal, 30)
-                    
                 }
-                .fixedSize(horizontal: false, vertical: true)
+                .headerProminence(.increased)
+                
+                Section {
+                    ForEach(model.accounts.indices, id: \.self) { index in
+                        NavigationLink {
+                            AccountDetailView(model: model.accounts[index])
+                        } label: {
+                            AccountCellListView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
+                        }
+                    }
+                    .onDelete(perform: self.model.removeAccount)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.backgroundColor5)
+                    
+                } header: {
+                    Text("All Account")
+                        .font(.system(.title, design: .rounded, weight: .bold))
+                }
+                .headerProminence(.increased)
+                
             }
+            .padding(.horizontal, -25)
+            .scrollContentBackground(.hidden)
             .background(.backgroundColor5)
-            
-            .navigationTitle("Dashboar")
-            .toolbarBackground(Color.backgroundColor5)
-
+            .navigationTitle("Accounts")
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {

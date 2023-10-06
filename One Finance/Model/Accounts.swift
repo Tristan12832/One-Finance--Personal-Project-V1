@@ -25,6 +25,18 @@ class Accounts: ObservableObject {
         }
     }
     
+    func removeAccount(at indexSet: IndexSet) {
+        accounts.remove(atOffsets: indexSet)
+    }
+    
+//    func removeIsFavoriteAccount(at indexSet: IndexSet) {
+//        isFavoriteFilter.remove(atOffsets: indexSet)
+//    }
+//    
+//    func removeIsMarked(at indexSet: IndexSet) {
+//        isMarkedFilter.remove(atOffsets: indexSet)
+//    }
+    
     static let preview: [Account] = [
         Account(id: UUID(), name: "Future expenditure", icon: "creditcard.fill", payments: [
             PaymentActivity(name: "MacBook Pro 16 M2 Max", amount: 4000, date: .distantFuture, type: .expense),

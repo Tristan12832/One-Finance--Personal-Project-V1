@@ -52,6 +52,7 @@ struct AccountCellView: View {
                         Image(systemName: "star")
                     }
                 }
+                
                 Button {
                     self.isMarked.toggle()
                 } label: {
@@ -61,6 +62,14 @@ struct AccountCellView: View {
                     }
                 }
                 
+                Button(role: .destructive) {
+                    
+                } label: {
+                    HStack {
+                        Text("Remove Account")
+                        Image(systemName: "trash")
+                    }
+                }
             }
     }
 }
