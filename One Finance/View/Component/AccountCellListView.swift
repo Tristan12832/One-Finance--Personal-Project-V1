@@ -54,6 +54,8 @@ struct AccountCellListView: View {
                 .stroke(.backgroundColor5, lineWidth: 6)
         }
         .fixedSize(horizontal: false, vertical: true)
+        .accessibilityElement(children: .combine)
+        
         .swipeActions(edge: .leading, allowsFullSwipe: false){
             
             Button {

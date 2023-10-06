@@ -10,10 +10,6 @@ import SwiftUI
 struct AccountsView: View {
     @ObservedObject var model: Accounts
     
-    let columns = [
-        GridItem(.adaptive(minimum: 200))
-    ]
-    
     @State private var showingNewAccount = false
 
     
@@ -75,7 +71,7 @@ struct AccountsView: View {
                 .headerProminence(.increased)
                 
             }
-            .padding(.horizontal, -25)
+            .padding(.horizontal, -18)
             .scrollContentBackground(.hidden)
             .background(.backgroundColor5)
             .navigationTitle("Accounts")

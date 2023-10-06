@@ -43,34 +43,6 @@ struct AccountCellView: View {
                     .stroke(Color.backgroundColor5, lineWidth: 2)
         }
             .fixedSize(horizontal: false, vertical: true)
-            .contextMenu{
-                Button {
-                    self.isFavorite.toggle()
-                } label: {
-                    HStack {
-                        Text(isFavorite ? "Remove from favorites" : "Mark as favorite")
-                        Image(systemName: "star")
-                    }
-                }
-                
-                Button {
-                    self.isMarked.toggle()
-                } label: {
-                    HStack {
-                        Text(isMarked ? "Remove from marked" : "Mark as marked")
-                        Image(systemName: "flag")
-                    }
-                }
-                
-                Button(role: .destructive) {
-                    
-                } label: {
-                    HStack {
-                        Text("Remove Account")
-                        Image(systemName: "trash")
-                    }
-                }
-            }
     }
 }
 

@@ -10,76 +10,75 @@ import SwiftUI
 struct DashboardView: View {
     @ObservedObject var model: Accounts
     @Binding var navigationSelection: Panel?
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 200))
     ]
     
     @State private var showingNewAccount = false
-
+    
     
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    ForEach(model.isFavoriteFilter.indices, id: \.self) { index in
-                        NavigationLink {
-                            AccountDetailView(model: model.isFavoriteFilter[index])
-                        } label: {
-                            AccountCellListView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: model.isFavoriteFilter[index].totalBalance, isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
-                        }
-                    }
-                    .onDelete(perform: self.model.removeAccount)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.backgroundColor5)
-                    
-                } header: {
+            ScrollView {
+                VStack(alignment:.leading, spacing: 18){
                     Text("Favorite")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                }
-                .headerProminence(.increased)
-                
-                Section {
-                    ForEach(model.isMarkedFilter.indices, id: \.self) { index in
-                        NavigationLink {
-                            AccountDetailView(model: model.isMarkedFilter[index])
-                        } label: {
-                            AccountCellListView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
+                        .padding(.horizontal, 30)
+                    
+                    LazyVGrid(columns: columns, spacing: 18) {
+                        ForEach(model.isFavoriteFilter.indices, id: \.self) { index in
+                            NavigationLink {
+                                AccountDetailView(model: model.isFavoriteFilter[index])
+                            } label: {
+                                AccountCellView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: model.isFavoriteFilter[index].totalBalance, isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
+                            }
                         }
                     }
-                    .onDelete(perform: self.model.removeAccount)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.backgroundColor5)
+                    .padding(.horizontal, 30)
                     
-                } header: {
+                    Spacer()
+                    
                     Text("Marked")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                }
-                .headerProminence(.increased)
-                
-                Section {
-                    ForEach(model.accounts.indices, id: \.self) { index in
-                        NavigationLink {
-                            AccountDetailView(model: model.accounts[index])
-                        } label: {
-                            AccountCellListView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
+                        .padding(.horizontal, 30)
+                    
+                    LazyVGrid(columns: columns, spacing: 18) {
+                        ForEach(model.isMarkedFilter.indices, id: \.self) { index in
+                            NavigationLink {
+                                AccountDetailView(model: model.isMarkedFilter[index])
+                            } label: {
+                                AccountCellView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
+                            }
                         }
                     }
-                    .onDelete(perform: self.model.removeAccount)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.backgroundColor5)
+                    .padding(.horizontal, 30)
                     
-                } header: {
-                    Text("All Account")
+                    Spacer()
+                    
+                    Text("All Accounts")
                         .font(.system(.title, design: .rounded, weight: .bold))
+                        .padding(.horizontal, 30)
+                    
+                    LazyVGrid(columns: columns, spacing: 18) {
+                        ForEach(model.accounts.indices, id: \.self) { index in
+                            NavigationLink {
+                                AccountDetailView(model: model.accounts[index])
+                            } label: {
+                                AccountCellView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 30)
+                    
                 }
-                .headerProminence(.increased)
-                
+                .fixedSize(horizontal: false, vertical: true)
             }
-            .padding(.horizontal, -25)
-            .scrollContentBackground(.hidden)
             .background(.backgroundColor5)
+            
             .navigationTitle("Dashboar")
+            .toolbarBackground(Color.backgroundColor5)
+            
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -88,21 +87,10 @@ struct DashboardView: View {
                 } label: {
                     Image(systemName: "questionmark.circle")
                         .font(.system(.title2))
-
+                    
                 }
-
+                
             }
-            
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    self.showingNewAccount = true
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.system(.title2))
-                }
-
-            }
-
         }
         .sheet(isPresented: $showingNewAccount) {
             NewAccountView(model: model)
