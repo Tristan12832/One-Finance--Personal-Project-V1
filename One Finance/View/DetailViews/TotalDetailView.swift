@@ -117,34 +117,26 @@ struct TotalDetailView: View {
                     
                     //MARK: Detail
                     HStack(alignment: .top) {
-                        Group {
+                        Button {
+                            self.listType = .all
+                        } label: {
                             Text("All")
-                                .padding(3)
-                                .padding(.horizontal, 10)
-                                .foregroundColor(.white)
-                                .background(Color.myGreen)
-                                .onTapGesture {
-                                    self.listType = .all
-                                }
-                            Text("Income")
-                                .padding(3)
-                                .padding(.horizontal, 10)
-                                .foregroundColor(.white)
-                                .background(Color.complementary)
-                                .onTapGesture {
-                                    self.listType = .income
-                                }
-                            Text("Expense")
-                                .padding(3)
-                                .padding(.horizontal, 10)
-                                .foregroundColor(.white)
-                                .background(Color.red)
-                                .onTapGesture {
-                                    self.listType = .expense
-                                }
                         }
-                        .font(.system(.headline, design: .rounded))
-                        .cornerRadius(8)
+                        .buttonStyle(CustomButtonStyle(colorButton: .myGreen))
+                        
+                        Button {
+                            self.listType = .income
+                        } label: {
+                            Text("Income")
+                        }
+                        .buttonStyle(CustomButtonStyle(colorButton: .complementary))
+                       
+                        Button {
+                            self.listType = .expense
+                        } label: {
+                            Text("Expense")
+                        }
+                        .buttonStyle(CustomButtonStyle(colorButton: .red))
                         
                         Spacer()
                     }

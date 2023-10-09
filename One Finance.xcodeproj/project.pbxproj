@@ -20,6 +20,7 @@
 		6A47104A2AACA0E900DB0BC1 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4710492AACA0E900DB0BC1 /* HistoryView.swift */; };
 		6A47104C2AACA11000DB0BC1 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A47104B2AACA11000DB0BC1 /* ProjectsView.swift */; };
 		6A5036412A9A7F880012822B /* FormatStyle-LocalCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5036402A9A7F880012822B /* FormatStyle-LocalCurrency.swift */; };
+		6A7341AF2AD40A6B00018652 /* CustomSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7341AE2AD40A6B00018652 /* CustomSelectionButton.swift */; };
 		6A7B6DF92A9F257600FD0E2B /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7B6DF82A9F257600FD0E2B /* AccountDetailView.swift */; };
 		6A85FF772A9CE5880060BC50 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A85FF762A9CE5880060BC50 /* Sidebar.swift */; };
 		6A98AE7B2AA5BFED0044D52A /* PayementActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A98AE7A2AA5BFED0044D52A /* PayementActivityCell.swift */; };
@@ -53,6 +54,7 @@
 		6A4710492AACA0E900DB0BC1 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryView.swift; path = "One Finance/Navigation/HistoryView.swift"; sourceTree = SOURCE_ROOT; };
 		6A47104B2AACA11000DB0BC1 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		6A5036402A9A7F880012822B /* FormatStyle-LocalCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FormatStyle-LocalCurrency.swift"; path = "One Finance/View/Extentions/FormatStyle-LocalCurrency.swift"; sourceTree = SOURCE_ROOT; };
+		6A7341AE2AD40A6B00018652 /* CustomSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSelectionButton.swift; sourceTree = "<group>"; };
 		6A7B6DF82A9F257600FD0E2B /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		6A85FF762A9CE5880060BC50 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		6A98AE7A2AA5BFED0044D52A /* PayementActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PayementActivityCell.swift; path = "One Finance/View/PayementActivityCell.swift"; sourceTree = SOURCE_ROOT; };
@@ -107,6 +109,7 @@
 				6A98AE7A2AA5BFED0044D52A /* PayementActivityCell.swift */,
 				6A21B79D2A9A2EBD00F211E8 /* AccountCellView.swift */,
 				6AD5AADC2A9DDA5C0069D0DE /* AccountCellListView.swift */,
+				6A7341AE2AD40A6B00018652 /* CustomSelectionButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				6A3C4FCD2A98C9FD00FE891D /* ContentView.swift in Sources */,
 				6A98AE822AA6768F0044D52A /* Account.swift in Sources */,
 				6AD5AADD2A9DDA5C0069D0DE /* AccountCellListView.swift in Sources */,
+				6A7341AF2AD40A6B00018652 /* CustomSelectionButton.swift in Sources */,
 				6AEFBE4C2AB5A4C50091A930 /* MainCustomButton.swift in Sources */,
 				6A7B6DF92A9F257600FD0E2B /* AccountDetailView.swift in Sources */,
 				6A98AE7B2AA5BFED0044D52A /* PayementActivityCell.swift in Sources */,

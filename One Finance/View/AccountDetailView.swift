@@ -57,7 +57,7 @@ struct AccountDetailView: View {
             HStack {
                 Text(model.name)
                     .font(.system(size: 40, weight: .bold, design: .default))
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal, 8)
                 
                 Spacer()
             }
@@ -100,40 +100,32 @@ struct AccountDetailView: View {
                     }
                     //MARK: Detail
                     HStack(alignment: .top) {
-                        Group {
+                        Button {
+                            self.listType = .all
+                        } label: {
                             Text("All")
-                                .padding(3)
-                                .padding(.horizontal, 10)
-                                .foregroundColor(.white)
-                                .background(.myGreen)
-                                .onTapGesture {
-                                    self.listType = .all
-                                }
-                            Text("Income")
-                                .padding(3)
-                                .padding(.horizontal, 10)
-                                .foregroundColor(.white)
-                                .background(.complementary)
-                                .onTapGesture {
-                                    self.listType = .income
-                                }
-                            Text("Expense")
-                                .padding(3)
-                                .padding(.horizontal, 10)
-                                .foregroundColor(.white)
-                                .background(Color.red)
-                                .onTapGesture {
-                                    self.listType = .expense
-                                }
                         }
-                        .font(.system(.headline, design: .rounded))
-                        .cornerRadius(8)
+                        .buttonStyle(CustomButtonStyle(colorButton: .myGreen))
+                        
+                        Button {
+                            self.listType = .income
+                        } label: {
+                            Text("Income")
+                        }
+                        .buttonStyle(CustomButtonStyle(colorButton: .complementary))
+                       
+                        Button {
+                            self.listType = .expense
+                        } label: {
+                            Text("Expense")
+                        }
+                        .buttonStyle(CustomButtonStyle(colorButton: .red))
                         
                         Spacer()
                     }
                     .padding(.vertical, 8)
                 }
-                .padding(.horizontal, 30)
+                .padding(.horizontal)
                 .padding(.vertical, 8)
 
                 List {
