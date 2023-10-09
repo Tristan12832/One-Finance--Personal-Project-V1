@@ -57,7 +57,7 @@ struct AccountDetailView: View {
             HStack {
                 Text(model.name)
                     .font(.system(size: 40, weight: .bold, design: .default))
-                    .padding(.horizontal, 8)
+                    .padding(.horizontal, 16)
                 
                 Spacer()
             }
@@ -78,7 +78,7 @@ struct AccountDetailView: View {
                         }
                 }
             }
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 16)
             .fixedSize(horizontal: false, vertical: true)
             
             //MARK: LIST
