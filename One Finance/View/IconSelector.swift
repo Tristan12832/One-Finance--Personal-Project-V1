@@ -41,7 +41,6 @@ struct IconSelector: View {
                         )
 
                     }
-
                 }
             }
             .padding(4)

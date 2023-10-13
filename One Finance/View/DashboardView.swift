@@ -87,9 +87,9 @@ struct DashboardView: View {
                 } label: {
                     Image(systemName: "questionmark.circle")
                         .font(.system(.title2))
-                    
                 }
-                
+                .accessibilityLabel("Help")
+                .accessibilityHint("Need help? it's here")
             }
         }
         .sheet(isPresented: $showingNewAccount) {

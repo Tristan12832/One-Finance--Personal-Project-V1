@@ -57,6 +57,8 @@ struct PayementActivityCell: View {
         .padding(4)
         .background(.backgroundColor3)
         .cornerRadius(8)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Transaction \(nameActivity), \(amount), \(date?.formatted(date: .abbreviated, time: .omitted) ?? "N/A")")
     }
 }
 

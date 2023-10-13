@@ -161,9 +161,9 @@ struct AccountDetailView: View {
                 } label: {
                     Image(systemName: "questionmark.circle")
                         .font(.system(.title2))
-
                 }
-
+                .accessibilityLabel("Help")
+                .accessibilityHint("Need help? it's here")
             }
             
             ToolbarItem(placement: .primaryAction) {
@@ -173,7 +173,8 @@ struct AccountDetailView: View {
                     Image(systemName: "plus")
                         .font(.system(.title2))
                 }
-
+                .accessibilityLabel("Add")
+                .accessibilityHint("Add a new transaction")
             }
 
         }

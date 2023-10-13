@@ -26,6 +26,10 @@ struct AmountView: View {
         .foregroundColor(.white)
         .background(backgroundColor)
         .cornerRadius(8)
+        .accessibilityElement()
+        .accessibilityLabel("\(title), \(amount, format: .localCurrency)")
+        .accessibilityAddTraits(.isButton)
+        .accessibilityHint("press on the cell to access to \(title)")
         
     }
 }

@@ -43,6 +43,8 @@ struct AccountCellView: View {
                     .stroke(Color.backgroundColor5, lineWidth: 2)
         }
             .fixedSize(horizontal: false, vertical: true)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Account \(name) with icon of \(icon), and you have \(amount).")
     }
 }
 

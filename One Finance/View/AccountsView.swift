@@ -83,9 +83,9 @@ struct AccountsView: View {
                 } label: {
                     Image(systemName: "questionmark.circle")
                         .font(.system(.title2))
-
                 }
-
+                .accessibilityLabel("Help")
+                .accessibilityHint("Need help? it's here")
             }
             
             ToolbarItem(placement: .primaryAction) {
@@ -95,6 +95,9 @@ struct AccountsView: View {
                     Image(systemName: "plus")
                         .font(.system(.title2))
                 }
+                .accessibilityLabel("Add")
+                .accessibilityHint("Add a new account")
+
 
             }
 
