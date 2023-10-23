@@ -18,7 +18,7 @@ enum TransactionDisplayType_TotalDetailView {
 struct TotalDetailView: View {
     @Environment(\.dismiss) var dismiss
     
-    @ObservedObject var model: Account
+    @ObservedObject var account: Account
     
     @State private var listType: TransactionDisplayType_TotalDetailView = .all
     @State private var selectedPaymentActivity: PaymentActivity?
@@ -27,16 +27,16 @@ struct TotalDetailView: View {
     private var paymentDataForView: [PaymentActivity] {
         switch listType {
         case .all:
-            return model.payments
+            return account.payments
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
 
         case .income:
-            return model.payments
+            return account.payments
                 .filter { $0.type == .income }
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
             
         case .expense:
-            return model.payments
+            return account.payments
                 .filter { $0.type == .expense }
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
             
@@ -53,7 +53,7 @@ struct TotalDetailView: View {
                             .foregroundColor(.white)
                             .padding(.top)
                         
-                        Text("\(model.totalBalance, format: .localCurrency)")
+                        Text("\(account.totalBalance, format: .localCurrency)")
                             .font(.system(.title, design: .rounded, weight: .bold))
                             .foregroundColor(.white)
                     }
@@ -162,7 +162,7 @@ struct TotalDetailView_Previews: PreviewProvider {
     
     ///init the "Preview" to display
     struct Preview: View {
-        @StateObject private var model =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        @StateObject private var account =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
             PaymentActivity(name: "Salery", amount: 2000, date: .distantPast, type: .income),
             PaymentActivity(name: "September Bonus", amount: 200, date: .now, type: .income),
             PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
@@ -171,7 +171,7 @@ struct TotalDetailView_Previews: PreviewProvider {
 
         ], isFavorite: true, isMarked: false)
         var body: some View {
-            TotalDetailView(model: model)
+            TotalDetailView(account: account)
         }
     }
     static var previews: some View {

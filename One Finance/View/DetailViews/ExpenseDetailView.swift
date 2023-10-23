@@ -11,10 +11,10 @@ import SwiftUI
 struct ExpenseDetailView: View {
     @Environment(\.dismiss) var dismiss
     
-    @ObservedObject var model: Account
+    @ObservedObject var account: Account
     
     private var paymentExpense: [PaymentActivity] {
-        return model.payments
+        return account.payments
             .filter { $0.type == .expense }
             .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
 
@@ -30,7 +30,7 @@ struct ExpenseDetailView: View {
                             .foregroundColor(.white)
                             .padding(.top)
                         
-                        Text("\(model.totalBalance, format: .localCurrency)")
+                        Text("\(account.totalBalance, format: .localCurrency)")
                             .font(.system(.title, design: .rounded, weight: .bold))
                             .foregroundColor(.white)
                     }
@@ -111,7 +111,7 @@ struct ExpenseDetailView_Previews: PreviewProvider {
     
     ///init the "Preview" to display
     struct Preview: View {
-        @StateObject private var model =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        @StateObject private var account =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
             PaymentActivity(name: "Salery", amount: 2000, date: .distantPast, type: .income),
             PaymentActivity(name: "September Bonus", amount: 200, date: .now, type: .income),
             PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
@@ -120,7 +120,7 @@ struct ExpenseDetailView_Previews: PreviewProvider {
 
         ], isFavorite: true, isMarked: false)
         var body: some View {
-            ExpenseDetailView(model: model)
+            ExpenseDetailView(account: account)
         }
     }
     

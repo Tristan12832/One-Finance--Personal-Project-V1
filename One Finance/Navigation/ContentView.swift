@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var model: Accounts
+    @ObservedObject var accounts: Accounts
     
     @State private var selection: Panel? = Panel.dashboard
     @State private var path = NavigationPath()
@@ -19,13 +19,12 @@ struct ContentView: View {
                 .toolbarBackground(Color.backgroundColor5)
         } detail: {
             NavigationStack(path: $path) {
-                DetailColumn(selection: $selection, model: model)
+                DetailColumn(selection: $selection, accounts: accounts)
             }
             .toolbarBackground(Color.backgroundColor5)
         }
-        .onChange(of: selection) { _ in
-            path.removeLast(path.count)
-        }
+       
+        
     }
 }
 
@@ -33,9 +32,9 @@ struct ContentView_Previews: PreviewProvider {
     
     ///init the "Preview" to display 
     struct Preview: View {
-        @StateObject private var model = Accounts()
+        @StateObject private var accounts = Accounts()
         var body: some View {
-            ContentView(model: Accounts())
+            ContentView(accounts: Accounts())
         }
     }
     

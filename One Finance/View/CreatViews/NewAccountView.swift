@@ -11,7 +11,7 @@ struct NewAccountView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
 
-    @ObservedObject var model: Accounts
+    @ObservedObject var accounts: Accounts
     
     @State private var nameAccount = ""
     @State private var iconeAccount = "house.fill"
@@ -44,7 +44,7 @@ struct NewAccountView: View {
                     Spacer(minLength: 25)
                     MainCustomButton(title: "Creat !") {
                         let newAccount = Account(name: nameAccount, icon: iconeAccount, isFavorite: false, isMarked: false)
-                        model.accounts.append(newAccount)
+                        accounts.accounts.append(newAccount)
                         dismiss()
                     }
                 }
@@ -75,7 +75,7 @@ struct NewAccountView: View {
 
 struct NewAccountView_Previews: PreviewProvider {
     static var previews: some View {
-        NewAccountView(model: Accounts())
+        NewAccountView(accounts: Accounts())
     }
 }
 

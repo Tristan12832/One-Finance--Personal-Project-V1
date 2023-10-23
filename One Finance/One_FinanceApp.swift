@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct One_FinanceApp: App {
-    @StateObject private var model = Accounts()
+    @StateObject private var accounts = Accounts()
 
     var body: some Scene {
         WindowGroup {
-            ContentView(model: model)
+            ContentView(accounts: accounts)
         }
     }
 }

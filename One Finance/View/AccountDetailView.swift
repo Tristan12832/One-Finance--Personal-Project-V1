@@ -17,7 +17,7 @@ enum TransactionDisplayType {
 //MARK: AccountCellView
 struct AccountDetailView: View {
     
-    @ObservedObject var model: Account
+    @ObservedObject var account: Account
     
     @State private var listType: TransactionDisplayType = .all
     @State private var selectedPaymentActivity: PaymentActivity?
@@ -31,16 +31,16 @@ struct AccountDetailView: View {
     private var paymentDataForView: [PaymentActivity] {
         switch listType {
         case .all:
-            return model.payments
+            return account.payments
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
 
         case .income:
-            return model.payments
+            return account.payments
                 .filter { $0.type == .income }
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
 
         case .expense:
-            return model.payments
+            return account.payments
                 .filter { $0.type == .expense }
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
 
@@ -48,14 +48,14 @@ struct AccountDetailView: View {
     }
     
     func delete(at offsets: IndexSet) {
-        model.payments.remove(atOffsets: offsets)
+        account.payments.remove(atOffsets: offsets)
     }
     
     
     var body: some View {
         VStack {
             HStack {
-                Text(model.name)
+                Text(account.name)
                     .font(.system(size: 40, weight: .bold, design: .default))
                     .padding(.horizontal, 16)
                 
@@ -63,16 +63,16 @@ struct AccountDetailView: View {
             }
             
             VStack(spacing: 16) {
-                AmountView(title: "Total Account", amount: model.totalBalance, backgroundColor: .myGreen)
+                AmountView(title: "Total Account", amount: account.totalBalance, backgroundColor: .myGreen)
                     .onTapGesture {
                         self.showingTotalDetailView = true
                     }
                 HStack(spacing: 16){
-                    AmountView(title: "Income", amount: model.totalIncome, backgroundColor: .complementary)
+                    AmountView(title: "Income", amount: account.totalIncome, backgroundColor: .complementary)
                         .onTapGesture {
                             self.shwoingIncomeDetailView = true
                         }
-                    AmountView(title: "Expense", amount: model.totalExpense, backgroundColor: .red)
+                    AmountView(title: "Expense", amount: account.totalExpense, backgroundColor: .red)
                         .onTapGesture {
                             self.shwoingExpenseDetailView = true
                         }
@@ -146,13 +146,13 @@ struct AccountDetailView: View {
             .background(.backgroundColor5)
 
         .fullScreenCover(isPresented: $showingTotalDetailView, content: {
-            TotalDetailView(model: model)
+            TotalDetailView(account: account)
         })
         .fullScreenCover(isPresented: $shwoingIncomeDetailView, content: {
-            IncomeDetailView(model: model)
+            IncomeDetailView(account: account)
         })
         .fullScreenCover(isPresented: $shwoingExpenseDetailView, content: {
-            ExpenseDetailView(model: model)
+            ExpenseDetailView(account: account)
         })
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -179,7 +179,7 @@ struct AccountDetailView: View {
 
         }
         .fullScreenCover(isPresented: $shwoingNewPaymentActivity) {
-            NewPaymentActivity(model: model)
+            NewPaymentActivity(account: account)
         }
 
         }
@@ -193,14 +193,14 @@ struct HeaderAccountView_Previews: PreviewProvider {
     
     ///init the "Preview" to display 
     struct Preview: View {
-        @StateObject private var model =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        @StateObject private var account =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
             PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
             PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
             PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
             PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
         ], isFavorite: true, isMarked: false)
         var body: some View {
-            AccountDetailView(model: model)
+            AccountDetailView(account: account)
         }
     }
     

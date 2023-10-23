@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountsView: View {
-    @ObservedObject var model: Accounts
+    @ObservedObject var accounts: Accounts
     
     @State private var showingNewAccount = false
 
@@ -17,14 +17,14 @@ struct AccountsView: View {
         NavigationStack {
             List {
                 Section {
-                    ForEach(model.isFavoriteFilter.indices, id: \.self) { index in
+                    ForEach(accounts.isFavoriteFilter.indices, id: \.self) { index in
                         NavigationLink {
-                            AccountDetailView(model: model.isFavoriteFilter[index])
+                            AccountDetailView(account: accounts.isFavoriteFilter[index])
                         } label: {
-                            AccountCellListView(name: model.isFavoriteFilter[index].name, icon: model.isFavoriteFilter[index].icon, amount: model.isFavoriteFilter[index].totalBalance, isFavorite: $model.isFavoriteFilter[index].isFavorite, isMarked: $model.isFavoriteFilter[index].isMarked)
+                            AccountCellListView(name: accounts.isFavoriteFilter[index].name, icon: accounts.isFavoriteFilter[index].icon, amount: accounts.isFavoriteFilter[index].totalBalance, isFavorite: $accounts.isFavoriteFilter[index].isFavorite, isMarked: $accounts.isFavoriteFilter[index].isMarked)
                         }
                     }
-                    .onDelete(perform: self.model.removeAccount)
+                    .onDelete(perform: self.accounts.removeAccount)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.backgroundColor5)
                     
@@ -35,14 +35,14 @@ struct AccountsView: View {
                 .headerProminence(.increased)
                 
                 Section {
-                    ForEach(model.isMarkedFilter.indices, id: \.self) { index in
+                    ForEach(accounts.isMarkedFilter.indices, id: \.self) { index in
                         NavigationLink {
-                            AccountDetailView(model: model.isMarkedFilter[index])
+                            AccountDetailView(account: accounts.isMarkedFilter[index])
                         } label: {
-                            AccountCellListView(name: model.isMarkedFilter[index].name, icon: model.isMarkedFilter[index].icon, amount: Double(model.isMarkedFilter[index].totalBalance), isFavorite: $model.isMarkedFilter[index].isFavorite, isMarked: $model.isMarkedFilter[index].isMarked)
+                            AccountCellListView(name: accounts.isMarkedFilter[index].name, icon: accounts.isMarkedFilter[index].icon, amount: Double(accounts.isMarkedFilter[index].totalBalance), isFavorite: $accounts.isMarkedFilter[index].isFavorite, isMarked: $accounts.isMarkedFilter[index].isMarked)
                         }
                     }
-                    .onDelete(perform: self.model.removeAccount)
+                    .onDelete(perform: self.accounts.removeAccount)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.backgroundColor5)
                     
@@ -53,14 +53,14 @@ struct AccountsView: View {
                 .headerProminence(.increased)
                 
                 Section {
-                    ForEach(model.accounts.indices, id: \.self) { index in
+                    ForEach(accounts.accounts.indices, id: \.self) { index in
                         NavigationLink {
-                            AccountDetailView(model: model.accounts[index])
+                            AccountDetailView(account: accounts.accounts[index])
                         } label: {
-                            AccountCellListView(name: model.accounts[index].name, icon: model.accounts[index].icon, amount: Double(model.accounts[index].totalBalance), isFavorite: $model.accounts[index].isFavorite, isMarked: $model.accounts[index].isMarked)
+                            AccountCellListView(name: accounts.accounts[index].name, icon: accounts.accounts[index].icon, amount: Double(accounts.accounts[index].totalBalance), isFavorite: $accounts.accounts[index].isFavorite, isMarked: $accounts.accounts[index].isMarked)
                         }
                     }
-                    .onDelete(perform: self.model.removeAccount)
+                    .onDelete(perform: self.accounts.removeAccount)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.backgroundColor5)
                     
@@ -103,7 +103,7 @@ struct AccountsView: View {
 
         }
         .sheet(isPresented: $showingNewAccount) {
-            NewAccountView(model: model)
+            NewAccountView(accounts: accounts)
         }
         
     }
@@ -112,9 +112,9 @@ struct AccountsView: View {
 struct AccountsView_Previews: PreviewProvider {
     ///init the "Preview" to display on 
     struct Preview: View {
-        @StateObject private var model = Accounts()
+        @StateObject private var account = Accounts()
         var body: some View {
-            AccountsView(model: model)
+            AccountsView(accounts: account)
         }
     }
     

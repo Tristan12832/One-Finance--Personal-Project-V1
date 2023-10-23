@@ -11,7 +11,7 @@ struct NewPaymentActivity: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
 
-    @ObservedObject var model: Account
+    @ObservedObject var account: Account
 
     @State private var namePaymentActivity = ""
     @State private var amount = 0.0
@@ -72,7 +72,7 @@ struct NewPaymentActivity: View {
                     Spacer(minLength: 25)
                     MainCustomButton(title: "Creat !") {
                         let newPaymentActivity = PaymentActivity(name: namePaymentActivity, amount: amount, date: date, type: type)
-                        model.payments.append(newPaymentActivity)
+                        account.payments.append(newPaymentActivity)
                         dismiss()
                     }
                 }
@@ -106,7 +106,7 @@ struct NewPaymentActivity_Previews: PreviewProvider {
     struct Preview: View {
         @StateObject private var model = Accounts()
         var body: some View {
-            NewPaymentActivity(model:  Account(name: "test", icon: "house.fil", isFavorite: false, isMarked: false))
+            NewPaymentActivity(account:  Account(name: "test", icon: "house.fil", isFavorite: false, isMarked: false))
         }
     }
     
