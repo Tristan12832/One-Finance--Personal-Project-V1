@@ -18,7 +18,7 @@ enum TransactionDisplayType_TotalDetailView {
 struct TotalDetailView: View {
     @Environment(\.dismiss) var dismiss
     
-    @ObservedObject var account: Account
+    var account: Account
     
     @State private var listType: TransactionDisplayType_TotalDetailView = .all
     @State private var selectedPaymentActivity: PaymentActivity?
@@ -162,7 +162,7 @@ struct TotalDetailView_Previews: PreviewProvider {
     
     ///init the "Preview" to display
     struct Preview: View {
-        @StateObject private var account =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        @State private var account =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
             PaymentActivity(name: "Salery", amount: 2000, date: .distantPast, type: .income),
             PaymentActivity(name: "September Bonus", amount: 200, date: .now, type: .income),
             PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),

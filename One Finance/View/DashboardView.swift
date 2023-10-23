@@ -5,10 +5,15 @@
 //  Created by Tristan Stenuit on 31/08/2023.
 //
 
+import SwiftData
 import SwiftUI
 
 struct DashboardView: View {
-    @ObservedObject var accounts: Accounts
+    @Environment(\.modelContext) var context
+    
+    @Query(animation: .default) var accounts: [Account]
+    @Query(filter: #Predicate<Account> { account in account.isFavorite == true }, animation: .default) var favoriteAccounts: [Account]
+    @Query(filter: #Predicate<Account> { account in account.isMarked == true}, animation: .default) var markedAccounts: [Account]
     @Binding var navigationSelection: Panel?
     
     let columns = [
@@ -27,11 +32,11 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(accounts.isFavoriteFilter.indices, id: \.self) { index in
+                        ForEach(favoriteAccounts.indices, id: \.self) { index in
                             NavigationLink {
-                                AccountDetailView(account: accounts.isFavoriteFilter[index])
+                                AccountDetailView(account: favoriteAccounts[index])
                             } label: {
-                                AccountCellView(name: accounts.isFavoriteFilter[index].name, icon: accounts.isFavoriteFilter[index].icon, amount: accounts.isFavoriteFilter[index].totalBalance, isFavorite: $accounts.isFavoriteFilter[index].isFavorite, isMarked: $accounts.isFavoriteFilter[index].isMarked)
+                                AccountCellView(account: favoriteAccounts[index])
                             }
                         }
                     }
@@ -44,11 +49,11 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(accounts.isMarkedFilter.indices, id: \.self) { index in
+                        ForEach(markedAccounts.indices, id: \.self) { index in
                             NavigationLink {
-                                AccountDetailView(account: accounts.isMarkedFilter[index])
+                                AccountDetailView(account: markedAccounts[index])
                             } label: {
-                                AccountCellView(name: accounts.isMarkedFilter[index].name, icon: accounts.isMarkedFilter[index].icon, amount: Double(accounts.isMarkedFilter[index].totalBalance), isFavorite: $accounts.isMarkedFilter[index].isFavorite, isMarked: $accounts.isMarkedFilter[index].isMarked)
+                                AccountCellView(account: markedAccounts[index])
                             }
                         }
                     }
@@ -61,11 +66,11 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(accounts.accounts.indices, id: \.self) { index in
+                        ForEach(accounts.indices, id: \.self) { index in
                             NavigationLink {
-                                AccountDetailView(account: accounts.accounts[index])
+                                AccountDetailView(account: accounts[index])
                             } label: {
-                                AccountCellView(name: accounts.accounts[index].name, icon: accounts.accounts[index].icon, amount: Double(accounts.accounts[index].totalBalance), isFavorite: $accounts.accounts[index].isFavorite, isMarked: $accounts.accounts[index].isMarked)
+                                AccountCellView(account: accounts[index])
                             }
                         }
                     }
@@ -93,7 +98,7 @@ struct DashboardView: View {
             }
         }
         .sheet(isPresented: $showingNewAccount) {
-            NewAccountView(accounts: accounts)
+            NewAccountView()
         }
     }
     
@@ -102,10 +107,10 @@ struct DashboardView: View {
 struct DashboardView_Previews: PreviewProvider {
     ///init the "Preview" to display on
     struct Preview: View {
-        @StateObject private var accounts = Accounts()
+        @State private var accounts = Accounts(accounts: [])
         @State private var navigationSelection: Panel? = Panel.dashboard
         var body: some View {
-            DashboardView(accounts: accounts, navigationSelection: $navigationSelection)
+            DashboardView(navigationSelection: $navigationSelection)
         }
     }
     

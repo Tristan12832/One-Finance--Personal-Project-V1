@@ -14,23 +14,24 @@ import SwiftUI
 /// - IconAccountCell component
 
 struct AccountCellView: View {
-    var name: String
-    var icon: String
-    var amount: Double
-    @Binding var isFavorite: Bool
-    @Binding var isMarked: Bool
+    @Binding var account: Account
+//    var name: String
+//    var icon: String
+//    var amount: Double
+//    @Binding var isFavorite: Bool
+//    @Binding var isMarked: Bool
     
     var body: some View {
             ZStack {
                 VStack(alignment:.center) {
-                    HeaderviewCell(acoounName: name, backgroundColor: .myGreen, isFavorite: $isFavorite, isMarked: $isMarked)
+                    HeaderviewCell(acoounName: account.name, backgroundColor: .myGreen, isFavorite: $account.isFavorite, isMarked: $account.isMarked)
                     Spacer()
                     
-                    IconAccountCell(icon: icon, iconeColor: .primary)
+                    IconAccountCell(icon: account.icon, iconeColor: .primary)
                     
                     Spacer()
                     
-                    AmountViewCell(amount: amount, backgroundColor: .myGreen)
+                    AmountViewCell(amount: account.totalBalance, backgroundColor: .myGreen)
                 }
                 .fixedSize(horizontal: false, vertical: false)
                 
@@ -44,7 +45,7 @@ struct AccountCellView: View {
         }
             .fixedSize(horizontal: false, vertical: true)
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel("Account \(name) with icon of \(icon), and you have \(amount).")
+            .accessibilityLabel("Account \(account.name) with icon of \(account.icon), and you have \(account.totalBalance).")
     }
 }
 
@@ -60,10 +61,11 @@ struct AccountCellView_Previews: PreviewProvider {
     }
     
     static var previews: some View {
+        @State var account = Account(name: "Test", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
         NavigationSplitView(sidebar: {
             SidebarPreview()
         }, detail: {
-            AccountCellView(name: "Account", icon: "house.fill", amount: 5000, isFavorite: .constant(false), isMarked: .constant(false))
+            AccountCellView(account: $account)
         })
             .previewDisplayName("Preview")
             .previewInterfaceOrientation(.portrait)

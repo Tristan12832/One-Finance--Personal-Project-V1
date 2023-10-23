@@ -5,15 +5,16 @@
 //  Created by Tristan Stenuit on 25/08/2023.
 //
 
+import SwiftData
 import SwiftUI
 
 @main
 struct One_FinanceApp: App {
-    @StateObject private var accounts = Accounts()
 
     var body: some Scene {
         WindowGroup {
-            ContentView(accounts: accounts)
+            ContentView()
         }
+        .modelContainer(for: [Accounts.self, Account.self, PaymentActivity.self])
     }
 }

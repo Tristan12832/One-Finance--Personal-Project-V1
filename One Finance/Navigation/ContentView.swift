@@ -5,10 +5,10 @@
 //  Created by Tristan Stenuit on 25/08/2023.
 //
 
+import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var accounts: Accounts
     
     @State private var selection: Panel? = Panel.dashboard
     @State private var path = NavigationPath()
@@ -19,7 +19,7 @@ struct ContentView: View {
                 .toolbarBackground(Color.backgroundColor5)
         } detail: {
             NavigationStack(path: $path) {
-                DetailColumn(selection: $selection, accounts: accounts)
+                DetailColumn(selection: $selection)
             }
             .toolbarBackground(Color.backgroundColor5)
         }
@@ -32,9 +32,9 @@ struct ContentView_Previews: PreviewProvider {
     
     ///init the "Preview" to display 
     struct Preview: View {
-        @StateObject private var accounts = Accounts()
+        @State private var accounts = Accounts(accounts: [])
         var body: some View {
-            ContentView(accounts: Accounts())
+            ContentView()
         }
     }
     

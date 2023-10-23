@@ -5,13 +5,14 @@
 //  Created by Tristan Stenuit on 16/09/2023.
 //
 
+import SwiftData
 import SwiftUI
 
 struct NewAccountView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
 
-    @ObservedObject var accounts: Accounts
+    @Environment(\.modelContext) var accounts
     
     @State private var nameAccount = ""
     @State private var iconeAccount = "house.fill"
@@ -44,7 +45,7 @@ struct NewAccountView: View {
                     Spacer(minLength: 25)
                     MainCustomButton(title: "Creat !") {
                         let newAccount = Account(name: nameAccount, icon: iconeAccount, isFavorite: false, isMarked: false)
-                        accounts.accounts.append(newAccount)
+                        accounts.insert(newAccount)
                         dismiss()
                     }
                 }
@@ -75,7 +76,7 @@ struct NewAccountView: View {
 
 struct NewAccountView_Previews: PreviewProvider {
     static var previews: some View {
-        NewAccountView(accounts: Accounts())
+        NewAccountView()
     }
 }
 

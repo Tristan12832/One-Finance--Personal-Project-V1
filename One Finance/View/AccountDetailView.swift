@@ -5,6 +5,7 @@
 //  Created by Tristan Stenuit on 30/08/2023.
 //
 
+import SwiftData
 import SwiftUI
 
 //MARK: TransactionDisplayType is enum for selection the transaction type
@@ -17,7 +18,7 @@ enum TransactionDisplayType {
 //MARK: AccountCellView
 struct AccountDetailView: View {
     
-    @ObservedObject var account: Account
+    var account: Account
     
     @State private var listType: TransactionDisplayType = .all
     @State private var selectedPaymentActivity: PaymentActivity?
@@ -193,7 +194,7 @@ struct HeaderAccountView_Previews: PreviewProvider {
     
     ///init the "Preview" to display 
     struct Preview: View {
-        @StateObject private var account =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        @State private var account =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
             PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
             PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
             PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),

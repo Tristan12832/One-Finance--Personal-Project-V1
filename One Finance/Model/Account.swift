@@ -6,18 +6,16 @@
 //
 
 import Foundation
+import SwiftData
 
-//enum TypePayementActivity {
-//    case all, income, expense
-//}
 
-class Account: Identifiable, ObservableObject {
-    var id = UUID()
-    @Published var name: String = ""
-    @Published var icon: String = ""
-    @Published var payments = [PaymentActivity]()
-    @Published var isFavorite: Bool
-    @Published var isMarked: Bool
+@Model class Account {
+    let id = UUID()
+    var name: String = ""
+    var icon: String = ""
+    @Relationship(deleteRule: .cascade) var payments = [PaymentActivity]()
+    var isFavorite: Bool
+    var isMarked: Bool
 
     var totalIncome: Double {
         let total = payments
@@ -46,8 +44,7 @@ class Account: Identifiable, ObservableObject {
     }
     
     
-    init(id: UUID = UUID(), name: String, icon: String, payments: [PaymentActivity] = [PaymentActivity](), isFavorite: Bool, isMarked: Bool) {
-        self.id = id
+    init(name: String, icon: String, payments: [PaymentActivity] = [PaymentActivity](), isFavorite: Bool, isMarked: Bool) {
         self.name = name
         self.icon = icon
         self.payments = payments

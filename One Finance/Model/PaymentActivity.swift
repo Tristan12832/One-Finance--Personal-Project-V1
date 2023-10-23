@@ -6,13 +6,15 @@
 //
 
 import Foundation
+import SwiftData
 
-enum TypePayement: String, RawRepresentable, CaseIterable {
-    case income, expense
+enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
+    case income = "income"
+    case expense = "expense"
 }
 
-class PaymentActivity: Identifiable, ObservableObject {
-    var id = UUID()
+@Model class PaymentActivity {
+    let id = UUID()
     var name: String = ""
     var amount: Double = 0.0
     var date: Date?
@@ -27,16 +29,13 @@ class PaymentActivity: Identifiable, ObservableObject {
             return "arrowtriangle.down.circle.fill"
         }
     }
-    init(id: UUID = UUID(), name: String, amount: Double, date: Date? = nil, type: TypePayement) {
-        self.id = id
+  
+    init(name: String, amount: Double, date: Date? = nil, type: TypePayement) {
         self.name = name
         self.amount = amount
         self.date = date
         self.type = type
     }
-///WARING !!!
-//    var formattedDate: String {
-//        date?.formatted(date: .abbreviated, time: .omitted) ?? "N/A"
-//    }
+    
 }
 

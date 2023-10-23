@@ -5,13 +5,14 @@
 //  Created by Tristan Stenuit on 16/09/2023.
 //
 
+import SwiftData
 import SwiftUI
 
 struct NewPaymentActivity: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
 
-    @ObservedObject var account: Account
+    @Bindable var account: Account
 
     @State private var namePaymentActivity = ""
     @State private var amount = 0.0
@@ -104,7 +105,7 @@ struct NewPaymentActivity_Previews: PreviewProvider {
     
     ///init the "Preview" to display
     struct Preview: View {
-        @StateObject private var model = Accounts()
+        @State private var model = Accounts(accounts: [])
         var body: some View {
             NewPaymentActivity(account:  Account(name: "test", icon: "house.fil", isFavorite: false, isMarked: false))
         }

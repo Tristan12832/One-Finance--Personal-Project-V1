@@ -18,10 +18,10 @@ struct HistoryView_Previews: PreviewProvider {
     
     ///init the "Preview" to display on
     struct Preview: View {
-        @StateObject private var accounts = Accounts()
+        @State private var accounts = Accounts(accounts: [])
         @State private var navigationSelection: Panel? = Panel.dashboard
         var body: some View {
-            DashboardView(accounts: accounts, navigationSelection: $navigationSelection)
+            DashboardView(navigationSelection: $navigationSelection)
         }
     }
     

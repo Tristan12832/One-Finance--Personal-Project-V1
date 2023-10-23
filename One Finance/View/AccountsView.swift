@@ -5,11 +5,13 @@
 //  Created by Tristan Stenuit on 04/09/2023.
 //
 
+import SwiftData
 import SwiftUI
 
 struct AccountsView: View {
-    @ObservedObject var accounts: Accounts
-    
+    @Query(animation: .default) var accounts: [Account]
+    @Query(filter: #Predicate<Account> { account in account.isFavorite == true }, animation: .default) var favoriteAccounts: [Account]
+    @Query(filter: #Predicate<Account> { account in account.isMarked == true}, animation: .default) var markedAccounts: [Account]
     @State private var showingNewAccount = false
 
     
@@ -17,11 +19,11 @@ struct AccountsView: View {
         NavigationStack {
             List {
                 Section {
-                    ForEach(accounts.isFavoriteFilter.indices, id: \.self) { index in
+                    ForEach(favoriteAccounts.indices, id: \.self) { index in
                         NavigationLink {
-                            AccountDetailView(account: accounts.isFavoriteFilter[index])
+                            AccountDetailView(account: favoriteAccounts[index])
                         } label: {
-                            AccountCellListView(name: accounts.isFavoriteFilter[index].name, icon: accounts.isFavoriteFilter[index].icon, amount: accounts.isFavoriteFilter[index].totalBalance, isFavorite: $accounts.isFavoriteFilter[index].isFavorite, isMarked: $accounts.isFavoriteFilter[index].isMarked)
+                            AccountCellListView(name: favoriteAccounts[index].name, icon: favoriteAccounts[index].icon, amount: favoriteAccounts[index].totalBalance, isFavorite: favoriteAccounts[index].isFavorite, isMarked: favoriteAccounts[index].isMarked)
                         }
                     }
                     .onDelete(perform: self.accounts.removeAccount)
@@ -35,11 +37,11 @@ struct AccountsView: View {
                 .headerProminence(.increased)
                 
                 Section {
-                    ForEach(accounts.isMarkedFilter.indices, id: \.self) { index in
+                    ForEach(markedAccounts.indices, id: \.self) { index in
                         NavigationLink {
-                            AccountDetailView(account: accounts.isMarkedFilter[index])
+                            AccountDetailView(account: markedAccounts[index])
                         } label: {
-                            AccountCellListView(name: accounts.isMarkedFilter[index].name, icon: accounts.isMarkedFilter[index].icon, amount: Double(accounts.isMarkedFilter[index].totalBalance), isFavorite: $accounts.isMarkedFilter[index].isFavorite, isMarked: $accounts.isMarkedFilter[index].isMarked)
+                            AccountCellListView(name: markedAccounts[index].name, icon: markedAccounts[index].icon, amount: Double(markedAccounts[index].totalBalance), isFavorite: markedAccounts[index].isFavorite, isMarked: markedAccounts[index].isMarked)
                         }
                     }
                     .onDelete(perform: self.accounts.removeAccount)
@@ -53,11 +55,11 @@ struct AccountsView: View {
                 .headerProminence(.increased)
                 
                 Section {
-                    ForEach(accounts.accounts.indices, id: \.self) { index in
+                    ForEach(accounts.indices, id: \.self) { index in
                         NavigationLink {
-                            AccountDetailView(account: accounts.accounts[index])
+                            AccountDetailView(account: accounts[index])
                         } label: {
-                            AccountCellListView(name: accounts.accounts[index].name, icon: accounts.accounts[index].icon, amount: Double(accounts.accounts[index].totalBalance), isFavorite: $accounts.accounts[index].isFavorite, isMarked: $accounts.accounts[index].isMarked)
+                            AccountCellListView(name: accounts[index].name, icon: accounts.accounts[index].icon, amount: Double(accounts[index].totalBalance), isFavorite: accounts[index].isFavorite, isMarked: accounts[index].isMarked)
                         }
                     }
                     .onDelete(perform: self.accounts.removeAccount)
@@ -112,7 +114,7 @@ struct AccountsView: View {
 struct AccountsView_Previews: PreviewProvider {
     ///init the "Preview" to display on 
     struct Preview: View {
-        @StateObject private var account = Accounts()
+        @State private var account = Accounts(accounts: [])
         var body: some View {
             AccountsView(accounts: account)
         }
