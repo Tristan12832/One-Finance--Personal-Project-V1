@@ -9,12 +9,18 @@ import SwiftData
 import SwiftUI
 
 struct AccountsView: View {
+    @Environment(\.modelContext) var modelContext
     @Query(animation: .default) var accounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isFavorite == true }, animation: .default) var favoriteAccounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isMarked == true}, animation: .default) var markedAccounts: [Account]
     @State private var showingNewAccount = false
 
-    
+    func deleteAccounts(_ indexSet: IndexSet) {
+        for index in indexSet {
+            let account = accounts[index]
+            modelContext.delete(account)
+        }
+    }
     var body: some View {
         NavigationStack {
             List {
@@ -23,10 +29,10 @@ struct AccountsView: View {
                         NavigationLink {
                             AccountDetailView(account: favoriteAccounts[index])
                         } label: {
-                            AccountCellListView(name: favoriteAccounts[index].name, icon: favoriteAccounts[index].icon, amount: favoriteAccounts[index].totalBalance, isFavorite: favoriteAccounts[index].isFavorite, isMarked: favoriteAccounts[index].isMarked)
+                            AccountCellListView(account: favoriteAccounts[index])
                         }
                     }
-                    .onDelete(perform: self.accounts.removeAccount)
+                    .onDelete(perform: self.deleteAccounts)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.backgroundColor5)
                     
@@ -41,10 +47,10 @@ struct AccountsView: View {
                         NavigationLink {
                             AccountDetailView(account: markedAccounts[index])
                         } label: {
-                            AccountCellListView(name: markedAccounts[index].name, icon: markedAccounts[index].icon, amount: Double(markedAccounts[index].totalBalance), isFavorite: markedAccounts[index].isFavorite, isMarked: markedAccounts[index].isMarked)
+                            AccountCellListView(account: markedAccounts[index])
                         }
                     }
-                    .onDelete(perform: self.accounts.removeAccount)
+                    .onDelete(perform: self.deleteAccounts)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.backgroundColor5)
                     
@@ -59,10 +65,10 @@ struct AccountsView: View {
                         NavigationLink {
                             AccountDetailView(account: accounts[index])
                         } label: {
-                            AccountCellListView(name: accounts[index].name, icon: accounts.accounts[index].icon, amount: Double(accounts[index].totalBalance), isFavorite: accounts[index].isFavorite, isMarked: accounts[index].isMarked)
+                            AccountCellListView(account: accounts[index])
                         }
                     }
-                    .onDelete(perform: self.accounts.removeAccount)
+                    .onDelete(perform: self.deleteAccounts)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.backgroundColor5)
                     
@@ -105,7 +111,7 @@ struct AccountsView: View {
 
         }
         .sheet(isPresented: $showingNewAccount) {
-            NewAccountView(accounts: accounts)
+            NewAccountView()
         }
         
     }
@@ -114,9 +120,8 @@ struct AccountsView: View {
 struct AccountsView_Previews: PreviewProvider {
     ///init the "Preview" to display on 
     struct Preview: View {
-        @State private var account = Accounts(accounts: [])
         var body: some View {
-            AccountsView(accounts: account)
+            AccountsView()
         }
     }
     

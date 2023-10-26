@@ -14,7 +14,7 @@ import SwiftUI
 
 
 struct AccountCellListView: View {
-    @Binding var account: Account
+    @Bindable var account: Account
 //    var name: String
 //    var icon: String
 //    var amount: Double
@@ -94,15 +94,15 @@ struct AccountCellListView_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        @State var account = Account(name: "Account", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+        let account = Account(name: "Account", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
         
         NavigationStack {
-            AccountCellListView(account: $account)
+            AccountCellListView(account: account)
         }
         .previewDisplayName("AccountCellListView")
         
         NavigationStack {
-            AccountCellListView(account: $account)
+            AccountCellListView(account: account)
         }
         .previewDisplayName("Preview Without Sidebar")
         .tint(Color.myGreen)
@@ -115,7 +115,7 @@ struct AccountCellListView_Previews: PreviewProvider {
         } detail: {
             List {
                 ForEach(0..<10) { _ in
-                    AccountCellListView(account: $account)
+                    AccountCellListView(account: account)
                 }
                 .listRowSeparator(.hidden)
             }
@@ -132,7 +132,7 @@ struct AccountCellListView_Previews: PreviewProvider {
         } detail: {
             List {
                 ForEach(0..<10) { _ in
-                    AccountCellListView(account: $account)
+                    AccountCellListView(account: account)
                         .listRowSeparator(.hidden)
                 }
             }

@@ -14,7 +14,7 @@ import SwiftUI
 /// - IconAccountCell component
 
 struct AccountCellView: View {
-    @Binding var account: Account
+    @Bindable var account: Account
 //    var name: String
 //    var icon: String
 //    var amount: Double
@@ -65,7 +65,7 @@ struct AccountCellView_Previews: PreviewProvider {
         NavigationSplitView(sidebar: {
             SidebarPreview()
         }, detail: {
-            AccountCellView(account: $account)
+            AccountCellView(account: account)
         })
             .previewDisplayName("Preview")
             .previewInterfaceOrientation(.portrait)
