@@ -135,7 +135,7 @@ struct AccountDetailView: View {
                             .listRowSeparator(.hidden)
 
                     }
-                    .onDelete(perform: delete)
+                    .onDelete(perform: delete.self)
                     .fixedSize(horizontal: false, vertical: true)
                     .listRowBackground(Color.backgroundColor5)
 
