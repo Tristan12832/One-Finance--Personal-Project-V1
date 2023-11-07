@@ -17,6 +17,7 @@ enum TransactionDisplayType {
 
 //MARK: AccountCellView
 struct AccountDetailView: View {
+    @Environment(\.modelContext) var modelContext
     
     var account: Account
     
@@ -37,21 +38,25 @@ struct AccountDetailView: View {
 
         case .income:
             return account.payments
-                .filter { $0.type == .income }
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+                .filter { $0.type == .income }
 
         case .expense:
             return account.payments
-                .filter { $0.type == .expense }
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+                .filter { $0.type == .expense }
 
         }
     }
     
-    func delete(at offsets: IndexSet) {
-        account.payments.remove(atOffsets: offsets)
+
+    func deletePayments(_ indexSet: IndexSet){
+        for index in indexSet {
+            let payment = paymentDataForView[index]
+            modelContext.delete(payment)
+        }
     }
-    
+ 
     
     var body: some View {
         VStack {
@@ -135,7 +140,7 @@ struct AccountDetailView: View {
                             .listRowSeparator(.hidden)
 
                     }
-                    .onDelete(perform: delete.self)
+                    .onDelete(perform: deletePayments)
                     .fixedSize(horizontal: false, vertical: true)
                     .listRowBackground(Color.backgroundColor5)
 

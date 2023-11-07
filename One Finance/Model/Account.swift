@@ -13,7 +13,7 @@ import SwiftData
     let id = UUID()
     var name: String = ""
     var icon: String = ""
-    @Relationship(deleteRule: .cascade) var payments = [PaymentActivity]()
+    @Relationship(deleteRule: .cascade, inverse: \PaymentActivity.account) var payments = [PaymentActivity]()
     var isFavorite: Bool
     var isMarked: Bool
 

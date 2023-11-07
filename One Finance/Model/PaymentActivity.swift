@@ -19,6 +19,7 @@ enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
     var amount: Double = 0.0
     var date: Date?
     var type: TypePayement
+    var account: Account?
     
     var icon: String {
         let type = type
