@@ -62,11 +62,7 @@ struct PayementActivityCell: View {
     }
 }
 
-
-struct PayementActivityCell_Previews: PreviewProvider {
-    static var previews: some View {
-        PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now)
-            .padding(5)
-            
-    }
+#Preview {
+    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now)
+        .padding(5)
 }

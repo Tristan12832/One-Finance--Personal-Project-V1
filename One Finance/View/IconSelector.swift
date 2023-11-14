@@ -50,14 +50,9 @@ struct IconSelector: View {
     }
 }
 
-struct IconSelector_Previews: PreviewProvider {
-    
-    @State static var previewSelectedIcon = "house.fill"
 
-    static var previews: some View {
-        IconSelector(selectedIcon: $previewSelectedIcon)
-            .padding(.vertical)
-            .previewLayout(.sizeThatFits)
-
-    }
+#Preview("Preveiw", traits: .sizeThatFitsLayout) {
+    @State var previewSelectedIcon = "house.fill"
+    return IconSelector(selectedIcon: $previewSelectedIcon)
+        .padding(.vertical)
 }

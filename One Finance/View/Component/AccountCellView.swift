@@ -5,6 +5,7 @@
 //  Created by Tristan Stenuit on 26/08/2023.
 //
 
+import SwiftData
 import SwiftUI
 
 //MARK: AccountCellView
@@ -14,12 +15,8 @@ import SwiftUI
 /// - IconAccountCell component
 
 struct AccountCellView: View {
+    @Environment(\.modelContext) private var modelContext
     @Bindable var account: Account
-//    var name: String
-//    var icon: String
-//    var amount: Double
-//    @Binding var isFavorite: Bool
-//    @Binding var isMarked: Bool
     
     var body: some View {
             ZStack {
@@ -42,38 +39,74 @@ struct AccountCellView: View {
             .overlay{
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(Color.backgroundColor5, lineWidth: 2)
-        }
+            }
             .fixedSize(horizontal: false, vertical: true)
+            .contextMenu {
+                Button {
+                    self.account.isFavorite.toggle()
+                } label: {
+                    Label("Mark Favorite", systemImage: "star")
+                }
+                
+                Button {
+                    self.account.isMarked.toggle()
+                } label: {
+                    Label("Mark Marked", systemImage: "flag")
+                }
+                
+                Button(role: .destructive) {
+                    modelContext.delete(account)
+                } label: {
+                    Label("Delete", systemImage: "trash")
+
+                }
+
+
+            }
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Account \(account.name) with icon of \(account.icon), and you have \(account.totalBalance).")
     }
 }
 
 //MARK: Preview
-struct AccountCellView_Previews: PreviewProvider {
-    
-    ///init the sidebar to display on "Preview"
-    struct SidebarPreview: View {
-        @State private var selection: Panel? = Panel.accounts
-        var body: some View {
-            Sidebar(selection: $selection)
-        }
-    }
-    
-    static var previews: some View {
-        @State var account = Account(name: "Test", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
-        NavigationSplitView(sidebar: {
-            SidebarPreview()
-        }, detail: {
-            AccountCellView(account: account)
-        })
-            .previewDisplayName("Preview")
-            .previewInterfaceOrientation(.portrait)
-            .tint(Color.myGreen)
-            .previewLayout(.sizeThatFits)
-       
-    }
+#Preview("Preview - Light Mode"){
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Test", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    return AccountCellView(account: account)
+        .modelContainer(container)
+        .preferredColorScheme(.light)
 }
+
+#Preview("Preview - Dark Mode"){
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Test", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    return AccountCellView(account: account)
+        .modelContainer(container)
+        .preferredColorScheme(.dark)
+}
+
+#Preview("Preview + Sidebar", traits: .landscapeRight){
+    struct SidebarPreview: View {
+            @State private var selection: Panel? = Panel.accounts
+            var body: some View {
+                Sidebar(selection: $selection)
+            }
+        }
+    
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Test", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    return NavigationSplitView {
+        SidebarPreview()
+    } detail: {
+        AccountCellView(account: account)
+    }
+    .modelContainer(container)
+    .preferredColorScheme(.dark)
+}
+
 
 //MARK: HeaderviewCell component
 struct HeaderviewCell: View {

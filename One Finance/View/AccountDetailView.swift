@@ -195,47 +195,94 @@ struct AccountDetailView: View {
 }
 
 //MARK: Preview
-struct HeaderAccountView_Previews: PreviewProvider {
+#Preview("Preview + Light", traits: .portrait, .sizeThatFitsLayout) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
     
-    ///init the "Preview" to display 
-    struct Preview: View {
-        @State private var account =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
-            PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
-            PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
-            PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
-            PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
-        ], isFavorite: true, isMarked: false)
-        var body: some View {
-            AccountDetailView(account: account)
-        }
-    }
+    let account = Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
+        PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
+        PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
+        PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
+    ], isFavorite: true, isMarked: false)
+    container.mainContext.insert(account)
     
-    ///init the sidebar to display on "Preview"
-    struct SidebarPreview: View {
-        @State private var selection: Panel? = Panel.accounts
-        var body: some View {
-            Sidebar(selection: $selection)
-        }
-    }
-    
-    static var previews: some View {
-        NavigationStack {
-            Preview()
-        }
-        .previewDisplayName("Preview Standard")
-        .previewInterfaceOrientation(.portrait)
-        .tint(.myGreen)
-        
-        NavigationSplitView {
-            SidebarPreview()
-        } detail: {
-            Preview()
-                .background(.backgroundColor5)
-        }
-        .previewInterfaceOrientation(.landscapeRight)
-        .previewDevice("iPad Air (5th generation)")
-        
-       
-    }
+    return AccountDetailView(account: account)
+        .modelContainer(container)
+        .preferredColorScheme(.light)
 }
 
+#Preview("Preview + Dark", traits: .portrait, .sizeThatFitsLayout) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    
+    let account = Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
+        PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
+        PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
+        PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
+    ], isFavorite: true, isMarked: false)
+    container.mainContext.insert(account)
+    
+    return AccountDetailView(account: account)
+        .modelContainer(container)
+        .preferredColorScheme(.dark)
+}
+
+#Preview("Preview + Sidebar + Light", traits: .landscapeRight, .sizeThatFitsLayout) {
+        ///init the sidebar to display on "Preview"
+        struct SidebarPreview: View {
+            @State private var selection: Panel? = Panel.accounts
+            var body: some View {
+                Sidebar(selection: $selection)
+            }
+        }
+    
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    
+    let account = Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
+        PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
+        PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
+        PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
+    ], isFavorite: true, isMarked: false)
+    container.mainContext.insert(account)
+    
+    return NavigationSplitView(sidebar: {
+        SidebarPreview()
+    }, detail: {
+        AccountDetailView(account: account)
+    })
+        .modelContainer(container)
+        .preferredColorScheme(.light)
+}
+
+#Preview("Preview + Sidebar + Dark", traits: .landscapeRight, .sizeThatFitsLayout) {
+        ///init the sidebar to display on "Preview"
+        struct SidebarPreview: View {
+            @State private var selection: Panel? = Panel.accounts
+            var body: some View {
+                Sidebar(selection: $selection)
+            }
+        }
+    
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    
+    let account = Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
+        PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
+        PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
+        PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
+    ], isFavorite: true, isMarked: false)
+    container.mainContext.insert(account)
+    
+    return NavigationSplitView(sidebar: {
+        SidebarPreview()
+    }, detail: {
+        AccountDetailView(account: account)
+    })
+        .modelContainer(container)
+        .preferredColorScheme(.dark)
+}

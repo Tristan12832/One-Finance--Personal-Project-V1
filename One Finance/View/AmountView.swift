@@ -35,9 +35,12 @@ struct AmountView: View {
 }
 
 
-struct AmountView_Previews: PreviewProvider {
-    static var previews: some View {
-        AmountView(title: "Test", amount: 9999, backgroundColor: .myGreen)
-            .previewLayout(.sizeThatFits)
-    }
+#Preview("Preview -Light", traits: .sizeThatFitsLayout){
+    AmountView(title: "Test", amount: 9999, backgroundColor: .myGreen)
+        .preferredColorScheme(.light)
+}
+
+#Preview("Preview -Dark", traits: .sizeThatFitsLayout){
+    AmountView(title: "Test", amount: 9999, backgroundColor: .myGreen)
+        .preferredColorScheme(.dark)
 }

@@ -117,13 +117,23 @@ struct AccountsView: View {
     }
 }
 
-struct AccountsView_Previews: PreviewProvider {
-    ///init the "Preview" to display on 
-    struct Preview: View {
-        var body: some View {
-            AccountsView()
-        }
+#Preview("AccountsView") {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    
+    let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    container.mainContext.insert(account)
+    
+    return NavigationStack {
+        AccountsView()
     }
+    .modelContainer(container)
+
+}
+
+#Preview("AccountsView + Sidebar", traits: .landscapeLeft) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
     
     ///init the sidebar to display on "Preview"
     struct SidebarPreview: View {
@@ -133,20 +143,39 @@ struct AccountsView_Previews: PreviewProvider {
         }
     }
     
-    static var previews: some View {
-        NavigationStack {
-            Preview()
-        }
-        .previewDisplayName("Preview Standard")
+    let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    container.mainContext.insert(account)
 
-        NavigationSplitView {
-            SidebarPreview()
-        } detail: {
-            Preview()
-        }
-        .previewDevice("iPad Air (5th generation)")
-        .previewInterfaceOrientation(.landscapeRight)
-        .previewDisplayName("Preview iPad")
-
+    return NavigationSplitView {
+        SidebarPreview()
+    } detail: {
+        AccountsView()
     }
+    .modelContainer(container)
+
+}
+
+#Preview("AccountsView + Sidebar + Dark mode", traits: .landscapeRight) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    
+    ///init the sidebar to display on "Preview"
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.accounts
+        var body: some View {
+            Sidebar(selection: $selection)
+        }
+    }
+    let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    container.mainContext.insert(account)
+    let account1 = Account(name: "Compte Test", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    container.mainContext.insert(account1)
+    
+    return NavigationSplitView {
+        SidebarPreview()
+    } detail: {
+        AccountsView()
+    }
+    .modelContainer(container)
+    .preferredColorScheme(.dark)
 }

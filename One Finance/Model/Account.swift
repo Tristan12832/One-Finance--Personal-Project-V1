@@ -43,7 +43,6 @@ import SwiftData
         return totalIncome - totalExpense
     }
     
-    
     init(name: String, icon: String, payments: [PaymentActivity] = [PaymentActivity](), isFavorite: Bool, isMarked: Bool) {
         self.name = name
         self.icon = icon

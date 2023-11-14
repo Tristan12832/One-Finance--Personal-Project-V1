@@ -14,10 +14,7 @@ struct ProjectsView: View {
     }
 }
 
-struct ProjectsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProjectsView()
-            .previewDisplayName("Preview Standard")
 
-    }
+#Preview("Preview Standard") {
+    ProjectsView()
 }

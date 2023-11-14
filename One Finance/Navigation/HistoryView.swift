@@ -11,30 +11,30 @@ struct HistoryView: View {
     var body: some View {
         Text("Working Progress !!!")
             .font(.system(size: 48, weight: .bold, design: .rounded))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.backgroundColor5)
     }
 }
 
-struct HistoryView_Previews: PreviewProvider {
-    
-    ///init the "Preview" to display on
-    struct Preview: View {
-        @State private var accounts = Accounts(accounts: [])
-        @State private var navigationSelection: Panel? = Panel.dashboard
-        var body: some View {
-            DashboardView(navigationSelection: $navigationSelection)
-        }
-    }
-    
-    static var previews: some View {
+
+#Preview {
+    HistoryView()
+}
+
+#Preview("Preview + Sidebar", traits: .landscapeRight) {
+    NavigationSplitView {
+        Sidebar(selection: .constant(.dashboard))
+    } detail: {
         HistoryView()
-            .previewDisplayName("Preview Standard")
-        NavigationSplitView {
-            Sidebar(selection: .constant(.dashboard))
-        } detail: {
-            Preview()
-                .background(.backgroundColor5)
-        }
-        .previewInterfaceOrientation(.landscapeRight)
-        .previewDevice("iPad Air (5th generation)")
     }
+   
+}
+
+#Preview("Preview + Sidebar", traits: .landscapeRight) {
+    NavigationSplitView {
+        Sidebar(selection: .constant(.dashboard))
+    } detail: {
+        HistoryView()
+    }
+    .preferredColorScheme(.dark)
 }

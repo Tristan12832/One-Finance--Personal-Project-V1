@@ -32,11 +32,11 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(favoriteAccounts.indices, id: \.self) { index in
+                        ForEach(favoriteAccounts.indices, id: \.self) { account in
                             NavigationLink {
-                                AccountDetailView(account: favoriteAccounts[index])
+                                AccountDetailView(account: favoriteAccounts[account])
                             } label: {
-                                AccountCellView(account: favoriteAccounts[index])
+                                AccountCellView(account: favoriteAccounts[account])
                             }
                         }
                     }
@@ -49,11 +49,11 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(markedAccounts.indices, id: \.self) { index in
+                        ForEach(markedAccounts.indices, id: \.self) { account in
                             NavigationLink {
-                                AccountDetailView(account: markedAccounts[index])
+                                AccountDetailView(account: markedAccounts[account])
                             } label: {
-                                AccountCellView(account: markedAccounts[index])
+                                AccountCellView(account: markedAccounts[account])
                             }
                         }
                     }
@@ -66,11 +66,11 @@ struct DashboardView: View {
                         .padding(.horizontal, 30)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(accounts.indices, id: \.self) { index in
+                        ForEach(accounts.indices, id: \.self) { account in
                             NavigationLink {
-                                AccountDetailView(account: accounts[index])
+                                AccountDetailView(account: accounts[account])
                             } label: {
-                                AccountCellView(account: accounts[index])
+                                AccountCellView(account: accounts[account])
                             }
                         }
                     }
@@ -104,14 +104,35 @@ struct DashboardView: View {
     
 }
 
-struct DashboardView_Previews: PreviewProvider {
+#Preview("Preview") {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    
+    let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    container.mainContext.insert(account)
+    
     ///init the "Preview" to display on
     struct Preview: View {
-        @State private var accounts = Accounts(accounts: [])
         @State private var navigationSelection: Panel? = Panel.dashboard
         var body: some View {
             DashboardView(navigationSelection: $navigationSelection)
         }
+    }
+    
+    return NavigationStack{
+        Preview()
+    }
+    .modelContainer(container)
+
+}
+
+#Preview("Preview + Sidebar") {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    
+    for i in 1..<5 {
+        let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+        container.mainContext.insert(account)
     }
     
     ///init the sidebar to display on "Preview"
@@ -122,20 +143,90 @@ struct DashboardView_Previews: PreviewProvider {
         }
     }
     
-    static var previews: some View {
-        NavigationStack{
-            Preview()
+    ///init the "Preview" to display on
+    struct Preview: View {
+        @State private var navigationSelection: Panel? = Panel.dashboard
+        var body: some View {
+            DashboardView(navigationSelection: $navigationSelection)
         }
-        .previewDisplayName("Preview standard")
-        
-        NavigationSplitView {
-            SidebarPreview()
-        } detail: {
-            Preview()
-                .background(.backgroundColor5)
-        }
-        .previewInterfaceOrientation(.landscapeRight)
-        .previewDevice("iPad Air (5th generation)")
-        .previewDisplayName("Preview for iPad")
     }
+    
+    return NavigationSplitView {
+        SidebarPreview()
+    } detail: {
+        Preview()
+            .background(.backgroundColor5)
+    }
+    .modelContainer(container)
+
+}
+
+#Preview("Preview + Sidebar + Dark mode") {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    
+    for i in 1..<5 {
+        let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+        container.mainContext.insert(account)
+    }
+    
+    ///init the sidebar to display on "Preview"
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.dashboard
+        var body: some View {
+            Sidebar(selection: $selection)
+        }
+    }
+    
+    ///init the "Preview" to display on
+    struct Preview: View {
+        @State private var navigationSelection: Panel? = Panel.dashboard
+        var body: some View {
+            DashboardView(navigationSelection: $navigationSelection)
+        }
+    }
+    
+    return NavigationSplitView {
+        SidebarPreview()
+    } detail: {
+        Preview()
+            .background(.backgroundColor5)
+    }
+    .modelContainer(container)
+    .preferredColorScheme(.dark)
+}
+
+#Preview("Preview - landscapeLeft+ Sidebar + Dark mode", traits: .landscapeRight) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    
+    ///init the sidebar to display on "Preview"
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.dashboard
+        var body: some View {
+            Sidebar(selection: $selection)
+        }
+    }
+    
+    ///init the "Preview" to display on
+    struct Preview: View {
+        @State private var navigationSelection: Panel? = Panel.dashboard
+        var body: some View {
+            DashboardView(navigationSelection: $navigationSelection)
+        }
+    }
+    
+    for i in 1..<5 {
+        let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+        container.mainContext.insert(account)
+    }
+    
+    return  NavigationSplitView {
+        SidebarPreview()
+    } detail: {
+        Preview()
+            .modelContainer(container)
+    }
+
+    .preferredColorScheme(.dark)
 }

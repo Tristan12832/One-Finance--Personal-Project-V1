@@ -28,10 +28,15 @@ struct MainCustomButton: View {
 }
 
 
-struct MainCustomButton_Previews: PreviewProvider {
-    static var previews: some View {
-        MainCustomButton(title: "Title HERE !!!") {
-            print("Test button")
-        }
+
+#Preview("Preview", traits: .sizeThatFitsLayout) {
+    MainCustomButton(title: "Title HERE !!!") {
+        print("Test button")
+    }
+}
+
+#Preview("Preview - landscapeRight", traits: .landscapeRight, .sizeThatFitsLayout) {
+    MainCustomButton(title: "Title HERE !!!") {
+        print("Test button")
     }
 }

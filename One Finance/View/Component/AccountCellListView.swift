@@ -4,7 +4,7 @@
 //
 //  Created by Tristan Stenuit on 29/08/2023.
 //
-
+import SwiftData
 import SwiftUI
 
 //MARK: AccountCellListView
@@ -15,11 +15,11 @@ import SwiftUI
 
 struct AccountCellListView: View {
     @Bindable var account: Account
-//    var name: String
-//    var icon: String
-//    var amount: Double
-//    @Binding var isFavorite: Bool
-//    @Binding var isMarked: Bool
+    //    var name: String
+    //    var icon: String
+    //    var amount: Double
+    //    @Binding var isFavorite: Bool
+    //    @Binding var isMarked: Bool
     
     var body: some View {
         HStack {
@@ -78,14 +78,25 @@ struct AccountCellListView: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Account \(account.name) with icon of \(account.icon), and you have \(account.totalBalance, format: .localCurrency).")
-
+        
     }
 }
 
+//#Preview("Preview - Dark Mode"){
+//    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+//    let container = try! ModelContainer(for: Account.self, configurations: config)
+//    let account = Account(name: "Test", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+//    return AccountCellView(account: account)
+//        .modelContainer(container)
+//        .preferredColorScheme(.dark)
+//}
+
 //MARK: Preview
-struct AccountCellListView_Previews: PreviewProvider {
+#Preview("AccountCellListView - Light Mode"){
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Account", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
     
-    ///init the sidebar to display on "Preview"
     struct SidebarPreview: View {
         @State private var selection: Panel? = Panel.accounts
         var body: some View {
@@ -93,58 +104,128 @@ struct AccountCellListView_Previews: PreviewProvider {
         }
     }
     
-    static var previews: some View {
-        let account = Account(name: "Account", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
-        
+    return NavigationStack {
+        AccountCellListView(account: account)
+    }
+    .tint(Color.myGreen)
+    .preferredColorScheme(.light)
+    .modelContainer(container)
+}
+
+#Preview("AccountCellListView - Dark Mode"){
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Account", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.accounts
+        var body: some View {
+            Sidebar(selection: $selection)
+        }
+    }
+    
+    return NavigationStack {
+        AccountCellListView(account: account)
+    }
+    .tint(Color.myGreen)
+    .preferredColorScheme(.dark)
+    .modelContainer(container)
+}
+
+#Preview("Preview With Sidebar -Portrait", traits: .portrait) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Account", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.accounts
+        var body: some View {
+            Sidebar(selection: $selection)
+        }
+    }
+    
+    
+    return NavigationSplitView {
         NavigationStack {
-            AccountCellListView(account: account)
-        }
-        .previewDisplayName("AccountCellListView")
-        
-        NavigationStack {
-            AccountCellListView(account: account)
-        }
-        .previewDisplayName("Preview Without Sidebar")
-        .tint(Color.myGreen)
-        .preferredColorScheme(.light)
-        
-        NavigationSplitView {
-            NavigationStack {
-                SidebarPreview()
-            }
-        } detail: {
-            List {
-                ForEach(0..<10) { _ in
-                    AccountCellListView(account: account)
-                }
-                .listRowSeparator(.hidden)
-            }
-            .listStyle(.plain)
-            
-        }
-        .previewDisplayName("Preview With Sidebar -landscapeLeft")
-        .previewInterfaceOrientation(.landscapeRight)
-        .tint(Color.myGreen)
-        .preferredColorScheme(.light)
-        
-        NavigationSplitView {
             SidebarPreview()
-        } detail: {
-            List {
-                ForEach(0..<10) { _ in
-                    AccountCellListView(account: account)
-                        .listRowSeparator(.hidden)
-                }
-            }
-            .listStyle(.plain)
-            
         }
-        .previewDisplayName("Preview With Sidebar")
-        .previewInterfaceOrientation(.portrait)
-        .tint(Color.myGreen)
-        .preferredColorScheme(.light)
+    } detail: {
+        List {
+            ForEach(0..<10) { _ in
+                AccountCellListView(account: account)
+            }
+            .listRowSeparator(.hidden)
+        }
+        .listStyle(.plain)
         
     }
+    .modelContainer(container)
+    .tint(Color.myGreen)
+    .preferredColorScheme(.light)
+}
+
+#Preview("Preview With Sidebar -landscapeLeft", traits: .landscapeRight) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Account", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.accounts
+        var body: some View {
+            Sidebar(selection: $selection)
+        }
+    }
+    
+    
+    return NavigationSplitView {
+        NavigationStack {
+            SidebarPreview()
+        }
+    } detail: {
+        List {
+            ForEach(0..<10) { _ in
+                AccountCellListView(account: account)
+            }
+            .listRowSeparator(.hidden)
+        }
+        .listStyle(.plain)
+        
+    }
+    .modelContainer(container)
+    .tint(Color.myGreen)
+    .preferredColorScheme(.light)
+}
+
+#Preview("Preview With Sidebar -landscapeLeft & Dark Mode", traits: .landscapeRight) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Account", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.accounts
+        var body: some View {
+            Sidebar(selection: $selection)
+        }
+    }
+    
+    
+    return NavigationSplitView {
+        NavigationStack {
+            SidebarPreview()
+        }
+    } detail: {
+        List {
+            ForEach(0..<10) { _ in
+                AccountCellListView(account: account)
+            }
+            .listRowSeparator(.hidden)
+        }
+        .listStyle(.plain)
+        
+    }
+    .modelContainer(container)
+    .tint(Color.myGreen)
+    .preferredColorScheme(.dark)
 }
 
 //MARK: IconViewAccountListViewCell component
