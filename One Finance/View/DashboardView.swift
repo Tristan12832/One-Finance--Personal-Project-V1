@@ -123,17 +123,15 @@ struct DashboardView: View {
         Preview()
     }
     .modelContainer(container)
-
+    
 }
 
 #Preview("Preview + Sidebar") {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Account.self, configurations: config)
     
-    for i in 1..<5 {
-        let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
-        container.mainContext.insert(account)
-    }
+    let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    container.mainContext.insert(account)
     
     ///init the sidebar to display on "Preview"
     struct SidebarPreview: View {
@@ -158,17 +156,16 @@ struct DashboardView: View {
             .background(.backgroundColor5)
     }
     .modelContainer(container)
-
+    
 }
 
 #Preview("Preview + Sidebar + Dark mode") {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Account.self, configurations: config)
     
-    for i in 1..<5 {
-        let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
-        container.mainContext.insert(account)
-    }
+    
+    let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    container.mainContext.insert(account)
     
     ///init the sidebar to display on "Preview"
     struct SidebarPreview: View {
@@ -216,10 +213,8 @@ struct DashboardView: View {
         }
     }
     
-    for i in 1..<5 {
-        let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
-        container.mainContext.insert(account)
-    }
+    let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+    container.mainContext.insert(account)
     
     return  NavigationSplitView {
         SidebarPreview()
@@ -227,6 +222,6 @@ struct DashboardView: View {
         Preview()
             .modelContainer(container)
     }
-
+    
     .preferredColorScheme(.dark)
 }

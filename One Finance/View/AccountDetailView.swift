@@ -15,14 +15,17 @@ enum TransactionDisplayType {
     case expense
 }
 
+enum sortPayment: String, CaseIterable {
+    case standard
+    case inverse
+}
+
 //MARK: AccountCellView
 struct AccountDetailView: View {
     @Environment(\.modelContext) var modelContext
     
     var account: Account
     
-    @State private var listType: TransactionDisplayType = .all
-    @State private var selectedPaymentActivity: PaymentActivity?
 
     @State private var showingTotalDetailView = false
     @State private var shwoingIncomeDetailView = false
@@ -30,33 +33,59 @@ struct AccountDetailView: View {
     
     @State private var shwoingNewPaymentActivity = false
     
+    @State private var inversePayments = false
+    @State private var inverseAction = false
+    
+    @State private var listType: TransactionDisplayType = .all
+    @State private var sortList: sortPayment = .standard
+    
     private var paymentDataForView: [PaymentActivity] {
-        switch listType {
-        case .all:
-            return account.payments
-                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
-
-        case .income:
-            return account.payments
-                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
-                .filter { $0.type == .income }
-
-        case .expense:
-            return account.payments
-                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
-                .filter { $0.type == .expense }
-
+        switch sortList {
+        case .standard:
+            switch listType {
+            case .all:
+                return account.payments
+                    .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+                
+            case .income:
+                return account.payments
+                    .filter { $0.type == .income }
+                    .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+                
+            case .expense:
+                return account.payments
+                    .filter { $0.type == .expense }
+                    .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+                
+            }
+            
+        case .inverse:
+            switch listType {
+            case .all:
+                return account.payments
+                    .sorted(by: {$0.date?.compare($1.date!) == .orderedAscending})
+                
+            case .income:
+                return account.payments
+                    .filter { $0.type == .income }
+                    .sorted(by: {$0.date?.compare($1.date!) == .orderedAscending})
+                
+            case .expense:
+                return account.payments
+                    .filter { $0.type == .expense }
+                    .sorted(by: {$0.date?.compare($1.date!) == .orderedAscending})
+            }
         }
     }
     
-
+    
     func deletePayments(_ indexSet: IndexSet){
         for index in indexSet {
             let payment = paymentDataForView[index]
             modelContext.delete(payment)
         }
     }
- 
+    
     
     var body: some View {
         VStack {
@@ -94,14 +123,25 @@ struct AccountDetailView: View {
                         Text("Detail")
                             .font(.system(.title, design: .rounded, weight: .bold))
                         Spacer()
-                        Button {
-                            //MARK: FUTUR
+                       
+                        Menu {
+                            Picker("Sort", selection: $sortList) {
+                                ForEach(sortPayment.allCases, id: \.self) { sort in
+                                    Label(sort.rawValue.capitalized, image: "tag")
+                                        .tag(sortList.rawValue)
+
+                                }
+                            }
+                            .pickerStyle(.inline)
+                          
                         } label: {
                             Image(systemName: "arrow.up.arrow.down")
-                                .font(.system(.title3, design: .rounded, weight: .bold))
-                                .foregroundColor(.myGreen)
+                                .font(.system(.title2, design: .rounded, weight: .bold))
+                                .foregroundColor(Color.accentColor)
                         }
-
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityLabel("Sorting parameter")
 
                     }
                     //MARK: Detail
@@ -119,7 +159,7 @@ struct AccountDetailView: View {
                             Text("Income")
                         }
                         .buttonStyle(CustomButtonStyle(colorButton: .complementary))
-                       
+                        
                         Button {
                             self.listType = .expense
                         } label: {
@@ -133,61 +173,65 @@ struct AccountDetailView: View {
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 8)
-
+                
                 List {
-                    ForEach(paymentDataForView.indices, id: \.self) { index in
-                        PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
-                            .listRowSeparator(.hidden)
-
+                    if paymentDataForView.isEmpty {
+                        ContentUnavailableView("No Payments", systemImage: "banknote")
+                            .padding(.vertical)
+                            .listRowBackground(Color.backgroundColor5)
+                    } else {
+                        ForEach(paymentDataForView.indices, id: \.self) { index in
+                            PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
+                                .listRowSeparator(.hidden)
+                        }
+                        .onDelete(perform: deletePayments)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .listRowBackground(Color.backgroundColor5)
                     }
-                    .onDelete(perform: deletePayments)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .listRowBackground(Color.backgroundColor5)
-
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .background(Color.backgroundColor5)
             }
             .background(.backgroundColor5)
-
-        .fullScreenCover(isPresented: $showingTotalDetailView, content: {
-            TotalDetailView(account: account)
-        })
-        .fullScreenCover(isPresented: $shwoingIncomeDetailView, content: {
-            IncomeDetailView(account: account)
-        })
-        .fullScreenCover(isPresented: $shwoingExpenseDetailView, content: {
-            ExpenseDetailView(account: account)
-        })
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    //more action
-                } label: {
-                    Image(systemName: "questionmark.circle")
-                        .font(.system(.title2))
+            
+            .fullScreenCover(isPresented: $showingTotalDetailView, content: {
+                TotalDetailView(account: account)
+            })
+            .fullScreenCover(isPresented: $shwoingIncomeDetailView, content: {
+                IncomeDetailView(account: account)
+            })
+            .fullScreenCover(isPresented: $shwoingExpenseDetailView, content: {
+                ExpenseDetailView(account: account)
+            })
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        //more action
+                    } label: {
+                        Image(systemName: "questionmark.circle")
+                            .font(.system(.title2))
+                    }
+                    .accessibilityLabel("Help")
+                    .accessibilityHint("Need help? it's here")
                 }
-                .accessibilityLabel("Help")
-                .accessibilityHint("Need help? it's here")
+                
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        shwoingNewPaymentActivity = true
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.system(.title2))
+                    }
+                    .accessibilityLabel("Add")
+                    .accessibilityHint("Add a new transaction")
+                }
+                
+            }
+            .fullScreenCover(isPresented: $shwoingNewPaymentActivity) {
+                NewPaymentActivity(account: account)
             }
             
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    shwoingNewPaymentActivity = true
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.system(.title2))
-                }
-                .accessibilityLabel("Add")
-                .accessibilityHint("Add a new transaction")
-            }
-
-        }
-        .fullScreenCover(isPresented: $shwoingNewPaymentActivity) {
-            NewPaymentActivity(account: account)
-        }
-
         }
         .toolbarBackground(Color.backgroundColor5)
         .background(.backgroundColor5)
@@ -230,13 +274,13 @@ struct AccountDetailView: View {
 }
 
 #Preview("Preview + Sidebar + Light", traits: .landscapeRight, .sizeThatFitsLayout) {
-        ///init the sidebar to display on "Preview"
-        struct SidebarPreview: View {
-            @State private var selection: Panel? = Panel.accounts
-            var body: some View {
-                Sidebar(selection: $selection)
-            }
+    ///init the sidebar to display on "Preview"
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.accounts
+        var body: some View {
+            Sidebar(selection: $selection)
         }
+    }
     
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Account.self, configurations: config)
@@ -254,18 +298,18 @@ struct AccountDetailView: View {
     }, detail: {
         AccountDetailView(account: account)
     })
-        .modelContainer(container)
-        .preferredColorScheme(.light)
+    .modelContainer(container)
+    .preferredColorScheme(.light)
 }
 
 #Preview("Preview + Sidebar + Dark", traits: .landscapeRight, .sizeThatFitsLayout) {
-        ///init the sidebar to display on "Preview"
-        struct SidebarPreview: View {
-            @State private var selection: Panel? = Panel.accounts
-            var body: some View {
-                Sidebar(selection: $selection)
-            }
+    ///init the sidebar to display on "Preview"
+    struct SidebarPreview: View {
+        @State private var selection: Panel? = Panel.accounts
+        var body: some View {
+            Sidebar(selection: $selection)
         }
+    }
     
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Account.self, configurations: config)
@@ -283,6 +327,6 @@ struct AccountDetailView: View {
     }, detail: {
         AccountDetailView(account: account)
     })
-        .modelContainer(container)
-        .preferredColorScheme(.dark)
+    .modelContainer(container)
+    .preferredColorScheme(.dark)
 }

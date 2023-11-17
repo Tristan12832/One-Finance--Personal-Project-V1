@@ -6,17 +6,32 @@
 //
 
 import Charts
+import SwiftData
 import SwiftUI
 
+enum sortExpense {
+    case standard
+    case inverse
+}
 struct ExpenseDetailView: View {
     @Environment(\.dismiss) var dismiss
     
     var account: Account
     
+    @State private var sortList: sortPayment = .standard
+
     private var paymentExpense: [PaymentActivity] {
-        return account.payments
-            .filter { $0.type == .expense }
-            .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+        switch sortList {
+        case .standard:
+            return account.payments
+                .filter { $0.type == .expense }
+                .sorted(by: {$0.date?.compare($1.date!) == .orderedDescending})
+        case .inverse:
+            return account.payments
+                .filter { $0.type == .expense }
+                .sorted(by: {$0.date?.compare($1.date!) == .orderedAscending})
+        }
+       
 
     }
     
@@ -81,22 +96,32 @@ struct ExpenseDetailView: View {
                         Text("Detail")
                             .font(.system(.title, design: .rounded, weight: .bold))
                         Spacer()
-                        Button {
-                            //MARK: FUTUR
+                        
+                        Menu {
+                            Picker("Sort", selection: $sortList) {
+                                ForEach(sortPayment.allCases, id: \.self) { sort in
+                                    Label(sort.rawValue.capitalized, image: "tag")
+                                        .tag(sortList.rawValue)
+
+                                }
+                            }
+                            .pickerStyle(.inline)
+                          
                         } label: {
                             Image(systemName: "arrow.up.arrow.down")
-                                .font(.system(.title3, design: .rounded, weight: .bold))
+                                .font(.system(.title2, design: .rounded, weight: .bold))
                                 .foregroundColor(Color.red)
                         }
-                        
-                        
-                    }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityLabel("Sorting parameter")                    }
+                    .padding(.vertical, 4)
                 }
                 
                 ForEach(paymentExpense.indices, id: \.self) { index in
                     PayementActivityCell(icon: paymentExpense[index].icon, nameActivity: paymentExpense[index].name, amount: paymentExpense[index].amount, date: paymentExpense[index].date)
                 }
-                .padding(1)
+                .padding(.vertical, 3)
                 
             }
             .padding(.vertical, 15)
@@ -107,25 +132,37 @@ struct ExpenseDetailView: View {
     }
 }
 
-struct ExpenseDetailView_Previews: PreviewProvider {
+//MARK: Preview
+#Preview("Preview + Light", traits: .portrait, .sizeThatFitsLayout) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
     
-    ///init the "Preview" to display
-    struct Preview: View {
-        @State private var account =  Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
-            PaymentActivity(name: "Salery", amount: 2000, date: .distantPast, type: .income),
-            PaymentActivity(name: "September Bonus", amount: 200, date: .now, type: .income),
-            PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
-            PaymentActivity(name: "Food", amount: 500, date: .distantFuture, type: .expense),
-            PaymentActivity(name: "Feed", amount: 200, date: .distantFuture, type: .expense)
+    let account = Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
+        PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
+        PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
+        PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
+    ], isFavorite: true, isMarked: false)
+    container.mainContext.insert(account)
+    
+    return ExpenseDetailView(account: account)
+        .modelContainer(container)
+        .preferredColorScheme(.light)
+}
 
-        ], isFavorite: true, isMarked: false)
-        var body: some View {
-            ExpenseDetailView(account: account)
-        }
-    }
+#Preview("Preview + Dark", traits: .portrait, .sizeThatFitsLayout) {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
     
+    let account = Account(name: "Future expenditure", icon: "creditcard.fill", payments: [
+        PaymentActivity(name: "MacBook Pro 16", amount: 4000, date: .now, type: .expense),
+        PaymentActivity(name: "LG Ultrafine 27UQ850-W 4K Monitor", amount: 500, date: .now, type: .expense),
+        PaymentActivity(name: "September Bonus", amount: 2200, date: .now, type: .income),
+        PaymentActivity(name: "Basic balance", amount: 3000, date: .distantPast, type: .income)
+    ], isFavorite: true, isMarked: false)
+    container.mainContext.insert(account)
     
-    static var previews: some View {
-        Preview()
-    }
+    return ExpenseDetailView(account: account)
+        .modelContainer(container)
+        .preferredColorScheme(.dark)
 }

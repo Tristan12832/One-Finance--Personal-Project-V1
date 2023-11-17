@@ -62,7 +62,13 @@ struct PayementActivityCell: View {
     }
 }
 
-#Preview {
+#Preview("Light") {
     PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now)
         .padding(5)
+}
+
+#Preview("Dark") {
+    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now)
+        .padding(5)
+        .preferredColorScheme(.dark)
 }
