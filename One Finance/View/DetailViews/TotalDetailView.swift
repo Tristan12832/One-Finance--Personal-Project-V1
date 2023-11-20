@@ -113,6 +113,8 @@ struct TotalDetailView: View {
                         y: .value("Amount", $0.amount)
                     )
                     .foregroundStyle(Color.myGreen)
+                    .symbol(Circle().strokeBorder(lineWidth: 2))
+
                 }
                 
             }

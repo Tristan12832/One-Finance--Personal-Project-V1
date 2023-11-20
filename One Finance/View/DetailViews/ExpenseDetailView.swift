@@ -83,6 +83,8 @@ struct ExpenseDetailView: View {
                         y: .value("Amount", $0.amount)
                     )
                     .foregroundStyle(Color.red)
+                    .symbol(Circle().strokeBorder(lineWidth: 2))
+
                 }
                 
             }

@@ -1,0 +1,75 @@
+//
+//  ChartsView.swift
+//  One Finance
+//
+//  Created by Tristan Stenuit on 20/11/2023.
+//
+
+import Charts
+import SwiftData
+import SwiftUI
+
+struct ChartsView: View {
+    
+    @Query(animation: .default) var accounts: [Account]
+    
+    var accountsData: [Account] {
+        accounts.sorted(by: {$0.totalBalance < $1.totalBalance})
+    }
+    
+    var totalExpensesAndIncome: Double {
+        let totals = accounts
+            .sorted(by: {$0.totalBalance < $1.totalBalance})
+            .reduce(0) { $0 + $1.totalBalance }
+        return totals
+    }
+
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Your Total Money")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+                Spacer()
+                
+                Text(totalExpensesAndIncome, format: .localCurrency)
+                    .font(.headline)
+                    .frame(width: 90)
+                    .frame(maxWidth: 90, alignment: .trailing)
+                    .padding(.horizontal, 2)
+                    .background(.backgroundColor3)
+
+            }
+            Chart {
+                ForEach(accountsData, id: \.name) { account in
+                    
+                    BarMark(
+                        x: .value("Name", account.totalBalance)
+                    )
+                    .foregroundStyle(by: .value("Name", account.name))
+                }
+            }
+            .frame(height: 100)
+        }
+        .padding()
+        .frame(maxWidth: 500)
+        .background(.backgroundColor4)
+        
+    }
+}
+
+#Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Current account", icon: "house.fill", payments: [
+        PaymentActivity(name: "September salary", amount: 2400, date: .now, type: .income),
+        PaymentActivity(name: "Allocation", amount: 250, date: .now, type: .income),
+        PaymentActivity(name: "Food", amount: 100, date: .now, type: .expense),
+        PaymentActivity(name: "Clothing", amount: 50, date: .now, type: .expense),
+        PaymentActivity(name: "Dog budget", amount: 120, date: .now, type: .expense)
+    ], isFavorite: false, isMarked: false)
+    
+    return ChartsView()
+        .modelContainer(container)
+        .preferredColorScheme(.light)
+    
+}

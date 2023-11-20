@@ -76,6 +76,16 @@ struct DashboardView: View {
                     }
                     .padding(.horizontal, 30)
                     
+                    Spacer()
+
+                    Text("Some Charts")
+                        .font(.system(.title, design: .rounded, weight: .bold))
+                        .padding(.horizontal, 30)
+                    Group {
+                        ChartsView()
+                    }
+                    .padding(.horizontal, 30)
+
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
