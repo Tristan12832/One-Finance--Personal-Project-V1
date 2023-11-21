@@ -21,16 +21,18 @@ struct DashboardView: View {
         GridItem(.adaptive(minimum: 200))
     ]
     
+    let paddingHorizontal: CGFloat = 20
+    
     @State private var showingNewAccount = false
     
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment:.leading, spacing: 18){
                     Text("Favorite")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, 30)
+                        .padding(.horizontal, paddingHorizontal)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
                         ForEach(favoriteAccounts.indices, id: \.self) { account in
@@ -41,13 +43,13 @@ struct DashboardView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal, paddingHorizontal)
                     
                     Spacer()
                     
                     Text("Marked")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, 30)
+                        .padding(.horizontal, paddingHorizontal)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
                         ForEach(markedAccounts.indices, id: \.self) { account in
@@ -58,13 +60,13 @@ struct DashboardView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal, paddingHorizontal)
                     
                     Spacer()
                     
                     Text("All Accounts")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, 30)
+                        .padding(.horizontal, paddingHorizontal)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
                         ForEach(accounts.indices, id: \.self) { account in
@@ -75,13 +77,13 @@ struct DashboardView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal, paddingHorizontal)
                     
                     Spacer()
 
                     Text("Some Charts")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, 30)
+                        .padding(.horizontal, paddingHorizontal)
                     Group {
                         if sizeClass == .compact {
                             VStack {
@@ -95,27 +97,28 @@ struct DashboardView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal, paddingHorizontal)
 
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
             .background(.backgroundColor5)
-            
-            .navigationTitle("Dashboar")
             .toolbarBackground(Color.backgroundColor5)
-            
+            .navigationTitle("Dashboar")
+
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    //more action
+                    self.showingNewAccount = true
                 } label: {
-                    Image(systemName: "questionmark.circle")
+                    Image(systemName: "plus")
                         .font(.system(.title2))
                 }
-                .accessibilityLabel("Help")
-                .accessibilityHint("Need help? it's here")
+                .accessibilityLabel("Add")
+                .accessibilityHint("Add a new account")
+
+
             }
         }
         .sheet(isPresented: $showingNewAccount) {

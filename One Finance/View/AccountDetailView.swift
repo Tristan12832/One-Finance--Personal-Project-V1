@@ -25,7 +25,6 @@ struct AccountDetailView: View {
     @Environment(\.modelContext) var modelContext
     
     var account: Account
-    
 
     @State private var showingTotalDetailView = false
     @State private var shwoingIncomeDetailView = false
@@ -39,6 +38,8 @@ struct AccountDetailView: View {
     @State private var listType: TransactionDisplayType = .all
     @State private var sortList: sortPayment = .standard
     
+    let paddingHorizontal: CGFloat = 20
+
     private var paymentDataForView: [PaymentActivity] {
         switch sortList {
         case .standard:
@@ -92,11 +93,11 @@ struct AccountDetailView: View {
             HStack {
                 Text(account.name)
                     .font(.system(size: 40, weight: .bold, design: .default))
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, paddingHorizontal)
                 
                 Spacer()
             }
-            
+
             VStack(spacing: 16) {
                 AmountView(title: "Total Account", amount: account.totalBalance, backgroundColor: .myGreen)
                     .onTapGesture {
@@ -113,7 +114,7 @@ struct AccountDetailView: View {
                         }
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, paddingHorizontal)
             .fixedSize(horizontal: false, vertical: true)
             
             //MARK: LIST
@@ -204,18 +205,7 @@ struct AccountDetailView: View {
             .fullScreenCover(isPresented: $shwoingExpenseDetailView, content: {
                 ExpenseDetailView(account: account)
             })
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        //more action
-                    } label: {
-                        Image(systemName: "questionmark.circle")
-                            .font(.system(.title2))
-                    }
-                    .accessibilityLabel("Help")
-                    .accessibilityHint("Need help? it's here")
-                }
-                
+            .toolbar {                
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         shwoingNewPaymentActivity = true
@@ -231,7 +221,7 @@ struct AccountDetailView: View {
             .fullScreenCover(isPresented: $shwoingNewPaymentActivity) {
                 NewPaymentActivity(account: account)
             }
-            
+
         }
         .toolbarBackground(Color.backgroundColor5)
         .background(.backgroundColor5)

@@ -10,6 +10,7 @@ import SwiftUI
 struct HistoryView: View {
     var body: some View {
         Text("Working Progress !!!")
+            .padding()
             .font(.system(size: 48, weight: .bold, design: .rounded))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.backgroundColor5)

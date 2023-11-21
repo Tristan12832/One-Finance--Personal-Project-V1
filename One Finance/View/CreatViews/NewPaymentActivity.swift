@@ -18,8 +18,8 @@ struct NewPaymentActivity: View {
     @State private var amount = 0.0
     @State private var date = Date.now
     @State private var type: TypePayement = .expense
-//    @State private var types = ["Income", "Expense"]
-    
+
+    let paddingHorizontal: CGFloat = 20
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -32,8 +32,8 @@ struct NewPaymentActivity: View {
                             .cornerRadius(8)
                     }
                     .font(.system(.title3, weight: .semibold))
-
-                                        
+                    
+                    
                     VStack(alignment: .leading) {
                         Text("Amount")
                         TextField("00", value: $amount, format: .localCurrency)
@@ -43,12 +43,12 @@ struct NewPaymentActivity: View {
                             .cornerRadius(8)
                     }
                     .font(.system(.title3, weight: .semibold))
-
+                    
                     VStack(alignment: .leading) {
                         Text("Type Payment Activity")
                         Picker("Type", selection: $type) {
                             ForEach(TypePayement.allCases, id: \.self) { item in
-                                Text(item.rawValue)
+                                Text(item.rawValue.capitalized)
                             }
                         }
                         .pickerStyle(.segmented)
@@ -60,15 +60,15 @@ struct NewPaymentActivity: View {
                     
                     VStack(alignment: .leading) {
                         DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
-                               Text("Select a date")
-                           }
+                            Text("Select a date")
+                        }
                         .pickerStyle(.segmented)
                         .padding(8)
                         .background(colorScheme == .light ? .white : .black)
                         .cornerRadius(8)
                     }
                     .font(.system(.title3, weight: .semibold))
-
+                    
                     //BUTTON HERE
                     Spacer(minLength: 25)
                     MainCustomButton(title: "Creat !") {
@@ -77,7 +77,7 @@ struct NewPaymentActivity: View {
                         dismiss()
                     }
                 }
-                .padding(.horizontal, 10)
+                .padding(.horizontal, paddingHorizontal)
             }
             .scrollContentBackground(.hidden)
             .toolbarBackground(Color.backgroundColor5)
@@ -93,26 +93,28 @@ struct NewPaymentActivity: View {
                             .font(.system(.title2, design: .rounded, weight: .bold))
                             .foregroundColor(.primary)
                             .padding()
-
+                        
                     }
-
+                    
                 }
             }
-        }    }
-}
-
-struct NewPaymentActivity_Previews: PreviewProvider {
-    
-    ///init the "Preview" to display
-    struct Preview: View {
-        @State private var model = Accounts(accounts: [])
-        var body: some View {
-            NewPaymentActivity(account:  Account(name: "test", icon: "house.fil", isFavorite: false, isMarked: false))
         }
     }
-    
-    static var previews: some View {
-        Preview()
+}
+
+#Preview("Preview") {
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: Account.self, configurations: config)
         
+        let example = Account(name: "Test", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
+        
+        return NewPaymentActivity(account: example)
+            .modelContainer(container)
+            .preferredColorScheme(.dark)
+        
+    } catch {
+        fatalError("Failed to create model container.")
     }
 }
+

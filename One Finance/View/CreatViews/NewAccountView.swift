@@ -17,6 +17,8 @@ struct NewAccountView: View {
     @State private var nameAccount = ""
     @State private var iconeAccount = "house.fill"
     
+    let paddingHorizontal: CGFloat = 20
+    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -49,7 +51,7 @@ struct NewAccountView: View {
                         dismiss()
                     }
                 }
-                .padding(.horizontal, 10)
+                .padding(.horizontal, paddingHorizontal)
             }
             .scrollContentBackground(.hidden)
             .toolbarBackground(Color.backgroundColor5)

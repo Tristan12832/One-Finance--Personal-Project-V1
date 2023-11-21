@@ -9,12 +9,22 @@ import SwiftData
 import SwiftUI
 
 struct AccountsView: View {
+    @AppStorage("showingGrid") private var showingGrid = true
     @Environment(\.modelContext) var modelContext
+    @Environment(\.horizontalSizeClass) var sizeClass
+
     @Query(animation: .default) var accounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isFavorite == true }, animation: .default) var favoriteAccounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isMarked == true}, animation: .default) var markedAccounts: [Account]
     @State private var showingNewAccount = false
 
+    let paddingHorizontalList: CGFloat = -14
+    let paddingHorizontal: CGFloat = 20
+
+    let columns = [
+        GridItem(.adaptive(minimum: 200))
+    ]
+    
     func deleteAccounts(_ indexSet: IndexSet) {
         for index in indexSet {
             let account = accounts[index]
@@ -23,77 +33,140 @@ struct AccountsView: View {
     }
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    ForEach(favoriteAccounts.indices, id: \.self) { index in
-                        NavigationLink {
-                            AccountDetailView(account: favoriteAccounts[index])
-                        } label: {
-                            AccountCellListView(account: favoriteAccounts[index])
+            Group {
+                if showingGrid {
+                    ScrollView {
+                        VStack(alignment:.leading, spacing: 18){
+                            Text("Favorite")
+                                .font(.system(.title, design: .rounded, weight: .bold))
+                                .padding(.horizontal, paddingHorizontal)
+                            
+                            LazyVGrid(columns: columns, spacing: 18) {
+                                ForEach(favoriteAccounts.indices, id: \.self) { account in
+                                    NavigationLink {
+                                        AccountDetailView(account: favoriteAccounts[account])
+                                    } label: {
+                                        AccountCellView(account: favoriteAccounts[account])
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, paddingHorizontal)
+                            
+                            Spacer()
+                            
+                            Text("Marked")
+                                .font(.system(.title, design: .rounded, weight: .bold))
+                                .padding(.horizontal, paddingHorizontal)
+                            
+                            LazyVGrid(columns: columns, spacing: 18) {
+                                ForEach(markedAccounts.indices, id: \.self) { account in
+                                    NavigationLink {
+                                        AccountDetailView(account: markedAccounts[account])
+                                    } label: {
+                                        AccountCellView(account: markedAccounts[account])
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, paddingHorizontal)
+                            
+                            Spacer()
+                            
+                            Text("All Accounts")
+                                .font(.system(.title, design: .rounded, weight: .bold))
+                                .padding(.horizontal, paddingHorizontal)
+                            
+                            LazyVGrid(columns: columns, spacing: 18) {
+                                ForEach(accounts.indices, id: \.self) { account in
+                                    NavigationLink {
+                                        AccountDetailView(account: accounts[account])
+                                    } label: {
+                                        AccountCellView(account: accounts[account])
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, paddingHorizontal)
+
                         }
+                        .fixedSize(horizontal: false, vertical: true)
                     }
-                    .onDelete(perform: self.deleteAccounts)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.backgroundColor5)
-                    
-                } header: {
-                    Text("Favorite")
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                }
-                .headerProminence(.increased)
-                
-                Section {
-                    ForEach(markedAccounts.indices, id: \.self) { index in
-                        NavigationLink {
-                            AccountDetailView(account: markedAccounts[index])
-                        } label: {
-                            AccountCellListView(account: markedAccounts[index])
+                    .background(.backgroundColor5)
+                    .toolbarBackground(Color.backgroundColor5)
+                } else {
+                    List {
+                        Section {
+                            ForEach(favoriteAccounts.indices, id: \.self) { index in
+                                NavigationLink {
+                                    AccountDetailView(account: favoriteAccounts[index])
+                                } label: {
+                                    AccountCellListView(account: favoriteAccounts[index])
+                                }
+                            }
+                            .onDelete(perform: self.deleteAccounts)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.backgroundColor5)
+                            
+                        } header: {
+                            Text("Favorite")
+                                .font(.system(.title, design: .rounded, weight: .bold))
                         }
-                    }
-                    .onDelete(perform: self.deleteAccounts)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.backgroundColor5)
-                    
-                } header: {
-                    Text("Marked")
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                }
-                .headerProminence(.increased)
-                
-                Section {
-                    ForEach(accounts.indices, id: \.self) { index in
-                        NavigationLink {
-                            AccountDetailView(account: accounts[index])
-                        } label: {
-                            AccountCellListView(account: accounts[index])
+                        .headerProminence(.increased)
+                        
+                        Section {
+                            ForEach(markedAccounts.indices, id: \.self) { index in
+                                NavigationLink {
+                                    AccountDetailView(account: markedAccounts[index])
+                                } label: {
+                                    AccountCellListView(account: markedAccounts[index])
+                                }
+                            }
+                            .onDelete(perform: self.deleteAccounts)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.backgroundColor5)
+                            
+                        } header: {
+                            Text("Marked")
+                                .font(.system(.title, design: .rounded, weight: .bold))
                         }
+                        .headerProminence(.increased)
+                        
+                        Section {
+                            ForEach(accounts.indices, id: \.self) { index in
+                                NavigationLink {
+                                    AccountDetailView(account: accounts[index])
+                                } label: {
+                                    AccountCellListView(account: accounts[index])
+                                }
+                            }
+                            .onDelete(perform: self.deleteAccounts)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.backgroundColor5)
+                            
+                        } header: {
+                            Text("All Account")
+                                .font(.system(.title, design: .rounded, weight: .bold))
+                        }
+                        .headerProminence(.increased)
+                        
                     }
-                    .onDelete(perform: self.deleteAccounts)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.backgroundColor5)
-                    
-                } header: {
-                    Text("All Account")
-                        .font(.system(.title, design: .rounded, weight: .bold))
+                    .padding(.horizontal, paddingHorizontalList)
+                    .scrollContentBackground(.hidden)
+                    .background(.backgroundColor5)
+
                 }
-                .headerProminence(.increased)
-                
             }
-            .padding(.horizontal, -18)
-            .scrollContentBackground(.hidden)
-            .background(.backgroundColor5)
             .navigationTitle("Accounts")
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    //more action
+                    showingGrid.toggle()
                 } label: {
-                    Image(systemName: "questionmark.circle")
-                        .font(.system(.title2))
+                    if showingGrid {
+                        Label("Show as table", systemImage: "list.dash")
+                    } else {
+                        Label("Show as grid", systemImage: "square.grid.2x2")
+                    }
                 }
-                .accessibilityLabel("Help")
-                .accessibilityHint("Need help? it's here")
             }
             
             ToolbarItem(placement: .primaryAction) {
