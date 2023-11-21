@@ -59,7 +59,7 @@ struct NewPaymentActivity: View {
                     .font(.system(.title3, weight: .semibold))
                     
                     VStack(alignment: .leading) {
-                        DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
+                        DatePicker(selection: $date, displayedComponents: [.date]) {
                             Text("Select a date")
                         }
                         .pickerStyle(.segmented)
