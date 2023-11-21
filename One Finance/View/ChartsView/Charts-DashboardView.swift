@@ -23,7 +23,9 @@ struct ChartsView: View {
             .reduce(0) { $0 + $1.totalBalance }
         return totals
     }
-
+    
+   
+    
     var body: some View {
         VStack {
             HStack {
@@ -43,7 +45,8 @@ struct ChartsView: View {
                 ForEach(accountsData, id: \.name) { account in
                     
                     BarMark(
-                        x: .value("Name", account.totalBalance)
+                        x: .value("Your total of the accounts", account.totalBalance),
+                        y: .value("Names your accounts", account.name)
                     )
                     .foregroundStyle(by: .value("Name", account.name))
                 }
@@ -53,10 +56,55 @@ struct ChartsView: View {
         .padding()
         .frame(maxWidth: 500)
         .background(.backgroundColor4)
-        
     }
 }
 
+struct DonutChartView: View {
+    
+    @Query(animation: .default) var accounts: [Account]
+    
+    var accountsData: [Account] {
+        accounts.sorted(by: {$0.totalBalance < $1.totalBalance})
+    }
+    
+    var totalExpensesAndIncome: Double {
+        let totals = accounts
+            .sorted(by: {$0.totalBalance < $1.totalBalance})
+            .reduce(0) { $0 + $1.totalBalance }
+        return totals
+    }
+   
+    
+    var body: some View {
+        VStack {
+            HStack(alignment: .center) {
+                Text("Percentage by account")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+                Spacer()
+            }
+            Chart {
+                ForEach(accountsData, id: \.name) { account in
+                    
+                    SectorMark(
+                        angle: .value("Your total of the accounts", account.totalBalance), innerRadius: .ratio(0.65),
+                        angularInset: 2.0
+
+                    )
+                    .foregroundStyle(by: .value("Name", account.name))
+                    .annotation(position: .overlay) {
+                        Text("\(Int(account.totalBalance)/360*accountsData.count, format: .percent)")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                    }
+                }
+            }
+            .frame(height: 250)
+        }
+        .padding()
+        .frame(maxWidth: 500)
+        .background(.backgroundColor4)
+    }
+}
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Account.self, configurations: config)

@@ -9,6 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct DashboardView: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
     @Environment(\.modelContext) var context
     
     @Query(animation: .default) var accounts: [Account]
@@ -82,7 +83,17 @@ struct DashboardView: View {
                         .font(.system(.title, design: .rounded, weight: .bold))
                         .padding(.horizontal, 30)
                     Group {
-                        ChartsView()
+                        if sizeClass == .compact {
+                            VStack {
+                                ChartsView()
+                                DonutChartView()
+                            }
+                        } else {
+                            HStack(alignment: .top) {
+                                ChartsView()
+                                DonutChartView()
+                            }
+                        }
                     }
                     .padding(.horizontal, 30)
 
