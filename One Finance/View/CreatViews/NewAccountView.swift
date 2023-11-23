@@ -46,9 +46,11 @@ struct NewAccountView: View {
                     //BUTTON HERE
                     Spacer(minLength: 25)
                     MainCustomButton(title: "Creat !") {
-                        let newAccount = Account(name: nameAccount, icon: iconeAccount, isFavorite: false, isMarked: false)
-                        accounts.insert(newAccount)
-                        dismiss()
+                        withAnimation(.default) {
+                            let newAccount = Account(name: nameAccount, icon: iconeAccount, isFavorite: false, isMarked: false)
+                            accounts.insert(newAccount)
+                            dismiss()
+                        }
                     }
                 }
                 .padding(.horizontal, paddingHorizontal)

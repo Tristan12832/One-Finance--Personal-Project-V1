@@ -103,11 +103,13 @@ struct IncomeDetailView: View {
                         Spacer()
 
                         Menu {
-                            Picker("Sort", selection: $sortList) {
-                                ForEach(sortPayment.allCases, id: \.self) { sort in
-                                    Label(sort.rawValue.capitalized, image: "tag")
-                                        .tag(sortList.rawValue)
-
+                            withAnimation(.interpolatingSpring) {
+                                Picker("Sort", selection: $sortList) {
+                                    ForEach(sortPayment.allCases, id: \.self) { sort in
+                                        Label(sort.rawValue.capitalized, image: "tag")
+                                            .tag(sortList.rawValue)
+                                        
+                                    }
                                 }
                             }
                             .pickerStyle(.inline)
@@ -126,7 +128,7 @@ struct IncomeDetailView: View {
                 }
                 
                 ForEach(paymentIncome.indices, id: \.self) { index in
-                    PayementActivityCell(icon: paymentIncome[index].icon, nameActivity: paymentIncome[index].name, amount: paymentIncome[index].amount, date: paymentIncome[index].date)
+                    PayementActivityCell(icon: paymentIncome[index].icon, nameActivity: paymentIncome[index].name, amount: paymentIncome[index].amount, date: paymentIncome[index].date, textColor: paymentIncome[index].color)
                 }
                 .padding(.vertical, 3)
 

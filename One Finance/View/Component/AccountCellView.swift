@@ -45,13 +45,17 @@ struct AccountCellView: View {
                 Button {
                     self.account.isFavorite.toggle()
                 } label: {
-                    Label("Mark Favorite", systemImage: "star")
+                    Label(
+                        account.isFavorite ? "Remove Favorite":"Mark Favorite",
+                        systemImage: account.isFavorite ? "star.slash":"star")
                 }
                 
                 Button {
                     self.account.isMarked.toggle()
                 } label: {
-                    Label("Mark Marked", systemImage: "flag")
+                    Label(
+                        account.isMarked ? "Remove Marked":"Mark Marked",
+                        systemImage: account.isMarked ? "flag.slash":"flag")
                 }
                 
                 Button(role: .destructive) {
@@ -130,7 +134,7 @@ struct HeaderviewCell: View {
             }
             if isMarked {
                 Image(systemName: "flag.fill")
-                    .foregroundColor(.red)
+                    .foregroundColor(.orange)
             }
         }
         .font(.system(.title2, weight: .semibold))

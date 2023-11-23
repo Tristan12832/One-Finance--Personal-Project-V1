@@ -159,12 +159,17 @@ struct AccountsView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    showingGrid.toggle()
+                    withAnimation(.default) {
+                        showingGrid.toggle()
+                    }
                 } label: {
                     if showingGrid {
-                        Label("Show as table", systemImage: "list.dash")
+                        Label("Show as grid", systemImage: "menucard")
+                            .accessibilityHint("Press to switch to list presentation.")
                     } else {
-                        Label("Show as grid", systemImage: "square.grid.2x2")
+                        Label("Show as list", systemImage: "list.dash")
+                            .accessibilityHint("Press to switch to grid presentation.")
+
                     }
                 }
             }
@@ -184,7 +189,9 @@ struct AccountsView: View {
 
         }
         .sheet(isPresented: $showingNewAccount) {
-            NewAccountView()
+            withAnimation(.snappy) {
+                NewAccountView()
+            }
         }
         
     }

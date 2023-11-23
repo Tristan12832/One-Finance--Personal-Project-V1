@@ -72,9 +72,11 @@ struct NewPaymentActivity: View {
                     //BUTTON HERE
                     Spacer(minLength: 25)
                     MainCustomButton(title: "Creat !") {
-                        let newPaymentActivity = PaymentActivity(name: namePaymentActivity, amount: amount, date: date, type: type)
-                        account.payments.append(newPaymentActivity)
-                        dismiss()
+                        withAnimation(.default) {
+                            let newPaymentActivity = PaymentActivity(name: namePaymentActivity, amount: amount, date: date, type: type)
+                            account.payments.append(newPaymentActivity)
+                            dismiss()
+                        }
                     }
                 }
                 .padding(.horizontal, paddingHorizontal)

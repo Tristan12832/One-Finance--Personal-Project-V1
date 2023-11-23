@@ -13,7 +13,8 @@ struct PayementActivityCell: View {
     var nameActivity: String
     var amount: Double
     var date: Date?
-
+    var textColor: Color
+    
     var body: some View {
         HStack(spacing: 8) {
             HStack {
@@ -22,7 +23,7 @@ struct PayementActivityCell: View {
                     .multilineTextAlignment(.leading)
             }
             .frame(maxWidth: 250, alignment: .leading)
-            
+            .foregroundStyle(textColor)
             Spacer()
             
             HStack() {
@@ -63,12 +64,12 @@ struct PayementActivityCell: View {
 }
 
 #Preview("Light") {
-    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now)
+    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now, textColor: .complementary)
         .padding(5)
 }
 
 #Preview("Dark") {
-    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now)
+    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now, textColor: .complementary)
         .padding(5)
         .preferredColorScheme(.dark)
 }

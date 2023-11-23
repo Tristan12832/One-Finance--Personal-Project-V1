@@ -14,6 +14,7 @@ import SwiftUI
 
 
 struct AccountCellListView: View {
+    @Environment(\.modelContext) var modelContext
     @Bindable var account: Account
     //    var name: String
     //    var icon: String
@@ -39,7 +40,7 @@ struct AccountCellListView: View {
                 
                 if account.isMarked {
                     Image(systemName: "flag.fill")
-                        .foregroundColor(.red)
+                        .foregroundColor(.orange)
                         .font(.system(.title2, weight: .semibold))
                 }
             }
@@ -55,6 +56,14 @@ struct AccountCellListView: View {
                 .stroke(.backgroundColor5, lineWidth: 6)
         }
         .fixedSize(horizontal: false, vertical: true)
+        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            Button(role: .destructive) {
+                modelContext.delete(account)
+            } label: {
+                Label("Delete", systemImage: "trash")
+
+            }
+        }
         .swipeActions(edge: .leading, allowsFullSwipe: false){
             
             Button {

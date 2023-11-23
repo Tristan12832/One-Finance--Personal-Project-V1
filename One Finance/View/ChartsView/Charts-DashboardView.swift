@@ -49,7 +49,9 @@ struct ChartsView: View {
                         y: .value("Names your accounts", account.name)
                     )
                     .foregroundStyle(by: .value("Name", account.name))
+
                 }
+                
             }
             .frame(height: 100)
         }
@@ -73,7 +75,11 @@ struct DonutChartView: View {
             .reduce(0) { $0 + $1.totalBalance }
         return totals
     }
-   
+
+    func percenageForChart(account: Double) -> Double {
+        let numberAccount = totalExpensesAndIncome
+        return account/numberAccount
+    }
     
     var body: some View {
         VStack {
@@ -92,7 +98,7 @@ struct DonutChartView: View {
                     )
                     .foregroundStyle(by: .value("Name", account.name))
                     .annotation(position: .overlay) {
-                        Text("\(Int(account.totalBalance)/360*accountsData.count, format: .percent)")
+                        Text("\(String(format: "%.2f", (percenageForChart(account: account.totalBalance))*100)) %")
                             .font(.headline)
                             .foregroundStyle(.white)
                     }

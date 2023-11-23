@@ -25,7 +25,9 @@ struct AccountDetailView: View {
     @Environment(\.modelContext) var modelContext
     
     var account: Account
-
+    //Allows you to update the payment table, otherwise the state of change is not communicated to other views.
+    @Query var payments: [PaymentActivity]
+    
     @State private var showingTotalDetailView = false
     @State private var shwoingIncomeDetailView = false
     @State private var shwoingExpenseDetailView = false
@@ -39,8 +41,8 @@ struct AccountDetailView: View {
     @State private var sortList: sortPayment = .standard
     
     let paddingHorizontal: CGFloat = 20
-
-    private var paymentDataForView: [PaymentActivity] {
+    
+    var paymentDataForView: [PaymentActivity] {
         switch sortList {
         case .standard:
             switch listType {
@@ -82,8 +84,10 @@ struct AccountDetailView: View {
     
     func deletePayments(_ indexSet: IndexSet){
         for index in indexSet {
-            let payment = paymentDataForView[index]
-            modelContext.delete(payment)
+            withAnimation {
+                let payment = paymentDataForView[index]
+                modelContext.delete(payment)
+            }
         }
     }
     
@@ -97,7 +101,7 @@ struct AccountDetailView: View {
                 
                 Spacer()
             }
-
+            
             VStack(spacing: 16) {
                 AmountView(title: "Total Account", amount: account.totalBalance, backgroundColor: .myGreen)
                     .onTapGesture {
@@ -124,17 +128,18 @@ struct AccountDetailView: View {
                         Text("Detail")
                             .font(.system(.title, design: .rounded, weight: .bold))
                         Spacer()
-                       
+                        
                         Menu {
-                            Picker("Sort", selection: $sortList) {
-                                ForEach(sortPayment.allCases, id: \.self) { sort in
-                                    Label(sort.rawValue.capitalized, image: "tag")
-                                        .tag(sortList.rawValue)
-
+                            withAnimation(.interpolatingSpring) {
+                                Picker("Sort", selection: $sortList) {
+                                    ForEach(sortPayment.allCases, id: \.self) { sort in
+                                        Label(sort.rawValue.capitalized, image: "tag")
+                                            .tag(sortList.rawValue)
+                                    }
                                 }
                             }
                             .pickerStyle(.inline)
-                          
+                            
                         } label: {
                             Image(systemName: "arrow.up.arrow.down")
                                 .font(.system(.title2, design: .rounded, weight: .bold))
@@ -143,26 +148,32 @@ struct AccountDetailView: View {
                         .accessibilityElement(children: .ignore)
                         .accessibilityAddTraits(.isButton)
                         .accessibilityLabel("Sorting parameter")
-
+                        
                     }
                     //MARK: Detail
                     HStack(alignment: .top) {
                         Button {
-                            self.listType = .all
+                            withAnimation(.bouncy) {
+                                self.listType = .all
+                            }
                         } label: {
                             Text("All")
                         }
                         .buttonStyle(CustomButtonStyle(colorButton: .myGreen))
                         
                         Button {
-                            self.listType = .income
+                            withAnimation(.bouncy) {
+                                self.listType = .income
+                            }
                         } label: {
                             Text("Income")
                         }
                         .buttonStyle(CustomButtonStyle(colorButton: .complementary))
                         
                         Button {
-                            self.listType = .expense
+                            withAnimation(.bouncy) {
+                                self.listType = .expense
+                            }
                         } label: {
                             Text("Expense")
                         }
@@ -182,7 +193,7 @@ struct AccountDetailView: View {
                             .listRowBackground(Color.backgroundColor5)
                     } else {
                         ForEach(paymentDataForView.indices, id: \.self) { index in
-                            PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
+                            PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date, textColor: paymentDataForView[index].color)
                                 .listRowSeparator(.hidden)
                         }
                         .onDelete(perform: deletePayments)
@@ -197,15 +208,21 @@ struct AccountDetailView: View {
             .background(.backgroundColor5)
             
             .fullScreenCover(isPresented: $showingTotalDetailView, content: {
-                TotalDetailView(account: account)
+                withAnimation(.snappy) {
+                    TotalDetailView(account: account)
+                }
             })
             .fullScreenCover(isPresented: $shwoingIncomeDetailView, content: {
-                IncomeDetailView(account: account)
+                withAnimation(.snappy) {
+                    IncomeDetailView(account: account)
+                }
             })
             .fullScreenCover(isPresented: $shwoingExpenseDetailView, content: {
-                ExpenseDetailView(account: account)
+                withAnimation(.snappy) {
+                    ExpenseDetailView(account: account)
+                }
             })
-            .toolbar {                
+            .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         shwoingNewPaymentActivity = true
@@ -219,9 +236,11 @@ struct AccountDetailView: View {
                 
             }
             .fullScreenCover(isPresented: $shwoingNewPaymentActivity) {
-                NewPaymentActivity(account: account)
+                withAnimation(.snappy) {
+                    NewPaymentActivity(account: account)
+                }
             }
-
+            
         }
         .toolbarBackground(Color.backgroundColor5)
         .background(.backgroundColor5)

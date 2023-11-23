@@ -24,7 +24,7 @@ struct TotalDetailView: View {
     
     @State private var listType: TransactionDisplayType_TotalDetailView = .all
     @State private var sortList: sortPayment = .standard
-        
+    
     
     private var paymentDataForView: [PaymentActivity] {
         switch sortList {
@@ -114,7 +114,7 @@ struct TotalDetailView: View {
                     )
                     .foregroundStyle(Color.myGreen)
                     .symbol(Circle().strokeBorder(lineWidth: 2))
-
+                    
                 }
                 
             }
@@ -129,15 +129,16 @@ struct TotalDetailView: View {
                             .font(.system(.title, design: .rounded, weight: .bold))
                         Spacer()
                         Menu {
-                            Picker("Sort", selection: $sortList) {
-                                ForEach(sortPayment.allCases, id: \.self) { sort in
-                                    Label(sort.rawValue.capitalized, image: "tag")
-                                        .tag(sortList.rawValue)
-
+                            withAnimation(.interpolatingSpring) {
+                                Picker("Sort", selection: $sortList) {
+                                    ForEach(sortPayment.allCases, id: \.self) { sort in
+                                        Label(sort.rawValue.capitalized, image: "tag")
+                                            .tag(sortList.rawValue)
+                                    }
                                 }
                             }
                             .pickerStyle(.inline)
-                          
+                            
                         } label: {
                             Image(systemName: "arrow.up.arrow.down")
                                 .font(.system(.title2, design: .rounded, weight: .bold))
@@ -151,21 +152,27 @@ struct TotalDetailView: View {
                     //MARK: Detail
                     HStack(alignment: .top) {
                         Button {
-                            self.listType = .all
+                            withAnimation(.bouncy) {
+                                self.listType = .all
+                            }
                         } label: {
                             Text("All")
                         }
                         .buttonStyle(CustomButtonStyle(colorButton: .myGreen))
                         
                         Button {
-                            self.listType = .income
+                            withAnimation(.bouncy) {
+                                self.listType = .income
+                            }
                         } label: {
                             Text("Income")
                         }
                         .buttonStyle(CustomButtonStyle(colorButton: .complementary))
                         
                         Button {
-                            self.listType = .expense
+                            withAnimation(.bouncy) {
+                                self.listType = .expense
+                            }
                         } label: {
                             Text("Expense")
                         }
@@ -177,7 +184,7 @@ struct TotalDetailView: View {
                 }
                 
                 ForEach(paymentDataForView.indices, id: \.self) { index in
-                    PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date)
+                    PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date, textColor: paymentDataForView[index].color)
                 }
                 .padding(.vertical, 3)
                 

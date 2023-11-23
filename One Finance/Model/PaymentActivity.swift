@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftData
-
+import SwiftUI
 enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
     case income = "income"
     case expense = "expense"
@@ -30,7 +30,17 @@ enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
             return "arrowtriangle.down.circle.fill"
         }
     }
-  
+    
+    
+    var color: Color {
+        let type = type
+        switch type {
+        case .income:
+            return Color.complementary
+        case .expense:
+            return Color.red
+        }
+    }
     init(name: String, amount: Double, date: Date? = nil, type: TypePayement) {
         self.name = name
         self.amount = amount

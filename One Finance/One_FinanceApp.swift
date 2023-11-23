@@ -15,6 +15,6 @@ struct One_FinanceApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [Accounts.self, Account.self, PaymentActivity.self])
+        .modelContainer(for: [Account.self, PaymentActivity.self])
     }
 }

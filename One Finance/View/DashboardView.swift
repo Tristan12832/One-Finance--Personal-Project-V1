@@ -10,7 +10,6 @@ import SwiftUI
 
 struct DashboardView: View {
     @Environment(\.horizontalSizeClass) var sizeClass
-    @Environment(\.modelContext) var context
     
     @Query(animation: .default) var accounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isFavorite == true }, animation: .default) var favoriteAccounts: [Account]
@@ -122,7 +121,9 @@ struct DashboardView: View {
             }
         }
         .sheet(isPresented: $showingNewAccount) {
-            NewAccountView()
+            withAnimation(.snappy) {                
+                NewAccountView()
+            }
         }
     }
     
