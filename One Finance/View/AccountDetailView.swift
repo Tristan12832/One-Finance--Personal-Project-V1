@@ -8,6 +8,10 @@
 import SwiftData
 import SwiftUI
 
+enum monthly: String, CaseIterable {
+    case january, february, march, april, may, june, july, august, september, october, november, december, all
+}
+
 //MARK: TransactionDisplayType is enum for selection the transaction type
 enum TransactionDisplayType {
     case all
@@ -39,6 +43,8 @@ struct AccountDetailView: View {
     
     @State private var listType: TransactionDisplayType = .all
     @State private var sortList: sortPayment = .standard
+    @State private var sortMonth: monthly = .all
+    
     
     let paddingHorizontal: CGFloat = 20
     
@@ -121,6 +127,9 @@ struct AccountDetailView: View {
             .padding(.horizontal, paddingHorizontal)
             .fixedSize(horizontal: false, vertical: true)
             
+            
+            //MARK: Futur - Add a date selector
+            
             //MARK: LIST
             VStack(spacing: 0) {
                 VStack(spacing: 2){
@@ -148,8 +157,9 @@ struct AccountDetailView: View {
                         .accessibilityElement(children: .ignore)
                         .accessibilityAddTraits(.isButton)
                         .accessibilityLabel("Sorting parameter")
-                        
                     }
+                    
+                    
                     //MARK: Detail
                     HStack(alignment: .top) {
                         Button {
@@ -260,9 +270,12 @@ struct AccountDetailView: View {
     ], isFavorite: true, isMarked: false)
     container.mainContext.insert(account)
     
-    return AccountDetailView(account: account)
-        .modelContainer(container)
-        .preferredColorScheme(.light)
+    return NavigationStack {
+        AccountDetailView(account: account)
+    }
+    .modelContainer(container)
+    .preferredColorScheme(.light)
+    
 }
 
 #Preview("Preview + Dark", traits: .portrait, .sizeThatFitsLayout) {
@@ -277,9 +290,11 @@ struct AccountDetailView: View {
     ], isFavorite: true, isMarked: false)
     container.mainContext.insert(account)
     
-    return AccountDetailView(account: account)
-        .modelContainer(container)
-        .preferredColorScheme(.dark)
+    return NavigationStack {
+        AccountDetailView(account: account)
+    }
+    .modelContainer(container)
+    .preferredColorScheme(.dark)
 }
 
 #Preview("Preview + Sidebar + Light", traits: .landscapeRight, .sizeThatFitsLayout) {

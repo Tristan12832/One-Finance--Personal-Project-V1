@@ -32,6 +32,7 @@
 		6A98AE862AA677490044D52A /* ExampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A98AE852AA677490044D52A /* ExampleData.swift */; };
 		6A9F33F02AA11B5800840FB1 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9F33EF2AA11B5800840FB1 /* DashboardView.swift */; };
 		6AD5AADD2A9DDA5C0069D0DE /* AccountCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD5AADC2A9DDA5C0069D0DE /* AccountCellListView.swift */; };
+		6ADD8AE12B121953008E2A04 /* CustomButtonDateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADD8AE02B121953008E2A04 /* CustomButtonDateStyle.swift */; };
 		6AEFBE432AB492050091A930 /* IncomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEFBE422AB492050091A930 /* IncomeDetailView.swift */; };
 		6AEFBE452AB494470091A930 /* ExpenseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEFBE442AB494470091A930 /* ExpenseDetailView.swift */; };
 		6AEFBE482AB588870091A930 /* IconSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEFBE472AB588870091A930 /* IconSelector.swift */; };
@@ -56,6 +57,7 @@
 		6A4710492AACA0E900DB0BC1 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryView.swift; path = "One Finance/Navigation/HistoryView.swift"; sourceTree = SOURCE_ROOT; };
 		6A47104B2AACA11000DB0BC1 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		6A5036402A9A7F880012822B /* FormatStyle-LocalCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FormatStyle-LocalCurrency.swift"; path = "One Finance/View/Extentions/FormatStyle-LocalCurrency.swift"; sourceTree = SOURCE_ROOT; };
+		6A732B662B1149BD00203F64 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Model/README.md; sourceTree = "<group>"; };
 		6A7341AE2AD40A6B00018652 /* CustomSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSelectionButton.swift; sourceTree = "<group>"; };
 		6A7B6DF82A9F257600FD0E2B /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		6A85FF762A9CE5880060BC50 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 		6A98AE852AA677490044D52A /* ExampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleData.swift; sourceTree = "<group>"; };
 		6A9F33EF2AA11B5800840FB1 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		6AD5AADC2A9DDA5C0069D0DE /* AccountCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCellListView.swift; sourceTree = "<group>"; };
+		6ADD8AE02B121953008E2A04 /* CustomButtonDateStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonDateStyle.swift; sourceTree = "<group>"; };
 		6AEFBE422AB492050091A930 /* IncomeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDetailView.swift; sourceTree = "<group>"; };
 		6AEFBE442AB494470091A930 /* ExpenseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailView.swift; sourceTree = "<group>"; };
 		6AEFBE472AB588870091A930 /* IconSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconSelector.swift; path = "One Finance/View/IconSelector.swift"; sourceTree = SOURCE_ROOT; };
@@ -121,6 +124,7 @@
 				6A21B79D2A9A2EBD00F211E8 /* AccountCellView.swift */,
 				6AD5AADC2A9DDA5C0069D0DE /* AccountCellListView.swift */,
 				6A7341AE2AD40A6B00018652 /* CustomSelectionButton.swift */,
+				6ADD8AE02B121953008E2A04 /* CustomButtonDateStyle.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -144,6 +148,7 @@
 		6A3C4FC92A98C9FD00FE891D /* One Finance */ = {
 			isa = PBXGroup;
 			children = (
+				6A732B662B1149BD00203F64 /* README.md */,
 				6A98AE7C2AA604400044D52A /* Model */,
 				6A4710462AAC950A00DB0BC1 /* Navigation */,
 				6A21B79B2A9A2E0F00F211E8 /* View */,
@@ -298,6 +303,7 @@
 				6A7B6DF92A9F257600FD0E2B /* AccountDetailView.swift in Sources */,
 				6A98AE7B2AA5BFED0044D52A /* PayementActivityCell.swift in Sources */,
 				6A3C4FCB2A98C9FD00FE891D /* One_FinanceApp.swift in Sources */,
+				6ADD8AE12B121953008E2A04 /* CustomButtonDateStyle.swift in Sources */,
 				6A47104C2AACA11000DB0BC1 /* ProjectsView.swift in Sources */,
 				6A0DAA672B0BDD5100CDF984 /* Charts-DashboardView.swift in Sources */,
 				6A1539FC2AB05712000782F4 /* TotalDetailView.swift in Sources */,
