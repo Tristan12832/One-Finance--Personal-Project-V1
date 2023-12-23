@@ -127,3 +127,20 @@ struct DonutChartView: View {
         .preferredColorScheme(.light)
     
 }
+
+#Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
+    let account = Account(name: "Current account", icon: "house.fill", payments: [
+        PaymentActivity(name: "September salary", amount: 2400, date: .now, type: .income),
+        PaymentActivity(name: "Allocation", amount: 250, date: .now, type: .income),
+        PaymentActivity(name: "Food", amount: 100, date: .now, type: .expense),
+        PaymentActivity(name: "Clothing", amount: 50, date: .now, type: .expense),
+        PaymentActivity(name: "Dog budget", amount: 120, date: .now, type: .expense)
+    ], isFavorite: false, isMarked: false)
+    
+    return DonutChartView()
+        .modelContainer(container)
+        .preferredColorScheme(.light)
+    
+}

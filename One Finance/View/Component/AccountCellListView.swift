@@ -16,11 +16,6 @@ import SwiftUI
 struct AccountCellListView: View {
     @Environment(\.modelContext) var modelContext
     @Bindable var account: Account
-    //    var name: String
-    //    var icon: String
-    //    var amount: Double
-    //    @Binding var isFavorite: Bool
-    //    @Binding var isMarked: Bool
     
     var body: some View {
         HStack {
@@ -50,7 +45,8 @@ struct AccountCellListView: View {
         .background(.backgroundColor4)
         .padding(8)
         .background(.myGreen)
-        .cornerRadius(8)
+        .clipShape(.rect(cornerRadius: 8))
+        .background(Color.backgroundColor5)
         .overlay{
             RoundedRectangle(cornerRadius: 8)
                 .stroke(.backgroundColor5, lineWidth: 6)
@@ -91,14 +87,6 @@ struct AccountCellListView: View {
     }
 }
 
-//#Preview("Preview - Dark Mode"){
-//    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-//    let container = try! ModelContainer(for: Account.self, configurations: config)
-//    let account = Account(name: "Test", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
-//    return AccountCellView(account: account)
-//        .modelContainer(container)
-//        .preferredColorScheme(.dark)
-//}
 
 //MARK: Preview
 #Preview("AccountCellListView - Light Mode"){

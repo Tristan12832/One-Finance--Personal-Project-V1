@@ -22,7 +22,7 @@ struct MainCustomButton: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(.myGreen)
-                    .cornerRadius(.infinity)
+                    .clipShape(.rect(cornerRadius: .infinity))
         }
     }
 }

@@ -36,7 +36,7 @@ struct PayementActivityCell: View {
                     .frame(maxWidth: 140)
                     .frame(height: 40)
                     .background(.backgroundColor5)
-                    .cornerRadius(8)
+                    .clipShape(.rect(cornerRadius: 8))
                     .padding(.horizontal, 2)
 
                 Text(amount, format: .localCurrency)
@@ -54,22 +54,22 @@ struct PayementActivityCell: View {
         .padding(2)
         .padding(.vertical, 4)
         .background(.backgroundColor4)
-        .cornerRadius(8)
+        .clipShape(.rect(cornerRadius: 8))
         .padding(4)
         .background(.backgroundColor3)
-        .cornerRadius(8)
+        .clipShape(.rect(cornerRadius: 8))
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Transaction \(nameActivity), \(amount), \(date?.formatted(date: .abbreviated, time: .omitted) ?? "N/A")")
     }
 }
 
 #Preview("Light") {
-    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now, textColor: .complementary)
+    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 3700, date: .now, textColor: .complementary)
         .padding(5)
 }
 
 #Preview("Dark") {
-    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 2000, date: .now, textColor: .complementary)
+    PayementActivityCell(icon: "arrowtriangle.up.circle.fill", nameActivity: "MacBook Pro 16 M2 Max", amount: 3700, date: .now, textColor: .complementary)
         .padding(5)
         .preferredColorScheme(.dark)
 }

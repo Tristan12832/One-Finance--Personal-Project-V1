@@ -73,11 +73,14 @@ struct TotalDetailView: View {
                         Text("Total Balance")
                             .font(.system(.largeTitle, design: .rounded, weight: .bold))
                             .foregroundColor(.white)
+                            .accessibilityAddTraits(.isHeader)
                             .padding(.top)
                         
                         Text("\(account.totalBalance, format: .localCurrency)")
                             .font(.system(.title, design: .rounded, weight: .bold))
                             .foregroundColor(.white)
+                            .accessibilityAddTraits(.isHeader)
+
                     }
                     .padding()
                     
@@ -103,6 +106,8 @@ struct TotalDetailView: View {
                 HStack {
                     Text("Overall History")
                         .font(.system(.title, design: .rounded, weight: .bold))
+                        .accessibilityAddTraits(.isHeader)
+
                     Spacer()
                 }
                 //MARK: CHART
@@ -127,6 +132,8 @@ struct TotalDetailView: View {
                     HStack(alignment: .center) {
                         Text("Detail")
                             .font(.system(.title, design: .rounded, weight: .bold))
+                            .accessibilityAddTraits(.isHeader)
+
                         Spacer()
                         Menu {
                             withAnimation(.interpolatingSpring) {

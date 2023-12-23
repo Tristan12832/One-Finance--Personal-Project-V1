@@ -29,7 +29,7 @@ struct NewPaymentActivity: View {
                         TextField("Write... Ex: Curently Payment Activity", text: $namePaymentActivity)
                             .padding(8)
                             .background(colorScheme == .light ? .white : .black)
-                            .cornerRadius(8)
+                            .clipShape(.rect(cornerRadius: 8))
                     }
                     .font(.system(.title3, weight: .semibold))
                     
@@ -40,7 +40,7 @@ struct NewPaymentActivity: View {
                             .keyboardType(.numberPad)
                             .padding(8)
                             .background(colorScheme == .light ? .white : .black)
-                            .cornerRadius(8)
+                            .clipShape(.rect(cornerRadius: 8))
                     }
                     .font(.system(.title3, weight: .semibold))
                     
@@ -54,7 +54,7 @@ struct NewPaymentActivity: View {
                         .pickerStyle(.segmented)
                         .padding(8)
                         .background(colorScheme == .light ? .white : .black)
-                        .cornerRadius(8)
+                        .clipShape(.rect(cornerRadius: 8))
                     }
                     .font(.system(.title3, weight: .semibold))
                     
@@ -65,7 +65,7 @@ struct NewPaymentActivity: View {
                         .pickerStyle(.segmented)
                         .padding(8)
                         .background(colorScheme == .light ? .white : .black)
-                        .cornerRadius(8)
+                        .clipShape(.rect(cornerRadius: 8))
                     }
                     .font(.system(.title3, weight: .semibold))
                     

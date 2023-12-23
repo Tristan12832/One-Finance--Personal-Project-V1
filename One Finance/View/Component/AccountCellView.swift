@@ -35,11 +35,10 @@ struct AccountCellView: View {
             }
             .background(.backgroundColor4)
             .frame(maxWidth: 270, idealHeight: 420)
-            .cornerRadius(8)
-            .overlay{
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.backgroundColor5, lineWidth: 2)
-            }
+            .clipShape(.rect(cornerRadius: 8))
+            .padding(4)
+            .background(.backgroundColor5)
+            .clipShape(.rect(cornerRadius: 8))
             .fixedSize(horizontal: false, vertical: true)
             .contextMenu {
                 Button {

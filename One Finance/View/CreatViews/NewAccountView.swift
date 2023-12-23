@@ -28,7 +28,7 @@ struct NewAccountView: View {
                         TextField("Write... Ex: Curently Account", text: $nameAccount)
                             .padding(8)
                             .background(colorScheme == .light ? .white : .black)
-                            .cornerRadius(8)
+                            .clipShape(.rect(cornerRadius: 8))
                     }
                     .font(.system(.title3, weight: .semibold))
 

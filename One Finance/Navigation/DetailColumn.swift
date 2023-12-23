@@ -27,18 +27,15 @@ struct DetailColumn: View {
     }
 }
 
-struct DetailColumn_Previews: PreviewProvider {
-    
-    ///init the sidebar to display on "Preview"
-    struct Preview: View {
-        @State private var selection: Panel? = Panel.dashboard
-        @State private var accounts = Accounts(accounts: [])
-        var body: some View {
-            DetailColumn(selection: $selection)
-        }
-    }
-    
-    static var previews: some View {
-        Preview()
-    }
+#Preview {
+    @State  var selection: Panel? = Panel.dashboard
+
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try! ModelContainer(for: Account.self, configurations: config)
+        
+        let account = Account(name: "Compte à vue", icon: "house.fill", payments: [PaymentActivity(name: "MBP 15", amount: 5639, date: .now, type: .expense), PaymentActivity(name: "Income", amount: 999, date: .distantPast, type: .income)], isFavorite: false, isMarked: false)
+        container.mainContext.insert(account)
+        
+    return DetailColumn(selection: $selection)
+            .modelContainer(container)
 }

@@ -39,6 +39,7 @@ struct AccountsView: View {
                         VStack(alignment:.leading, spacing: 18){
                             Text("Favorite")
                                 .font(.system(.title, design: .rounded, weight: .bold))
+                                .accessibilityAddTraits(.isHeader)
                                 .padding(.horizontal, paddingHorizontal)
                             
                             LazyVGrid(columns: columns, spacing: 18) {
@@ -56,6 +57,7 @@ struct AccountsView: View {
                             
                             Text("Marked")
                                 .font(.system(.title, design: .rounded, weight: .bold))
+                                .accessibilityAddTraits(.isHeader)
                                 .padding(.horizontal, paddingHorizontal)
                             
                             LazyVGrid(columns: columns, spacing: 18) {
@@ -73,6 +75,7 @@ struct AccountsView: View {
                             
                             Text("All Accounts")
                                 .font(.system(.title, design: .rounded, weight: .bold))
+                                .accessibilityAddTraits(.isHeader)
                                 .padding(.horizontal, paddingHorizontal)
                             
                             LazyVGrid(columns: columns, spacing: 18) {
@@ -108,6 +111,7 @@ struct AccountsView: View {
                         } header: {
                             Text("Favorite")
                                 .font(.system(.title, design: .rounded, weight: .bold))
+                                .accessibilityAddTraits(.isHeader)
                         }
                         .headerProminence(.increased)
                         
@@ -126,6 +130,7 @@ struct AccountsView: View {
                         } header: {
                             Text("Marked")
                                 .font(.system(.title, design: .rounded, weight: .bold))
+                                .accessibilityAddTraits(.isHeader)
                         }
                         .headerProminence(.increased)
                         
@@ -144,6 +149,7 @@ struct AccountsView: View {
                         } header: {
                             Text("All Account")
                                 .font(.system(.title, design: .rounded, weight: .bold))
+                                .accessibilityAddTraits(.isHeader)
                         }
                         .headerProminence(.increased)
                         

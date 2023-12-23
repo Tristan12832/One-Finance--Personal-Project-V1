@@ -28,32 +28,13 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+#Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Account.self, configurations: config)
     
-    ///init the "Preview" to display 
-    struct Preview: View {
-        @State private var accounts = Accounts(accounts: [])
-        var body: some View {
-            ContentView()
-        }
-    }
+    let account = Account(name: "Compte à vue", icon: "house.fill", payments: [PaymentActivity(name: "MBP 15", amount: 5639, date: .now, type: .expense), PaymentActivity(name: "Income", amount: 999, date: .distantPast, type: .income)], isFavorite: false, isMarked: false)
+    container.mainContext.insert(account)
     
-//    ///init the sidebar to display on "Preview"
-//    struct SidebarPreview: View {
-//        @State private var selection: Panel? = Panel.accounts
-//        var body: some View {
-//            Sidebar(selection: $selection)
-//        }
-//    }
-    
-    static var previews: some View {
-        Preview()
-            .previewDisplayName("Preview Standard")
-
-        Preview()
-            .previewInterfaceOrientation(.landscapeRight)
-            .previewDevice("iPad Air (5th generation)")
-            .previewDisplayName("Preview iPad")
-
-    }
+    return ContentView()
+        .modelContainer(container)
 }

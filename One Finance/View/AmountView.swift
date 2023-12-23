@@ -25,7 +25,7 @@ struct AmountView: View {
         .font(.system(.largeTitle, design: .rounded, weight: .bold))
         .foregroundColor(.white)
         .background(backgroundColor)
-        .cornerRadius(8)
+        .clipShape(.rect(cornerRadius: 8))
         .accessibilityElement()
         .accessibilityLabel("\(title), \(amount, format: .localCurrency)")
         .accessibilityAddTraits(.isButton)

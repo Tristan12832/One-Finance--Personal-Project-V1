@@ -18,7 +18,7 @@ struct CustomButtonDateStyle: ButtonStyle {
             .foregroundStyle(colorText)
             .background(colorButton)
             .font(.system(.headline, design: .rounded))
-            .cornerRadius(8)
+            .clipShape(.rect(cornerRadius: 8))
     }
 }
 

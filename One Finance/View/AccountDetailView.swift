@@ -103,6 +103,7 @@ struct AccountDetailView: View {
             HStack {
                 Text(account.name)
                     .font(.system(size: 40, weight: .bold, design: .default))
+                    .accessibilityAddTraits(.isHeader)
                     .padding(.horizontal, paddingHorizontal)
                 
                 Spacer()
@@ -136,6 +137,8 @@ struct AccountDetailView: View {
                     HStack(alignment: .center) {
                         Text("Detail")
                             .font(.system(.title, design: .rounded, weight: .bold))
+                            .accessibilityAddTraits(.isHeader)
+                        
                         Spacer()
                         
                         Menu {
