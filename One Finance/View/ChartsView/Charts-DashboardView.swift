@@ -24,7 +24,7 @@ struct ChartsView: View {
         return totals
     }
     
-   
+    
     
     var body: some View {
         VStack {
@@ -40,7 +40,7 @@ struct ChartsView: View {
                     .frame(maxWidth: 90, alignment: .trailing)
                     .padding(.horizontal, 2)
                     .background(.backgroundColor3)
-
+                
             }
             .accessibilityElement(children: .ignore)
             .accessibilityAddTraits(.isHeader)
@@ -54,19 +54,19 @@ struct ChartsView: View {
                         y: .value("Names your accounts", account.name)
                     )
                     .foregroundStyle(by: .value("Name", account.name))
-
+                    
                 }
                 
             }
             .frame(height: 100)
             .accessibilityElement(children: .combine)
             .accessibilityAddTraits(.isSummaryElement)
-
+            
         }
         .padding()
         .frame(maxWidth: 500)
         .background(.backgroundColor4)
-
+        
     }
 }
 
@@ -84,7 +84,7 @@ struct DonutChartView: View {
             .reduce(0) { $0 + $1.totalBalance }
         return totals
     }
-
+    
     func percenageForChart(account: Double) -> Double {
         let numberAccount = totalExpensesAndIncome
         return account/numberAccount
@@ -105,7 +105,7 @@ struct DonutChartView: View {
                     SectorMark(
                         angle: .value("Your total of the accounts", account.totalBalance), innerRadius: .ratio(0.65),
                         angularInset: 2.0
-
+                        
                     )
                     .foregroundStyle(by: .value("Name", account.name))
                     .annotation(position: .overlay) {
@@ -129,15 +129,19 @@ struct DonutChartView: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Account.self, configurations: config)
-    let account = Account(name: "Current account", icon: "house.fill", payments: [
-        PaymentActivity(name: "September salary", amount: 2400, date: .now, type: .income),
-        PaymentActivity(name: "Allocation", amount: 250, date: .now, type: .income),
-        PaymentActivity(name: "Food", amount: 100, date: .now, type: .expense),
-        PaymentActivity(name: "Clothing", amount: 50, date: .now, type: .expense),
-        PaymentActivity(name: "Dog budget", amount: 120, date: .now, type: .expense)
-    ], isFavorite: false, isMarked: false)
     
-    return ChartsView()
+    for _ in 0..<3 {
+        let account = Account(name: "Current account", icon: "house.fill", payments: [
+            PaymentActivity(name: "September salary", amount: 2400, date: .now, type: .income),
+            PaymentActivity(name: "Allocation", amount: 250, date: .now, type: .income),
+            PaymentActivity(name: "Food", amount: 100, date: .now, type: .expense),
+            PaymentActivity(name: "Clothing", amount: 50, date: .now, type: .expense),
+            PaymentActivity(name: "Dog budget", amount: 120, date: .now, type: .expense)
+        ], isFavorite: false, isMarked: false)
+        container.mainContext.insert(account)
+    }
+    
+    return DonutChartView()
         .modelContainer(container)
         .preferredColorScheme(.light)
     
@@ -146,13 +150,18 @@ struct DonutChartView: View {
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Account.self, configurations: config)
-    let account = Account(name: "Current account", icon: "house.fill", payments: [
-        PaymentActivity(name: "September salary", amount: 2400, date: .now, type: .income),
-        PaymentActivity(name: "Allocation", amount: 250, date: .now, type: .income),
-        PaymentActivity(name: "Food", amount: 100, date: .now, type: .expense),
-        PaymentActivity(name: "Clothing", amount: 50, date: .now, type: .expense),
-        PaymentActivity(name: "Dog budget", amount: 120, date: .now, type: .expense)
-    ], isFavorite: false, isMarked: false)
+    
+    
+    for _ in 0..<3 {
+        let account = Account(name: "Current account", icon: "house.fill", payments: [
+            PaymentActivity(name: "September salary", amount: 2400, date: .now, type: .income),
+            PaymentActivity(name: "Allocation", amount: 250, date: .now, type: .income),
+            PaymentActivity(name: "Food", amount: 100, date: .now, type: .expense),
+            PaymentActivity(name: "Clothing", amount: 50, date: .now, type: .expense),
+            PaymentActivity(name: "Dog budget", amount: 120, date: .now, type: .expense)
+        ], isFavorite: false, isMarked: false)
+        container.mainContext.insert(account)
+    }
     
     return DonutChartView()
         .modelContainer(container)
