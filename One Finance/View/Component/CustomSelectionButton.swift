@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomButtonStyle: ButtonStyle {
     
     let colorButton: Color
+    let descriptionForVO: String
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -19,5 +20,6 @@ struct CustomButtonStyle: ButtonStyle {
             .background(colorButton)
             .font(.system(.headline, design: .rounded))
             .clipShape(.rect(cornerRadius: 8))
+            .accessibilityHint(descriptionForVO)
     }
 }

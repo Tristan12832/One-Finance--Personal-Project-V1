@@ -31,6 +31,7 @@ struct ChartsView: View {
             HStack {
                 Text("Your Total Money")
                     .font(.system(.title2, design: .rounded, weight: .bold))
+                
                 Spacer()
                 
                 Text(totalExpensesAndIncome, format: .localCurrency)
@@ -41,6 +42,10 @@ struct ChartsView: View {
                     .background(.backgroundColor3)
 
             }
+            .accessibilityElement(children: .ignore)
+            .accessibilityAddTraits(.isHeader)
+            .accessibilityLabel("Your Total Money, \(totalExpensesAndIncome, format: .localCurrency)")
+            
             Chart {
                 ForEach(accountsData, id: \.name) { account in
                     
@@ -54,10 +59,14 @@ struct ChartsView: View {
                 
             }
             .frame(height: 100)
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isSummaryElement)
+
         }
         .padding()
         .frame(maxWidth: 500)
         .background(.backgroundColor4)
+
     }
 }
 
@@ -88,6 +97,8 @@ struct DonutChartView: View {
                     .font(.system(.title2, design: .rounded, weight: .bold))
                 Spacer()
             }
+            .accessibilityAddTraits(.isHeader)
+            
             Chart {
                 ForEach(accountsData, id: \.name) { account in
                     
@@ -102,9 +113,13 @@ struct DonutChartView: View {
                             .font(.headline)
                             .foregroundStyle(.white)
                     }
+                    .accessibilityLabel(accountsData.count > 0 ? "You have \(accountsData.count) account(s). Your account \(account.name) representable \(String(format: "%.2f", (percenageForChart(account: account.totalBalance))*100)) of the \(account.totalBalance)" : "You don't have an account yet.")
                 }
+                
             }
             .frame(height: 250)
+            .accessibilityAddTraits(.isSummaryElement)
+            
         }
         .padding()
         .frame(maxWidth: 500)

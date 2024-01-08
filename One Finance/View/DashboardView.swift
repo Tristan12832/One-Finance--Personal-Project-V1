@@ -32,6 +32,7 @@ struct DashboardView: View {
                     Text("Favorite")
                         .font(.system(.title, design: .rounded, weight: .bold))
                         .padding(.horizontal, paddingHorizontal)
+                        .accessibilityAddTraits(.isHeader)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
                         ForEach(favoriteAccounts.indices, id: \.self) { account in
@@ -49,7 +50,8 @@ struct DashboardView: View {
                     Text("Marked")
                         .font(.system(.title, design: .rounded, weight: .bold))
                         .padding(.horizontal, paddingHorizontal)
-                    
+                        .accessibilityAddTraits(.isHeader)
+
                     LazyVGrid(columns: columns, spacing: 18) {
                         ForEach(markedAccounts.indices, id: \.self) { account in
                             NavigationLink {
@@ -66,7 +68,8 @@ struct DashboardView: View {
                     Text("All Accounts")
                         .font(.system(.title, design: .rounded, weight: .bold))
                         .padding(.horizontal, paddingHorizontal)
-                    
+                        .accessibilityAddTraits(.isHeader)
+
                     LazyVGrid(columns: columns, spacing: 18) {
                         ForEach(accounts.indices, id: \.self) { account in
                             NavigationLink {
@@ -83,6 +86,8 @@ struct DashboardView: View {
                     Text("Some Charts")
                         .font(.system(.title, design: .rounded, weight: .bold))
                         .padding(.horizontal, paddingHorizontal)
+                        .accessibilityAddTraits(.isHeader)
+
                     Group {
                         if sizeClass == .compact {
                             VStack {
@@ -97,7 +102,6 @@ struct DashboardView: View {
                         }
                     }
                     .padding(.horizontal, paddingHorizontal)
-
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
@@ -111,13 +115,9 @@ struct DashboardView: View {
                 Button {
                     self.showingNewAccount = true
                 } label: {
-                    Image(systemName: "plus")
-                        .font(.system(.title2))
+                    Label("Add a new account", systemImage: "plus")
                 }
-                .accessibilityLabel("Add")
-                .accessibilityHint("Add a new account")
-
-
+                .accessibilityHint("Press Add new account, to add a new account to your list of accounts in the application!")
             }
         }
         .sheet(isPresented: $showingNewAccount) {

@@ -37,7 +37,7 @@ struct AccountCellView: View {
             .frame(maxWidth: 270, idealHeight: 420)
             .clipShape(.rect(cornerRadius: 8))
             .padding(4)
-            .background(.backgroundColor5)
+            .background(.backgroundColor3)
             .clipShape(.rect(cornerRadius: 8))
             .fixedSize(horizontal: false, vertical: true)
             .contextMenu {

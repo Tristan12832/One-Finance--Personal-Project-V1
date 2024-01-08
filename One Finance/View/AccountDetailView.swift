@@ -172,7 +172,7 @@ struct AccountDetailView: View {
                         } label: {
                             Text("All")
                         }
-                        .buttonStyle(CustomButtonStyle(colorButton: .myGreen))
+                        .buttonStyle(CustomButtonStyle(colorButton: .myGreen, descriptionForVO: "Press to select all transactions."))
                         
                         Button {
                             withAnimation(.bouncy) {
@@ -181,7 +181,7 @@ struct AccountDetailView: View {
                         } label: {
                             Text("Income")
                         }
-                        .buttonStyle(CustomButtonStyle(colorButton: .complementary))
+                        .buttonStyle(CustomButtonStyle(colorButton: .complementary, descriptionForVO: "Press to select all incomes."))
                         
                         Button {
                             withAnimation(.bouncy) {
@@ -190,7 +190,7 @@ struct AccountDetailView: View {
                         } label: {
                             Text("Expense")
                         }
-                        .buttonStyle(CustomButtonStyle(colorButton: .red))
+                        .buttonStyle(CustomButtonStyle(colorButton: .red, descriptionForVO: "Press to select all expenses."))
                         
                         Spacer()
                     }
@@ -240,11 +240,9 @@ struct AccountDetailView: View {
                     Button {
                         shwoingNewPaymentActivity = true
                     } label: {
-                        Image(systemName: "plus")
-                            .font(.system(.title2))
+                        Label("Add a new transaction", systemImage: "plus")
                     }
-                    .accessibilityLabel("Add")
-                    .accessibilityHint("Add a new transaction")
+                    .accessibilityHint("Press to add a new transaction to your account.")
                 }
                 
             }

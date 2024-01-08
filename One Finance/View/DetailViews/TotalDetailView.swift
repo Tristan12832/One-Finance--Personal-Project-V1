@@ -165,7 +165,7 @@ struct TotalDetailView: View {
                         } label: {
                             Text("All")
                         }
-                        .buttonStyle(CustomButtonStyle(colorButton: .myGreen))
+                        .buttonStyle(CustomButtonStyle(colorButton: .myGreen, descriptionForVO: "Press to select all transactions."))
                         
                         Button {
                             withAnimation(.bouncy) {
@@ -174,7 +174,7 @@ struct TotalDetailView: View {
                         } label: {
                             Text("Income")
                         }
-                        .buttonStyle(CustomButtonStyle(colorButton: .complementary))
+                        .buttonStyle(CustomButtonStyle(colorButton: .complementary, descriptionForVO: "Press to select all incomes."))
                         
                         Button {
                             withAnimation(.bouncy) {
@@ -183,7 +183,7 @@ struct TotalDetailView: View {
                         } label: {
                             Text("Expense")
                         }
-                        .buttonStyle(CustomButtonStyle(colorButton: .red))
+                        .buttonStyle(CustomButtonStyle(colorButton: .red, descriptionForVO: "Press to select all expenses."))
                         
                         Spacer()
                     }

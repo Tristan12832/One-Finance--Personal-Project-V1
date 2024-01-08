@@ -12,15 +12,15 @@ struct AccountsView: View {
     @AppStorage("showingGrid") private var showingGrid = true
     @Environment(\.modelContext) var modelContext
     @Environment(\.horizontalSizeClass) var sizeClass
-
+    
     @Query(animation: .default) var accounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isFavorite == true }, animation: .default) var favoriteAccounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isMarked == true}, animation: .default) var markedAccounts: [Account]
     @State private var showingNewAccount = false
-
+    
     let paddingHorizontalList: CGFloat = -14
     let paddingHorizontal: CGFloat = 20
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 200))
     ]
@@ -88,7 +88,7 @@ struct AccountsView: View {
                                 }
                             }
                             .padding(.horizontal, paddingHorizontal)
-
+                            
                         }
                         .fixedSize(horizontal: false, vertical: true)
                     }
@@ -157,7 +157,7 @@ struct AccountsView: View {
                     .padding(.horizontal, paddingHorizontalList)
                     .scrollContentBackground(.hidden)
                     .background(.backgroundColor5)
-
+                    
                 }
             }
             .navigationTitle("Accounts")
@@ -175,24 +175,19 @@ struct AccountsView: View {
                     } else {
                         Label("Show as list", systemImage: "list.dash")
                             .accessibilityHint("Press to switch to grid presentation.")
-
+                        
                     }
                 }
             }
-            
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     self.showingNewAccount = true
                 } label: {
-                    Image(systemName: "plus")
-                        .font(.system(.title2))
+                    Label("Add a new account", systemImage: "plus")
                 }
-                .accessibilityLabel("Add")
-                .accessibilityHint("Add a new account")
-
-
+                .accessibilityHint("Press Add new account, to add a new account to your list of accounts in the application!")
             }
-
+            
         }
         .sheet(isPresented: $showingNewAccount) {
             withAnimation(.snappy) {
@@ -214,7 +209,7 @@ struct AccountsView: View {
         AccountsView()
     }
     .modelContainer(container)
-
+    
 }
 
 #Preview("AccountsView + Sidebar", traits: .landscapeLeft) {
@@ -231,14 +226,14 @@ struct AccountsView: View {
     
     let account = Account(name: "Compte à vue", icon: "house.fill", payments: [], isFavorite: false, isMarked: false)
     container.mainContext.insert(account)
-
+    
     return NavigationSplitView {
         SidebarPreview()
     } detail: {
         AccountsView()
     }
     .modelContainer(container)
-
+    
 }
 
 #Preview("AccountsView + Sidebar + Dark mode", traits: .landscapeRight) {
