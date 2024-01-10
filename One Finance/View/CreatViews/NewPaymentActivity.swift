@@ -25,7 +25,7 @@ struct NewPaymentActivity: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 32) {
                     VStack(alignment: .leading) {
-                        Text(namePaymentActivity == "" ? "New Payment Activity" : namePaymentActivity)
+                        Text("Name of new payment activity")
                         TextField("Write... Ex: Curently Payment Activity", text: $namePaymentActivity)
                             .padding(8)
                             .background(colorScheme == .light ? .white : .black)
@@ -84,7 +84,7 @@ struct NewPaymentActivity: View {
             .scrollContentBackground(.hidden)
             .toolbarBackground(Color.backgroundColor5)
             .background(.backgroundColor5)
-            .navigationTitle("Creat account")
+            .navigationTitle("New transaction")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {

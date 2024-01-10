@@ -65,6 +65,7 @@ struct ChartsView: View {
         }
         .padding()
         .frame(maxWidth: 500)
+        .frame(maxHeight: .infinity)
         .background(.backgroundColor4)
         
     }

@@ -24,7 +24,7 @@ struct NewAccountView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 32) {
                     VStack(alignment: .leading) {
-                        Text(nameAccount == "" ? "New account" : nameAccount)
+                        Text("Name of new account")
                         TextField("Write... Ex: Curently Account", text: $nameAccount)
                             .padding(8)
                             .background(colorScheme == .light ? .white : .black)
@@ -37,14 +37,12 @@ struct NewAccountView: View {
                         Text("Icone")
                             .font(.title3)
                             .bold()
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(.backgroundColor4)
+              
                             IconSelector(selectedIcon: $iconeAccount)
-                        }
                     }
-                    //BUTTON HERE
+                    
                     Spacer(minLength: 25)
+                    
                     MainCustomButton(title: "Creat !") {
                         withAnimation(.default) {
                             let newAccount = Account(name: nameAccount, icon: iconeAccount, isFavorite: false, isMarked: false)

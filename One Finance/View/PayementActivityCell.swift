@@ -40,8 +40,9 @@ struct PayementActivityCell: View {
                     .padding(.horizontal, 2)
 
                 Text(amount, format: .localCurrency)
-                    .frame(width: 90)
-                    .frame(maxWidth: 90, alignment: .trailing)
+                    .lineLimit(1)
+                    .frame(width: 100)
+                    .frame(alignment: .trailing)
                     .padding(.horizontal, 2)
 
             }
