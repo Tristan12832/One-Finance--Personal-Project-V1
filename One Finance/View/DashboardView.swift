@@ -17,7 +17,7 @@ struct DashboardView: View {
     @Binding var navigationSelection: Panel?
     
     let columns = [
-        GridItem(.adaptive(minimum: 200))
+        GridItem(.adaptive(minimum: 200, maximum: .infinity))
     ]
     
     let paddingHorizontal: CGFloat = 20
