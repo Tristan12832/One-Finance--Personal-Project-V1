@@ -105,6 +105,7 @@ struct AccountsView: View {
                                 }
                             }
                             .onDelete(perform: self.deleteAccounts)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 0))
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.backgroundColor5)
                             
@@ -124,6 +125,7 @@ struct AccountsView: View {
                                 }
                             }
                             .onDelete(perform: self.deleteAccounts)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 0))
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.backgroundColor5)
                             
@@ -143,6 +145,7 @@ struct AccountsView: View {
                                 }
                             }
                             .onDelete(perform: self.deleteAccounts)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 0))
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.backgroundColor5)
                             

@@ -28,24 +28,24 @@ struct ChartsView: View {
     
     var body: some View {
         VStack {
-            HStack {
+            HStack(alignment: .top) {
                 Text("Your Total Money")
                     .font(.system(.title2, design: .rounded, weight: .bold))
                 
                 Spacer()
                 
                 Text(totalExpensesAndIncome, format: .localCurrency)
-                    .font(.headline)
-                    .frame(width: 90)
-                    .frame(maxWidth: 90, alignment: .trailing)
-                    .padding(.horizontal, 2)
+                    .font(.system(.title3, design: .rounded))
+                    .padding(.horizontal)
                     .background(.backgroundColor3)
-                
+                    .clipShape(.rect(cornerRadius: 8))
+                    .frame(idealWidth: 100, maxWidth: .infinity, alignment: .trailing)
+
             }
             .accessibilityElement(children: .ignore)
             .accessibilityAddTraits(.isHeader)
             .accessibilityLabel("Your Total Money, \(totalExpensesAndIncome, format: .localCurrency)")
-            
+                        
             Chart {
                 ForEach(accountsData, id: \.name) { account in
                     
@@ -58,7 +58,7 @@ struct ChartsView: View {
                 }
                 
             }
-            .frame(height: 100)
+            .frame(height: 140)
             .accessibilityElement(children: .combine)
             .accessibilityAddTraits(.isSummaryElement)
             

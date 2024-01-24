@@ -210,6 +210,7 @@ struct AccountDetailView: View {
                                 .listRowSeparator(.hidden)
                         }
                         .onDelete(perform: deletePayments)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 6, trailing: 0))
                         .fixedSize(horizontal: false, vertical: true)
                         .listRowBackground(Color.backgroundColor5)
                     }
@@ -217,6 +218,7 @@ struct AccountDetailView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .background(Color.backgroundColor5)
+                .scrollIndicators(.never)
             }
             .background(.backgroundColor5)
             
