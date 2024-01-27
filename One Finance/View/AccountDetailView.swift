@@ -210,7 +210,7 @@ struct AccountDetailView: View {
                                 .listRowSeparator(.hidden)
                         }
                         .onDelete(perform: deletePayments)
-                        .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 6, trailing: 0))
+                        .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 4, trailing: 14))
                         .fixedSize(horizontal: false, vertical: true)
                         .listRowBackground(Color.backgroundColor5)
                     }
