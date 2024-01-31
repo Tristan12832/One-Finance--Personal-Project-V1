@@ -67,7 +67,7 @@ struct AccountCellListView: View {
             } label: {
                 HStack {
                     Text(account.isMarked ? "Remove from marked" : "Mark as marked")
-                    Image(systemName: "flag")
+                    Image(systemName: account.isMarked ? "flag.slash":"flag")
                 }
             }
             .tint(.orange)
@@ -76,7 +76,7 @@ struct AccountCellListView: View {
             } label: {
                 HStack {
                     Text(account.isFavorite ? "Remove from favorites" : "Mark as favorite")
-                    Image(systemName: "star")
+                    Image(systemName: account.isFavorite ? "star.slash":"star")
                 }
             }
             .tint(.yellow)
@@ -157,7 +157,6 @@ struct AccountCellListView: View {
         
     }
     .modelContainer(container)
-    .tint(Color.myGreen)
     .preferredColorScheme(.light)
 }
 
@@ -189,7 +188,6 @@ struct AccountCellListView: View {
         
     }
     .modelContainer(container)
-    .tint(Color.myGreen)
     .preferredColorScheme(.light)
 }
 
@@ -221,7 +219,6 @@ struct AccountCellListView: View {
         
     }
     .modelContainer(container)
-    .tint(Color.myGreen)
     .preferredColorScheme(.dark)
 }
 
