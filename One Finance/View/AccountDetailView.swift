@@ -100,15 +100,6 @@ struct AccountDetailView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text(account.name)
-                    .font(.system(size: 40, weight: .bold, design: .default))
-                    .accessibilityAddTraits(.isHeader)
-                    .padding(.horizontal, paddingHorizontal)
-                
-                Spacer()
-            }
-            
             VStack(spacing: 16) {
                 AmountView(title: "Total Account", amount: account.totalBalance, backgroundColor: .myGreen)
                     .onTapGesture {
@@ -255,6 +246,7 @@ struct AccountDetailView: View {
             }
             
         }
+        .navigationTitle(account.name)
         .toolbarBackground(Color.backgroundColor5)
         .background(.backgroundColor5)
     }
