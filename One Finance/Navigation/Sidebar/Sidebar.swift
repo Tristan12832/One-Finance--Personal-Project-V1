@@ -23,15 +23,18 @@ struct Sidebar: View {
             NavigationLink(value: Panel.dashboard) {
                 Label("Dashboard", systemImage: "list.clipboard")
             }
+            .listRowSeparator(.hidden)
 
             NavigationLink(value: Panel.accounts) {
                 Label("Accounts", systemImage: "person.crop.circle")
             }
-            
+            .listRowSeparator(.hidden)
+
             //Futur
             NavigationLink(value: Panel.history) {
                 Label("History", systemImage: "clock.fill")
             }
+            .listRowSeparator(.hidden)
 
             Section("Tips") {
                 //Futur
@@ -42,6 +45,7 @@ struct Sidebar: View {
             }
 
         }
+        .listStyle(.sidebar)
         .navigationTitle("Menu")
         .scrollContentBackground(.hidden)
         .background(.backgroundColor5)
