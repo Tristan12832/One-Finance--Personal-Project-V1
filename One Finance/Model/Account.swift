@@ -17,6 +17,16 @@ import SwiftData
     var isFavorite: Bool
     var isMarked: Bool
 
+    init(name: String, icon: String, payments: [PaymentActivity] = [PaymentActivity](), isFavorite: Bool, isMarked: Bool) {
+        self.name = name
+        self.icon = icon
+        self.payments = payments
+        self.isFavorite = isFavorite
+        self.isMarked = isMarked
+    }
+}
+
+extension Account {
     var totalIncome: Double {
         let total = payments
             .filter {
@@ -41,13 +51,5 @@ import SwiftData
     
     var totalBalance: Double {
         return totalIncome - totalExpense
-    }
-    
-    init(name: String, icon: String, payments: [PaymentActivity] = [PaymentActivity](), isFavorite: Bool, isMarked: Bool) {
-        self.name = name
-        self.icon = icon
-        self.payments = payments
-        self.isFavorite = isFavorite
-        self.isMarked = isMarked
     }
 }

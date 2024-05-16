@@ -5,9 +5,9 @@
 //  Created by Tristan Stenuit on 04/09/2023.
 //
 
-import Foundation
 import SwiftData
 import SwiftUI
+
 enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
     case income = "income"
     case expense = "expense"
@@ -21,6 +21,17 @@ enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
     var type: TypePayement
     var account: Account?
     
+    
+    init(name: String, amount: Double, date: Date? = nil, type: TypePayement) {
+        self.name = name
+        self.amount = amount
+        self.date = date
+        self.type = type
+    }
+    
+}
+
+extension PaymentActivity {
     var icon: String {
         let type = type
         switch type {
@@ -41,12 +52,4 @@ enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
             return Color.red
         }
     }
-    init(name: String, amount: Double, date: Date? = nil, type: TypePayement) {
-        self.name = name
-        self.amount = amount
-        self.date = date
-        self.type = type
-    }
-    
 }
-
