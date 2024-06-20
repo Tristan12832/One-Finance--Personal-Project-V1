@@ -13,6 +13,7 @@
 		6A21B79E2A9A2EBD00F211E8 /* AccountCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A21B79D2A9A2EBD00F211E8 /* AccountCellView.swift */; };
 		6A21B7A02A9A3E8F00F211E8 /* Color-Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A21B79F2A9A3E8F00F211E8 /* Color-Theme.swift */; };
 		6A268AD62AB091C300F7C9FE /* ColorThem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A268AD52AB091C300F7C9FE /* ColorThem.swift */; };
+		6A2BDB612C24158800C4392C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6A2BDB602C24158800C4392C /* README.md */; };
 		6A3C4FCB2A98C9FD00FE891D /* One_FinanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3C4FCA2A98C9FD00FE891D /* One_FinanceApp.swift */; };
 		6A3C4FCD2A98C9FD00FE891D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3C4FCC2A98C9FD00FE891D /* ContentView.swift */; };
 		6A3C4FCF2A98C9FE00FE891D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A3C4FCE2A98C9FE00FE891D /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 		6A21B79D2A9A2EBD00F211E8 /* AccountCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCellView.swift; sourceTree = "<group>"; };
 		6A21B79F2A9A3E8F00F211E8 /* Color-Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color-Theme.swift"; sourceTree = "<group>"; };
 		6A268AD52AB091C300F7C9FE /* ColorThem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorThem.swift; sourceTree = "<group>"; };
+		6A2BDB602C24158800C4392C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6A3C4FC72A98C9FD00FE891D /* One Finance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "One Finance.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A3C4FCA2A98C9FD00FE891D /* One_FinanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = One_FinanceApp.swift; sourceTree = "<group>"; };
 		6A3C4FCC2A98C9FD00FE891D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,7 +57,6 @@
 		6A4710492AACA0E900DB0BC1 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryView.swift; path = "One Finance/Navigation/HistoryView.swift"; sourceTree = SOURCE_ROOT; };
 		6A47104B2AACA11000DB0BC1 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		6A5036402A9A7F880012822B /* FormatStyle-LocalCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FormatStyle-LocalCurrency.swift"; path = "One Finance/View/Extentions/FormatStyle-LocalCurrency.swift"; sourceTree = SOURCE_ROOT; };
-		6A732B662B1149BD00203F64 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Model/README.md; sourceTree = "<group>"; };
 		6A7341AE2AD40A6B00018652 /* CustomSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSelectionButton.swift; sourceTree = "<group>"; };
 		6A7B6DF82A9F257600FD0E2B /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		6A85FF762A9CE5880060BC50 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
@@ -128,6 +129,7 @@
 		6A3C4FBE2A98C9FD00FE891D = {
 			isa = PBXGroup;
 			children = (
+				6A2BDB602C24158800C4392C /* README.md */,
 				6A3C4FC92A98C9FD00FE891D /* One Finance */,
 				6A3C4FC82A98C9FD00FE891D /* Products */,
 			);
@@ -144,7 +146,6 @@
 		6A3C4FC92A98C9FD00FE891D /* One Finance */ = {
 			isa = PBXGroup;
 			children = (
-				6A732B662B1149BD00203F64 /* README.md */,
 				6A98AE7C2AA604400044D52A /* Model */,
 				6A4710462AAC950A00DB0BC1 /* Navigation */,
 				6A21B79B2A9A2E0F00F211E8 /* View */,
@@ -277,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A2BDB612C24158800C4392C /* README.md in Resources */,
 				6A3C4FD22A98C9FE00FE891D /* Preview Assets.xcassets in Resources */,
 				6A3C4FCF2A98C9FE00FE891D /* Assets.xcassets in Resources */,
 			);
