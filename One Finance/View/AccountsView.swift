@@ -36,7 +36,7 @@ struct AccountsView: View {
             Group {
                 if showingGrid {
                     ScrollView {
-                        VStack(alignment:.leading, spacing: 18){
+                        LazyVStack(alignment:.leading, spacing: 18){
                             Text("Favorite")
                                 .font(.system(.title, design: .rounded, weight: .bold))
                                 .accessibilityAddTraits(.isHeader)

@@ -44,8 +44,7 @@ struct AccountCellListView: View {
         .padding()
         .background(.backgroundColor4)
         .padding(8)
-        .background(.myGreen)
-        .clipShape(.rect(cornerRadius: 8))
+        .background(.myGreen, in: .rect(cornerRadius: 8))
         .background(Color.backgroundColor5)
         .overlay{
             RoundedRectangle(cornerRadius: 8)

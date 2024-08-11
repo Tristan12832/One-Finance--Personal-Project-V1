@@ -13,11 +13,11 @@ struct ChartsView: View {
     
     @Query(animation: .default) var accounts: [Account]
     
-    var accountsData: [Account] {
+    private var accountsData: [Account] {
         accounts.sorted(by: {$0.totalBalance < $1.totalBalance})
     }
     
-    var totalExpensesAndIncome: Double {
+    private var totalExpensesAndIncome: Double {
         let totals = accounts
             .sorted(by: {$0.totalBalance < $1.totalBalance})
             .reduce(0) { $0 + $1.totalBalance }
@@ -37,8 +37,7 @@ struct ChartsView: View {
                 Text(totalExpensesAndIncome, format: .localCurrency)
                     .font(.system(.title3, design: .rounded))
                     .padding(.horizontal)
-                    .background(.backgroundColor3)
-                    .clipShape(.rect(cornerRadius: 8))
+                    .background(.backgroundColor3, in: .rect(cornerRadius: 8))
                     .frame(idealWidth: 100, maxWidth: .infinity, alignment: .trailing)
 
             }
@@ -75,18 +74,18 @@ struct DonutChartView: View {
     
     @Query(animation: .default) var accounts: [Account]
     
-    var accountsData: [Account] {
+    private var accountsData: [Account] {
         accounts.sorted(by: {$0.totalBalance < $1.totalBalance})
     }
     
-    var totalExpensesAndIncome: Double {
+    private var totalExpensesAndIncome: Double {
         let totals = accounts
             .sorted(by: {$0.totalBalance < $1.totalBalance})
             .reduce(0) { $0 + $1.totalBalance }
         return totals
     }
     
-    func percenageForChart(account: Double) -> Double {
+    private func percenageForChart(account: Double) -> Double {
         let numberAccount = totalExpensesAndIncome
         return account/numberAccount
     }

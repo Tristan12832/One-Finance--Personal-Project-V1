@@ -131,8 +131,8 @@ struct IncomeDetailView: View {
                     .padding(.vertical, 4)
                 }
                 
-                ForEach(paymentIncome.indices, id: \.self) { index in
-                    PayementActivityCell(icon: paymentIncome[index].icon, nameActivity: paymentIncome[index].name, amount: paymentIncome[index].amount, date: paymentIncome[index].date, textColor: paymentIncome[index].color)
+                ForEach(paymentIncome) {
+                    PayementActivityCell(payment: $0)
                 }
                 .padding(.vertical, 3)
 

@@ -44,11 +44,9 @@ struct IconSelector: View {
                 }
             }
             .padding(4)
-            .background(colorScheme == .light ? .white : .black)
-            .clipShape(.rect(cornerRadius: 8))
+            .background(colorScheme == .light ? .white : .black, in: .rect(cornerRadius: 8))
             .padding(4)
-            .background(Color.backgroundColor4)
-            .clipShape(.rect(cornerRadius: 8))
+            .background(Color.backgroundColor4, in: .rect(cornerRadius: 8))
         }
     }
 }

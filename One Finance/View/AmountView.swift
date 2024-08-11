@@ -10,9 +10,9 @@ import SwiftUI
 //MARK: AmountView component
 struct AmountView: View {
     
-    var title: String
+    let title: String
     var amount: Double
-    var backgroundColor: Color
+    let backgroundColor: Color
     
     var body: some View {
         VStack(alignment: .center) {

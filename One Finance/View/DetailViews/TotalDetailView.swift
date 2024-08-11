@@ -190,8 +190,8 @@ struct TotalDetailView: View {
                     .padding(.vertical, 8)
                 }
                 
-                ForEach(paymentDataForView.indices, id: \.self) { index in
-                    PayementActivityCell(icon: paymentDataForView[index].icon, nameActivity: paymentDataForView[index].name, amount: paymentDataForView[index].amount, date: paymentDataForView[index].date, textColor: paymentDataForView[index].color)
+                ForEach(paymentDataForView) {
+                    PayementActivityCell(payment: $0)
                 }
                 .padding(.vertical, 3)
                 

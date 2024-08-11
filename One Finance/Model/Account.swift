@@ -11,13 +11,13 @@ import SwiftData
 
 @Model class Account {
     let id = UUID()
-    var name: String = ""
-    var icon: String = ""
-    @Relationship(deleteRule: .cascade, inverse: \PaymentActivity.account) var payments = [PaymentActivity]()
+    let name: String = ""
+    let icon: String = ""
+    @Relationship(deleteRule: .cascade, inverse: \PaymentActivity.account) var payments: [PaymentActivity]
     var isFavorite: Bool
     var isMarked: Bool
 
-    init(name: String, icon: String, payments: [PaymentActivity] = [PaymentActivity](), isFavorite: Bool, isMarked: Bool) {
+    init(name: String, icon: String, payments: [PaymentActivity], isFavorite: Bool, isMarked: Bool) {
         self.name = name
         self.icon = icon
         self.payments = payments

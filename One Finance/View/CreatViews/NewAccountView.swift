@@ -45,7 +45,7 @@ struct NewAccountView: View {
                     
                     MainCustomButton(title: "Creat !") {
                         withAnimation(.default) {
-                            let newAccount = Account(name: nameAccount, icon: iconeAccount, isFavorite: false, isMarked: false)
+                            let newAccount = Account(name: nameAccount, icon: iconeAccount, payments: [], isFavorite: false, isMarked: false)
                             accounts.insert(newAccount)
                             dismiss()
                         }

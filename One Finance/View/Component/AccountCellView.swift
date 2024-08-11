@@ -33,12 +33,10 @@ struct AccountCellView: View {
                 .fixedSize(horizontal: false, vertical: false)
                 
             }
-            .background(.backgroundColor4)
+            .background(.backgroundColor4, in: .rect(cornerRadius: 8))
             .frame(maxWidth: 270, idealHeight: 420)
-            .clipShape(.rect(cornerRadius: 8))
             .padding(4)
-            .background(.backgroundColor3)
-            .clipShape(.rect(cornerRadius: 8))
+            .background(.backgroundColor3, in: .rect(cornerRadius: 8))
             .fixedSize(horizontal: false, vertical: true)
             .contextMenu {
                 Button {
@@ -58,7 +56,9 @@ struct AccountCellView: View {
                 }
                 
                 Button(role: .destructive) {
-                    modelContext.delete(account)
+                    withAnimation(.linear) {
+                        modelContext.delete(account)
+                    }
                 } label: {
                     Label("Delete", systemImage: "trash")
 

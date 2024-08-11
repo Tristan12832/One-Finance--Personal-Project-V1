@@ -16,11 +16,11 @@ struct DashboardView: View {
     @Query(filter: #Predicate<Account> { account in account.isMarked == true}, animation: .default) var markedAccounts: [Account]
     @Binding var navigationSelection: Panel?
     
-    let columns = [
+    private let columns = [
         GridItem(.adaptive(minimum: 200, maximum: .infinity))
     ]
     
-    let paddingHorizontal: CGFloat = 20
+    private let paddingHorizontal: CGFloat = 20
     
     @State private var showingNewAccount = false
     
@@ -28,18 +28,18 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment:.leading, spacing: 18){
+                LazyVStack(alignment:.leading, spacing: 18){
                     Text("Favorite")
                         .font(.system(.title, design: .rounded, weight: .bold))
                         .padding(.horizontal, paddingHorizontal)
                         .accessibilityAddTraits(.isHeader)
                     
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(favoriteAccounts.indices, id: \.self) { account in
+                        ForEach(favoriteAccounts) { account in
                             NavigationLink {
-                                AccountDetailView(account: favoriteAccounts[account])
+                                AccountDetailView(account: account)
                             } label: {
-                                AccountCellView(account: favoriteAccounts[account])
+                                AccountCellView(account: account)
                             }
                         }
                     }
@@ -53,11 +53,11 @@ struct DashboardView: View {
                         .accessibilityAddTraits(.isHeader)
 
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(markedAccounts.indices, id: \.self) { account in
+                        ForEach(markedAccounts) { account in
                             NavigationLink {
-                                AccountDetailView(account: markedAccounts[account])
+                                AccountDetailView(account: account)
                             } label: {
-                                AccountCellView(account: markedAccounts[account])
+                                AccountCellView(account: account)
                             }
                         }
                     }
@@ -71,11 +71,11 @@ struct DashboardView: View {
                         .accessibilityAddTraits(.isHeader)
 
                     LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(accounts.indices, id: \.self) { account in
+                        ForEach(accounts) { account in
                             NavigationLink {
-                                AccountDetailView(account: accounts[account])
+                                AccountDetailView(account: account)
                             } label: {
-                                AccountCellView(account: accounts[account])
+                                AccountCellView(account: account)
                             }
                         }
                     }

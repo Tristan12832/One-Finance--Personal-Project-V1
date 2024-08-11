@@ -15,10 +15,10 @@ enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
 
 @Model class PaymentActivity {
     let id = UUID()
-    var name: String = ""
-    var amount: Double = 0.0
-    var date: Date?
-    var type: TypePayement
+    let name: String = ""
+    let amount: Double = 0.0
+    let date: Date?
+    let type: TypePayement
     var account: Account?
     
     
