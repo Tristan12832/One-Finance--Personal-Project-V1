@@ -28,7 +28,7 @@ struct PayementActivityCell: View {
                 Text(payment.date?.formatted(date: .abbreviated, time: .omitted) ?? "N/A")
                     .lineLimit(1)
                     .font(.system(.subheadline, weight: .semibold))
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
                     .padding(.horizontal, 5)
                     .frame(width: 120)
                     .frame(maxWidth: 140)

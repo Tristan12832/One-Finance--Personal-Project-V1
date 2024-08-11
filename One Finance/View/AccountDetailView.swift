@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-enum monthly: String, CaseIterable {
+enum Monthly: String, CaseIterable {
     case january, february, march, april, may, june, july, august, september, october, november, december, all
 }
 
@@ -19,14 +19,13 @@ enum TransactionDisplayType {
     case expense
 }
 
-enum sortPayment: String, CaseIterable {
+enum SortPayment: String, CaseIterable {
     case standard
     case inverse
 }
 
 //MARK: AccountCellView
 struct AccountDetailView: View {
-    @Environment(\.modelContext) var modelContext
     
     var account: Account
     //Allows you to update the payment table, otherwise the state of change is not communicated to other views.
@@ -42,13 +41,13 @@ struct AccountDetailView: View {
     @State private var inverseAction = false
     
     @State private var listType: TransactionDisplayType = .all
-    @State private var sortList: sortPayment = .standard
-    @State private var sortMonth: monthly = .all
+    @State private var sortList: SortPayment = .standard
+    @State private var sortMonth: Monthly = .all
     
     
     let paddingHorizontal: CGFloat = 20
     
-    var paymentDataForView: [PaymentActivity] {
+    var paymentsToDisplayForView: [PaymentActivity] {
         switch sortList {
         case .standard:
             switch listType {
@@ -87,17 +86,6 @@ struct AccountDetailView: View {
         }
     }
     
-    
-    func deletePayments(_ indexSet: IndexSet){
-        for index in indexSet {
-            withAnimation {
-                let payment = paymentDataForView[index]
-                modelContext.delete(payment)
-            }
-        }
-    }
-    
-    
     var body: some View {
         VStack {
             VStack(spacing: 16) {
@@ -125,91 +113,18 @@ struct AccountDetailView: View {
             //MARK: LIST
             VStack(spacing: 0) {
                 VStack(spacing: 2){
-                    HStack(alignment: .center) {
-                        Text("Detail")
-                            .font(.system(.title, design: .rounded, weight: .bold))
-                            .accessibilityAddTraits(.isHeader)
-                        
-                        Spacer()
-                        
-                        Menu {
-                            withAnimation(.interpolatingSpring) {
-                                Picker("Sort", selection: $sortList) {
-                                    ForEach(sortPayment.allCases, id: \.self) { sort in
-                                        Label(sort.rawValue.capitalized, image: "tag")
-                                            .tag(sortList.rawValue)
-                                    }
-                                }
-                            }
-                            .pickerStyle(.inline)
-                            
-                        } label: {
-                            Image(systemName: "arrow.up.arrow.down")
-                                .font(.system(.title2, design: .rounded, weight: .bold))
-                                .foregroundColor(Color.accentColor)
-                        }
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityAddTraits(.isButton)
-                        .accessibilityLabel("Sorting parameter")
-                    }
-                    
+                    DetailMenu(sortList: $sortList)
                     
                     //MARK: Detail
-                    HStack(alignment: .top) {
-                        Button {
-                            withAnimation(.bouncy) {
-                                self.listType = .all
-                            }
-                        } label: {
-                            Text("All")
-                        }
-                        .buttonStyle(CustomButtonStyle(colorButton: .myGreen, descriptionForVO: "Press to select all transactions."))
-                        
-                        Button {
-                            withAnimation(.bouncy) {
-                                self.listType = .income
-                            }
-                        } label: {
-                            Text("Income")
-                        }
-                        .buttonStyle(CustomButtonStyle(colorButton: .complementary, descriptionForVO: "Press to select all incomes."))
-                        
-                        Button {
-                            withAnimation(.bouncy) {
-                                self.listType = .expense
-                            }
-                        } label: {
-                            Text("Expense")
-                        }
-                        .buttonStyle(CustomButtonStyle(colorButton: .red, descriptionForVO: "Press to select all expenses."))
-                        
-                        Spacer()
-                    }
-                    .padding(.vertical, 8)
+                    AccountPaymentsSortingMenu(
+                        listType: $listType,
+                        sortList: $sortList
+                    )
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 8)
                 
-                List {
-                    if paymentDataForView.isEmpty {
-                        ContentUnavailableView("No Payments", systemImage: "banknote")
-                            .padding(.vertical)
-                            .listRowBackground(Color.backgroundColor5)
-                    } else {
-                        ForEach(paymentDataForView) {
-                            PayementActivityCell(payment: $0)
-                                .listRowSeparator(.hidden)
-                        }
-                        .onDelete(perform: deletePayments)
-                        .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 4, trailing: 14))
-                        .fixedSize(horizontal: false, vertical: true)
-                        .listRowBackground(Color.backgroundColor5)
-                    }
-                }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-                .background(Color.backgroundColor5)
-                .scrollIndicators(.never)
+                AccountPaymentsList(payments: paymentsToDisplayForView)
             }
             .background(.backgroundColor5)
             
@@ -348,4 +263,117 @@ struct AccountDetailView: View {
     })
     .modelContainer(container)
     .preferredColorScheme(.dark)
+}
+
+private struct AccountPaymentsList: View {
+    @Environment(\.modelContext) var modelContext
+
+    var payments: [PaymentActivity]
+    
+    var body: some View {
+        List {
+            if payments.isEmpty {
+                ContentUnavailableView("No Payments", systemImage: "banknote")
+                    .padding(.vertical)
+                    .listRowBackground(Color.backgroundColor5)
+            } else {
+                ForEach(payments) {
+                    PayementActivityCell(payment: $0)
+                        .listRowSeparator(.hidden)
+                }
+                .onDelete(perform: deletePayments)
+                .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 4, trailing: 14))
+                .fixedSize(horizontal: false, vertical: true)
+                .listRowBackground(Color.backgroundColor5)
+            }
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .background(Color.backgroundColor5)
+        .scrollIndicators(.never)
+    }
+    
+    func deletePayments(_ indexSet: IndexSet){
+        for index in indexSet {
+            withAnimation {
+                let payment = payments[index]
+                modelContext.delete(payment)
+            }
+        }
+    }
+}
+
+private struct AccountPaymentsSortingMenu: View {
+    
+    @Binding public var listType: TransactionDisplayType
+    @Binding public var sortList: SortPayment
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            Button {
+                withAnimation(.bouncy) {
+                    self.listType = .all
+                }
+            } label: {
+                Text("All")
+            }
+            .buttonStyle(CustomButtonStyle(colorButton: .myGreen, descriptionForVO: "Press to select all transactions."))
+            
+            Button {
+                withAnimation(.bouncy) {
+                    self.listType = .income
+                }
+            } label: {
+                Text("Income")
+            }
+            .buttonStyle(CustomButtonStyle(colorButton: .complementary, descriptionForVO: "Press to select all incomes."))
+            
+            Button {
+                withAnimation(.bouncy) {
+                    self.listType = .expense
+                }
+            } label: {
+                Text("Expense")
+            }
+            .buttonStyle(CustomButtonStyle(colorButton: .red, descriptionForVO: "Press to select all expenses."))
+            
+            Spacer()
+        }
+        .padding(.vertical, 8)
+    }
+}
+
+private struct DetailMenu: View {
+    
+    @Binding public var sortList: SortPayment
+
+    var body: some View {
+        HStack(alignment: .center) {
+            Text("Detail")
+                .font(.system(.title, design: .rounded, weight: .bold))
+                .accessibilityAddTraits(.isHeader)
+            
+            Spacer()
+            
+            Menu {
+                withAnimation(.interpolatingSpring) {
+                    Picker("Sort", selection: $sortList) {
+                        ForEach(SortPayment.allCases, id: \.self) { sort in
+                            Label(sort.rawValue.capitalized, image: "tag")
+                                .tag(sortList.rawValue)
+                        }
+                    }
+                }
+                .pickerStyle(.inline)
+                
+            } label: {
+                Image(systemName: "arrow.up.arrow.down")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+                    .foregroundColor(Color.accentColor)
+            }
+            .accessibilityElement(children: .ignore)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel("Sorting parameter")
+        }
+    }
 }

@@ -122,18 +122,18 @@ struct HeaderviewCell: View {
     var body: some View {
         HStack(alignment: .top) {
                 Text(acoounName)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .multilineTextAlignment(.leading)
             
             Spacer()
             
             if isFavorite {
                 Image(systemName: "star.fill")
-                    .foregroundColor(.yellow)
+                    .foregroundStyle(.yellow)
             }
             if isMarked {
                 Image(systemName: "flag.fill")
-                    .foregroundColor(.orange)
+                    .foregroundStyle(.orange)
             }
         }
         .font(.system(.title2, weight: .semibold))
@@ -153,7 +153,7 @@ struct AmountViewCell: View {
 
     var body: some View {
         Text(amount, format: .localCurrency)
-            .foregroundColor(.white)
+            .foregroundStyle(.white)
             .font(.system(.largeTitle, design: .rounded, weight: .heavy))
             .frame(maxWidth: .infinity)
             .frame(maxHeight: 80)
@@ -169,7 +169,7 @@ struct IconAccountCell: View {
 
     var body: some View {
         Image(systemName: icon)
-            .foregroundColor(iconeColor)
+            .foregroundStyle(iconeColor)
             .font(.system(size: 100))
             .fixedSize()
     }

@@ -29,13 +29,13 @@ struct AccountCellListView: View {
             HStack(spacing: 5) {
                 if account.isFavorite {
                     Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
+                        .foregroundStyle(.yellow)
                         .font(.system(.title2, weight: .semibold))
                 }
                 
                 if account.isMarked {
                     Image(systemName: "flag.fill")
-                        .foregroundColor(.orange)
+                        .foregroundStyle(.orange)
                         .font(.system(.title2, weight: .semibold))
                 }
             }
@@ -228,7 +228,7 @@ struct IconViewAccountListViewCell: View {
     
     var body: some View {
         Image(systemName: icon)
-            .foregroundColor(.primary)
+            .foregroundStyle(.primary)
             .font(.system(size: 48))
             .fixedSize()
     }

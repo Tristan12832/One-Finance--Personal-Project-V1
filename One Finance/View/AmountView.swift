@@ -23,7 +23,7 @@ struct AmountView: View {
         .frame(minWidth: 0, maxWidth: .infinity)
         .frame(height: 100)
         .font(.system(.largeTitle, design: .rounded, weight: .bold))
-        .foregroundColor(.white)
+        .foregroundStyle(.white)
         .background(backgroundColor)
         .clipShape(.rect(cornerRadius: 8))
         .accessibilityElement()

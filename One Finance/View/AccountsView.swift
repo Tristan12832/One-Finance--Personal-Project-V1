@@ -31,6 +31,7 @@ struct AccountsView: View {
             modelContext.delete(account)
         }
     }
+    
     var body: some View {
         NavigationStack {
             Group {
@@ -43,11 +44,11 @@ struct AccountsView: View {
                                 .padding(.horizontal, paddingHorizontal)
                             
                             LazyVGrid(columns: columns, spacing: 18) {
-                                ForEach(favoriteAccounts.indices, id: \.self) { account in
+                                ForEach(favoriteAccounts) { account in
                                     NavigationLink {
-                                        AccountDetailView(account: favoriteAccounts[account])
+                                        AccountDetailView(account: account)
                                     } label: {
-                                        AccountCellView(account: favoriteAccounts[account])
+                                        AccountCellView(account: account)
                                     }
                                 }
                             }
@@ -61,11 +62,11 @@ struct AccountsView: View {
                                 .padding(.horizontal, paddingHorizontal)
                             
                             LazyVGrid(columns: columns, spacing: 18) {
-                                ForEach(markedAccounts.indices, id: \.self) { account in
+                                ForEach(markedAccounts) { account in
                                     NavigationLink {
-                                        AccountDetailView(account: markedAccounts[account])
+                                        AccountDetailView(account: account)
                                     } label: {
-                                        AccountCellView(account: markedAccounts[account])
+                                        AccountCellView(account: account)
                                     }
                                 }
                             }
@@ -79,11 +80,11 @@ struct AccountsView: View {
                                 .padding(.horizontal, paddingHorizontal)
                             
                             LazyVGrid(columns: columns, spacing: 18) {
-                                ForEach(accounts.indices, id: \.self) { account in
+                                ForEach(accounts) { account in
                                     NavigationLink {
-                                        AccountDetailView(account: accounts[account])
+                                        AccountDetailView(account: account)
                                     } label: {
-                                        AccountCellView(account: accounts[account])
+                                        AccountCellView(account: account)
                                     }
                                 }
                             }
@@ -97,11 +98,11 @@ struct AccountsView: View {
                 } else {
                     List {
                         Section {
-                            ForEach(favoriteAccounts.indices, id: \.self) { index in
+                            ForEach(favoriteAccounts) { account in
                                 NavigationLink {
-                                    AccountDetailView(account: favoriteAccounts[index])
+                                    AccountDetailView(account: account)
                                 } label: {
-                                    AccountCellListView(account: favoriteAccounts[index])
+                                    AccountCellListView(account: account)
                                 }
                             }
                             .onDelete(perform: self.deleteAccounts)
@@ -117,11 +118,11 @@ struct AccountsView: View {
                         .headerProminence(.increased)
                         
                         Section {
-                            ForEach(markedAccounts.indices, id: \.self) { index in
+                            ForEach(markedAccounts) { account in
                                 NavigationLink {
-                                    AccountDetailView(account: markedAccounts[index])
+                                    AccountDetailView(account: account)
                                 } label: {
-                                    AccountCellListView(account: markedAccounts[index])
+                                    AccountCellListView(account: account)
                                 }
                             }
                             .onDelete(perform: self.deleteAccounts)
@@ -137,11 +138,11 @@ struct AccountsView: View {
                         .headerProminence(.increased)
                         
                         Section {
-                            ForEach(accounts.indices, id: \.self) { index in
+                            ForEach(accounts) { account in
                                 NavigationLink {
-                                    AccountDetailView(account: accounts[index])
+                                    AccountDetailView(account: account)
                                 } label: {
-                                    AccountCellListView(account: accounts[index])
+                                    AccountCellListView(account: account)
                                 }
                             }
                             .onDelete(perform: self.deleteAccounts)

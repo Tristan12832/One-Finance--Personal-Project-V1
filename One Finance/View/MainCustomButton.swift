@@ -18,7 +18,7 @@ struct MainCustomButton: View {
         } label: {
             Text(title)
                 .font(.system(.title3, design: .rounded,weight: .bold))
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(.myGreen, in: .rect(cornerRadius: 32.0))

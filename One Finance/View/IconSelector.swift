@@ -32,10 +32,10 @@ struct IconSelector: View {
                     } label: {
                         RoundedRectangle(cornerRadius: 8)
                         .frame(width: 64, height: 64)
-                        .foregroundColor(index == selectedIcon ? .backgroundColor4 : .backgroundColor5)
+                        .foregroundStyle(index == selectedIcon ? .backgroundColor4 : .backgroundColor5)
                         .overlay(
                             Image(systemName: index)
-                                .foregroundColor(index == selectedIcon ? .myGreen : .primary)
+                                .foregroundStyle(index == selectedIcon ? .myGreen : .primary)
                                 .font(.system(size: 32))
                                 .fixedSize()
                         )

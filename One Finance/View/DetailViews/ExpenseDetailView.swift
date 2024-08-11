@@ -14,12 +14,11 @@ enum sortExpense {
     case inverse
 }
 struct ExpenseDetailView: View {
-    @Environment(\.dismiss) var dismiss
     
     var account: Account
     
-    @State private var sortList: sortPayment = .standard
-
+    @State private var sortList: SortPayment = .standard
+    
     private var paymentExpense: [PaymentActivity] {
         switch sortList {
         case .standard:
@@ -31,101 +30,17 @@ struct ExpenseDetailView: View {
                 .filter { $0.type == .expense }
                 .sorted(by: {$0.date?.compare($1.date!) == .orderedAscending})
         }
-       
-
     }
     
     var body: some View {
         ScrollView {
-            VStack {
-                HStack {
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text("Expenses")
-                            .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                            .foregroundColor(.white)
-                            .accessibilityAddTraits(.isHeader)
-                            .padding(.top)
-                        
-                        Text("\(account.totalBalance, format: .localCurrency)")
-                            .font(.system(.title, design: .rounded, weight: .bold))
-                            .foregroundColor(.white)
-                            .accessibilityAddTraits(.isHeader)
-                    }
-                    .padding()
-
-                    Spacer()
-                    
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.system(.title, design: .rounded, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding()
-                    }
-                }
-                .padding(.top)
-
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 125)
-            .background(.red)
+            HeaderDetailView(account: account)
             
-            VStack(alignment: .leading, spacing: 2) {
-                HStack {
-                    Text("Overall History")
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                        .accessibilityAddTraits(.isHeader)
-                    Spacer()
-                }
-                //MARK: CHART
-                ///GRAPHIQUE ICI!!!!
-                Chart(paymentExpense) {
-                    LineMark(
-                        x: .value("Month", $0.date!),
-                        y: .value("Amount", $0.amount)
-                    )
-                    .foregroundStyle(Color.red)
-                    .symbol(Circle().strokeBorder(lineWidth: 2))
-
-                }
-                
-            }
-            .padding(.horizontal, 5)
-            
+            HistoricalChartView(payments: paymentExpense)
             
             //MARK: LIST
             VStack(spacing: 0) {
-                VStack(spacing: 2){
-                    HStack(alignment: .center) {
-                        Text("Detail")
-                            .font(.system(.title, design: .rounded, weight: .bold))
-                            .accessibilityAddTraits(.isHeader)
-
-                        Spacer()
-                        
-                        Menu {
-                            withAnimation(.interpolatingSpring) {
-                                Picker("Sort", selection: $sortList) {
-                                    ForEach(sortPayment.allCases, id: \.self) { sort in
-                                        Label(sort.rawValue.capitalized, image: "tag")
-                                            .tag(sortList.rawValue)
-                                        
-                                    }
-                                }
-                            }
-                            .pickerStyle(.inline)
-                          
-                        } label: {
-                            Image(systemName: "arrow.up.arrow.down")
-                                .font(.system(.title2, design: .rounded, weight: .bold))
-                                .foregroundColor(Color.red)
-                        }
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityAddTraits(.isButton)
-                        .accessibilityLabel("Sorting parameter")                    }
-                    .padding(.vertical, 4)
-                }
+                DetailMenu(sortList: $sortList)
                 
                 ForEach(paymentExpense) {
                     PayementActivityCell(payment: $0)
@@ -174,4 +89,113 @@ struct ExpenseDetailView: View {
     return ExpenseDetailView(account: account)
         .modelContainer(container)
         .preferredColorScheme(.dark)
+}
+
+private struct HeaderDetailView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var account: Account
+    
+    var body: some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Expenses")
+                        .font(.system(.largeTitle, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+                        .accessibilityAddTraits(.isHeader)
+                        .padding(.top)
+                    
+                    Text("\(account.totalBalance, format: .localCurrency)")
+                        .font(.system(.title, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+                        .accessibilityAddTraits(.isHeader)
+                }
+                .padding()
+                
+                Spacer()
+                
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(.title, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding()
+                }
+            }
+            .padding(.top)
+            
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 125)
+        .background(.red)
+    }
+}
+
+private struct HistoricalChartView: View {
+    
+    var payments: [PaymentActivity]
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack {
+                Text("Overall History")
+                    .font(.system(.title, design: .rounded, weight: .bold))
+                    .accessibilityAddTraits(.isHeader)
+                Spacer()
+            }
+            //MARK: CHART
+            Chart(payments) {
+                LineMark(
+                    x: .value("Month", $0.date!),
+                    y: .value("Amount", $0.amount)
+                )
+                .foregroundStyle(Color.red)
+                .symbol(Circle().strokeBorder(lineWidth: 2))
+                
+            }
+            
+        }
+        .padding(.horizontal, 5)
+    }
+}
+
+private struct DetailMenu: View {
+    
+    @Binding public var sortList: SortPayment
+    
+    var body: some View {
+        VStack(spacing: 2){
+            HStack(alignment: .center) {
+                Text("Detail")
+                    .font(.system(.title, design: .rounded, weight: .bold))
+                    .accessibilityAddTraits(.isHeader)
+                
+                Spacer()
+                
+                Menu {
+                    withAnimation(.interpolatingSpring) {
+                        Picker("Sort", selection: $sortList) {
+                            ForEach(SortPayment.allCases, id: \.self) { sort in
+                                Label(sort.rawValue.capitalized, image: "tag")
+                                    .tag(sortList.rawValue)
+                                
+                            }
+                        }
+                    }
+                    .pickerStyle(.inline)
+                    
+                } label: {
+                    Image(systemName: "arrow.up.arrow.down")
+                        .font(.system(.title2, design: .rounded, weight: .bold))
+                        .foregroundColor(Color.red)
+                }
+                .accessibilityElement(children: .ignore)
+                .accessibilityAddTraits(.isButton)
+                .accessibilityLabel("Sorting parameter")
+            }
+            .padding(.vertical, 4)
+        }
+    }
 }

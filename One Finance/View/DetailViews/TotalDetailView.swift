@@ -18,12 +18,11 @@ enum TransactionDisplayType_TotalDetailView {
 
 
 struct TotalDetailView: View {
-    @Environment(\.dismiss) var dismiss
     
     var account: Account
     
     @State private var listType: TransactionDisplayType_TotalDetailView = .all
-    @State private var sortList: sortPayment = .standard
+    @State private var sortList: SortPayment = .standard
     
     
     private var paymentDataForView: [PaymentActivity] {
@@ -67,127 +66,20 @@ struct TotalDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
-                HStack {
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text("Total Balance")
-                            .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                            .foregroundColor(.white)
-                            .accessibilityAddTraits(.isHeader)
-                            .padding(.top)
-                        
-                        Text("\(account.totalBalance, format: .localCurrency)")
-                            .font(.system(.title, design: .rounded, weight: .bold))
-                            .foregroundColor(.white)
-                            .accessibilityAddTraits(.isHeader)
-
-                    }
-                    .padding()
-                    
-                    Spacer()
-                    
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.system(.title, design: .rounded, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding()
-                    }
-                }
-                .padding(.top)
-                
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 125)
-            .background(.myGreen)
+            HeaderTotalDetailView(account: account)
             
-            VStack(alignment: .leading, spacing: 2) {
-                HStack {
-                    Text("Overall History")
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                        .accessibilityAddTraits(.isHeader)
-
-                    Spacer()
-                }
-                //MARK: CHART
-                ///GRAPHIQUE ICI!!!!
-                Chart(paymentDataForView) {
-                    LineMark(
-                        x: .value("Month", $0.date!),
-                        y: .value("Amount", $0.amount)
-                    )
-                    .foregroundStyle(Color.myGreen)
-                    .symbol(Circle().strokeBorder(lineWidth: 2))
-                    
-                }
-                
-            }
-            .padding(.horizontal, 5)
-            
+            HistoricalChartView(payments: paymentDataForView)
             
             //MARK: LIST
             VStack(spacing: 0) {
                 VStack(spacing: 2){
-                    HStack(alignment: .center) {
-                        Text("Detail")
-                            .font(.system(.title, design: .rounded, weight: .bold))
-                            .accessibilityAddTraits(.isHeader)
-
-                        Spacer()
-                        Menu {
-                            withAnimation(.interpolatingSpring) {
-                                Picker("Sort", selection: $sortList) {
-                                    ForEach(sortPayment.allCases, id: \.self) { sort in
-                                        Label(sort.rawValue.capitalized, image: "tag")
-                                            .tag(sortList.rawValue)
-                                    }
-                                }
-                            }
-                            .pickerStyle(.inline)
-                            
-                        } label: {
-                            Image(systemName: "arrow.up.arrow.down")
-                                .font(.system(.title2, design: .rounded, weight: .bold))
-                                .foregroundColor(Color.accentColor)
-                        }
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityAddTraits(.isButton)
-                        .accessibilityLabel("Sorting parameter")
-                    }
+                    DetailMenu(sortList: $sortList)
                     
                     //MARK: Detail
-                    HStack(alignment: .top) {
-                        Button {
-                            withAnimation(.bouncy) {
-                                self.listType = .all
-                            }
-                        } label: {
-                            Text("All")
-                        }
-                        .buttonStyle(CustomButtonStyle(colorButton: .myGreen, descriptionForVO: "Press to select all transactions."))
-                        
-                        Button {
-                            withAnimation(.bouncy) {
-                                self.listType = .income
-                            }
-                        } label: {
-                            Text("Income")
-                        }
-                        .buttonStyle(CustomButtonStyle(colorButton: .complementary, descriptionForVO: "Press to select all incomes."))
-                        
-                        Button {
-                            withAnimation(.bouncy) {
-                                self.listType = .expense
-                            }
-                        } label: {
-                            Text("Expense")
-                        }
-                        .buttonStyle(CustomButtonStyle(colorButton: .red, descriptionForVO: "Press to select all expenses."))
-                        
-                        Spacer()
-                    }
-                    .padding(.vertical, 8)
+                    AccountPaymentsSortingMenu(
+                        listType: $listType,
+                        sortList: $sortList
+                    )
                 }
                 
                 ForEach(paymentDataForView) {
@@ -238,4 +130,148 @@ struct TotalDetailView: View {
     return TotalDetailView(account: account)
         .modelContainer(container)
         .preferredColorScheme(.dark)
+}
+
+private struct HeaderTotalDetailView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var account: Account
+    
+    var body: some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Total Balance")
+                        .font(.system(.largeTitle, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+                        .accessibilityAddTraits(.isHeader)
+                        .padding(.top)
+                    
+                    Text("\(account.totalBalance, format: .localCurrency)")
+                        .font(.system(.title, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+                        .accessibilityAddTraits(.isHeader)
+                    
+                }
+                .padding()
+                
+                Spacer()
+                
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(.title, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding()
+                }
+            }
+            .padding(.top)
+            
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 125)
+        .background(.myGreen)
+    }
+}
+
+private struct HistoricalChartView: View {
+    
+    var payments: [PaymentActivity]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack {
+                Text("Overall History")
+                    .font(.system(.title, design: .rounded, weight: .bold))
+                    .accessibilityAddTraits(.isHeader)
+                
+                Spacer()
+            }
+            
+            Chart(payments) {
+                LineMark(
+                    x: .value("Month", $0.date!),
+                    y: .value("Amount", $0.amount)
+                )
+                .foregroundStyle(Color.myGreen)
+                .symbol(Circle().strokeBorder(lineWidth: 2))
+            }
+        }
+        .padding(.horizontal, 5)
+    }
+}
+
+private struct DetailMenu: View {
+    
+    @Binding public var sortList: SortPayment
+    
+    var body: some View {
+        HStack(alignment: .center) {
+            Text("Detail")
+                .font(.system(.title, design: .rounded, weight: .bold))
+                .accessibilityAddTraits(.isHeader)
+            
+            Spacer()
+            Menu {
+                withAnimation(.interpolatingSpring) {
+                    Picker("Sort", selection: $sortList) {
+                        ForEach(SortPayment.allCases, id: \.self) { sort in
+                            Label(sort.rawValue.capitalized, image: "tag")
+                                .tag(sortList.rawValue)
+                        }
+                    }
+                }
+                .pickerStyle(.inline)
+                
+            } label: {
+                Image(systemName: "arrow.up.arrow.down")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+                    .foregroundColor(Color.accentColor)
+            }
+            .accessibilityElement(children: .ignore)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel("Sorting parameter")
+        }
+    }
+}
+
+private struct AccountPaymentsSortingMenu: View {
+    
+    @Binding public var listType: TransactionDisplayType_TotalDetailView
+    @Binding public var sortList: SortPayment
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            Button {
+                withAnimation(.bouncy) {
+                    self.listType = .all
+                }
+            } label: {
+                Text("All")
+            }
+            .buttonStyle(CustomButtonStyle(colorButton: .myGreen, descriptionForVO: "Press to select all transactions."))
+            
+            Button {
+                withAnimation(.bouncy) {
+                    self.listType = .income
+                }
+            } label: {
+                Text("Income")
+            }
+            .buttonStyle(CustomButtonStyle(colorButton: .complementary, descriptionForVO: "Press to select all incomes."))
+            
+            Button {
+                withAnimation(.bouncy) {
+                    self.listType = .expense
+                }
+            } label: {
+                Text("Expense")
+            }
+            .buttonStyle(CustomButtonStyle(colorButton: .red, descriptionForVO: "Press to select all expenses."))
+            
+            Spacer()
+        }
+        .padding(.vertical, 8)
+    }
 }
