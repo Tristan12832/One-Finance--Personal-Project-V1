@@ -99,9 +99,13 @@ struct AccountsView: View {
                     List {
                         Section {
                             ForEach(favoriteAccounts) { account in
-                                NavigationLink {
-                                    AccountDetailView(account: account)
-                                } label: {
+                                ZStack {
+                                    NavigationLink {
+                                        AccountDetailView(account: account)
+                                    } label: {
+                                       EmptyView()
+                                    }
+                                    .opacity(0)
                                     AccountCellListView(account: account)
                                 }
                             }
@@ -119,9 +123,13 @@ struct AccountsView: View {
                         
                         Section {
                             ForEach(markedAccounts) { account in
-                                NavigationLink {
-                                    AccountDetailView(account: account)
-                                } label: {
+                                ZStack {
+                                    NavigationLink {
+                                        AccountDetailView(account: account)
+                                    } label: {
+                                        EmptyView()
+                                    }
+                                    .opacity(0)
                                     AccountCellListView(account: account)
                                 }
                             }
@@ -139,9 +147,13 @@ struct AccountsView: View {
                         
                         Section {
                             ForEach(accounts) { account in
-                                NavigationLink {
-                                    AccountDetailView(account: account)
-                                } label: {
+                                ZStack {
+                                    NavigationLink {
+                                        AccountDetailView(account: account)
+                                    } label: {
+                                        EmptyView()
+                                    }
+                                    .opacity(0)
                                     AccountCellListView(account: account)
                                 }
                             }
