@@ -19,55 +19,57 @@ struct AccountCellView: View {
     @Bindable var account: Account
     
     var body: some View {
-            ZStack {
-                VStack(alignment:.center) {
-                    HeaderviewCell(acoounName: account.name, backgroundColor: .myGreen, isFavorite: $account.isFavorite, isMarked: $account.isMarked)
-                    Spacer()
-                    
-                    IconAccountCell(icon: account.icon, iconeColor: .primary)
-                    
-                    Spacer()
-                    
-                    AmountViewCell(amount: account.totalBalance, backgroundColor: .myGreen)
-                }
-                .fixedSize(horizontal: false, vertical: false)
+        ZStack {
+            VStack(alignment:.center) {
+                HeaderviewCell(acoounName: account.name, backgroundColor: .myGreen, isFavorite: $account.isFavorite, isMarked: $account.isMarked)
+                Spacer()
                 
+                IconAccountCell(icon: account.icon, iconeColor: .primary)
+                
+                Spacer()
+                
+                AmountViewCell(amount: account.totalBalance, backgroundColor: .myGreen)
             }
-            .background(.backgroundColor4, in: .rect(cornerRadius: 8))
-            .frame(maxWidth: 270, idealHeight: 420)
-            .padding(4)
-            .background(.backgroundColor3, in: .rect(cornerRadius: 8))
-            .fixedSize(horizontal: false, vertical: true)
-            .contextMenu {
-                Button {
+            .fixedSize(horizontal: false, vertical: false)
+            
+        }
+        .background(.backgroundColor4, in: .rect(cornerRadius: 8))
+        .frame(maxWidth: 270, idealHeight: 420)
+        .padding(4)
+        .background(.backgroundColor3, in: .rect(cornerRadius: 8))
+        .fixedSize(horizontal: false, vertical: true)
+        .contextMenu {
+            Button {
+                withAnimation(.default) {
                     self.account.isFavorite.toggle()
-                } label: {
-                    Label(
-                        account.isFavorite ? "Remove Favorite":"Mark Favorite",
-                        systemImage: account.isFavorite ? "star.slash":"star")
                 }
-                
-                Button {
-                    self.account.isMarked.toggle()
-                } label: {
-                    Label(
-                        account.isMarked ? "Remove Marked":"Mark Marked",
-                        systemImage: account.isMarked ? "flag.slash":"flag")
-                }
-                
-                Button(role: .destructive) {
-                    withAnimation(.linear) {
-                        modelContext.delete(account)
-                    }
-                } label: {
-                    Label("Delete", systemImage: "trash")
-
-                }
-
-
+            } label: {
+                Label(
+                    account.isFavorite ? "Remove Favorite":"Mark Favorite",
+                    systemImage: account.isFavorite ? "star.slash":"star")
             }
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel("Account \(account.name) with icon of \(account.icon), and you have \(account.totalBalance).")
+            
+            Button {
+                withAnimation(.default) {
+                    self.account.isMarked.toggle()
+                }
+            } label: {
+                Label(
+                    account.isMarked ? "Remove Marked":"Mark Marked",
+                    systemImage: account.isMarked ? "flag.slash":"flag")
+            }
+            
+            Button(role: .destructive) {
+                withAnimation(.default) {
+                    modelContext.delete(account)
+                }
+            } label: {
+                Label("Delete", systemImage: "trash")
+                
+            }
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Account \(account.name) with icon of \(account.icon), and you have \(account.totalBalance).")
     }
 }
 
@@ -92,11 +94,11 @@ struct AccountCellView: View {
 
 #Preview("Preview + Sidebar", traits: .landscapeRight){
     struct SidebarPreview: View {
-            @State private var selection: Panel? = Panel.accounts
-            var body: some View {
-                Sidebar(selection: $selection)
-            }
+        @State private var selection: Panel? = Panel.accounts
+        var body: some View {
+            Sidebar(selection: $selection)
         }
+    }
     
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Account.self, configurations: config)
@@ -112,8 +114,8 @@ struct AccountCellView: View {
 
 
 //MARK: HeaderviewCell component
-struct HeaderviewCell: View {
-
+private struct HeaderviewCell: View {
+    
     var acoounName: String
     var backgroundColor: Color
     @Binding var isFavorite: Bool
@@ -121,9 +123,9 @@ struct HeaderviewCell: View {
     
     var body: some View {
         HStack(alignment: .top) {
-                Text(acoounName)
-                    .foregroundStyle(.white)
-                    .multilineTextAlignment(.leading)
+            Text(acoounName)
+                .foregroundStyle(.white)
+                .multilineTextAlignment(.leading)
             
             Spacer()
             
@@ -146,11 +148,11 @@ struct HeaderviewCell: View {
 }
 
 //MARK: AmountViewCell component
-struct AmountViewCell: View {
+private struct AmountViewCell: View {
     
     var amount: Double
     var backgroundColor: Color
-
+    
     var body: some View {
         Text(amount, format: .localCurrency)
             .foregroundStyle(.white)
@@ -162,11 +164,11 @@ struct AmountViewCell: View {
 }
 
 //MARK: IconAccountCell component
-struct IconAccountCell: View {
-
+private struct IconAccountCell: View {
+    
     var icon: String
     var iconeColor: Color
-
+    
     var body: some View {
         Image(systemName: icon)
             .foregroundStyle(iconeColor)
