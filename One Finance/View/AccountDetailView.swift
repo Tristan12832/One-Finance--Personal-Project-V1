@@ -13,13 +13,13 @@ enum Monthly: String, CaseIterable {
 }
 
 //MARK: TransactionDisplayType is enum for selection the transaction type
-enum TransactionDisplayType {
+public enum TransactionDisplayType {
     case all
     case income
     case expense
 }
 
-enum SortPayment: String, CaseIterable {
+public enum SortPayment: String, CaseIterable {
     case standard
     case inverse
 }
@@ -89,19 +89,18 @@ struct AccountDetailView: View {
     var body: some View {
         VStack {
             VStack(spacing: 16) {
-                AmountView(title: "Total Account", amount: account.totalBalance, backgroundColor: .myGreen)
-                    .onTapGesture {
-                        self.showingTotalDetailView = true
-                    }
+                AmountView(title: "Total Account", amount: account.totalBalance, backgroundColor: .myGreen) {
+                    self.showingTotalDetailView = true
+                }
+                
                 HStack(spacing: 16){
-                    AmountView(title: "Income", amount: account.totalIncome, backgroundColor: .complementary)
-                        .onTapGesture {
-                            self.shwoingIncomeDetailView = true
-                        }
-                    AmountView(title: "Expense", amount: account.totalExpense, backgroundColor: .red)
-                        .onTapGesture {
-                            self.shwoingExpenseDetailView = true
-                        }
+                    AmountView(title: "Income", amount: account.totalIncome, backgroundColor: .complementary) {
+                        self.shwoingIncomeDetailView = true
+                    }
+                    
+                    AmountView(title: "Expense", amount: account.totalExpense, backgroundColor: .red) {
+                        self.shwoingExpenseDetailView = true
+                    }
                 }
             }
             .padding(.horizontal, paddingHorizontal)
@@ -267,7 +266,7 @@ struct AccountDetailView: View {
 
 private struct AccountPaymentsList: View {
     @Environment(\.modelContext) var modelContext
-
+    
     var payments: [PaymentActivity]
     
     var body: some View {
@@ -346,7 +345,7 @@ private struct AccountPaymentsSortingMenu: View {
 private struct DetailMenu: View {
     
     @Binding public var sortList: SortPayment
-
+    
     var body: some View {
         HStack(alignment: .center) {
             Text("Detail")

@@ -9,10 +9,6 @@ import Charts
 import SwiftData
 import SwiftUI
 
-enum sortExpense {
-    case standard
-    case inverse
-}
 struct ExpenseDetailView: View {
     
     var account: Account

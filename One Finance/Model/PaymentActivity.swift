@@ -8,6 +8,10 @@
 import SwiftData
 import SwiftUI
 
+
+/// Enumeration to define payment types
+///
+/// This enumeration differentiates between types of payments: "income" and "expense".
 enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
     case income = "income"
     case expense = "expense"
@@ -31,7 +35,11 @@ enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
     
 }
 
+// Extension of the PaymentActivity class to add computed properties
 extension PaymentActivity {
+    
+    /// Computed property to get the icon corresponding to the type of payment activity.
+    /// - Returns: A string representing the name of the SF Symbols icon.
     var icon: String {
         let type = type
         switch type {
@@ -43,6 +51,8 @@ extension PaymentActivity {
     }
     
     
+    /// Computed property to get the color corresponding to the type of payment activity.
+    /// - Returns: A SwiftUI color representing the color associated with the payment type.
     var color: Color {
         let type = type
         switch type {

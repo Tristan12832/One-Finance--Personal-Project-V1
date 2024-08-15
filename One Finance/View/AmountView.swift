@@ -13,6 +13,7 @@ struct AmountView: View {
     let title: String
     var amount: Double
     let backgroundColor: Color
+    let action: () -> Void
     
     var body: some View {
         VStack(alignment: .center) {
@@ -24,8 +25,10 @@ struct AmountView: View {
         .frame(height: 100)
         .font(.system(.largeTitle, design: .rounded, weight: .bold))
         .foregroundStyle(.white)
-        .background(backgroundColor)
-        .clipShape(.rect(cornerRadius: 8))
+        .background(backgroundColor, in: .rect(cornerRadius: 8))
+        .onTapGesture {
+            action()
+        }
         .accessibilityElement()
         .accessibilityLabel("\(title), \(amount, format: .localCurrency)")
         .accessibilityAddTraits(.isButton)
@@ -36,11 +39,11 @@ struct AmountView: View {
 
 
 #Preview("Preview -Light", traits: .sizeThatFitsLayout){
-    AmountView(title: "Test", amount: 9999, backgroundColor: .myGreen)
+    AmountView(title: "Test", amount: 9999, backgroundColor: .myGreen, action: {})
         .preferredColorScheme(.light)
 }
 
 #Preview("Preview -Dark", traits: .sizeThatFitsLayout){
-    AmountView(title: "Test", amount: 9999, backgroundColor: .myGreen)
+    AmountView(title: "Test", amount: 9999, backgroundColor: .myGreen, action: {})
         .preferredColorScheme(.dark)
 }

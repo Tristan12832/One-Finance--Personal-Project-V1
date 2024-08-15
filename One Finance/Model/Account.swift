@@ -26,7 +26,12 @@ import SwiftData
     }
 }
 
+// Extension of the Account class to add computed properties
 extension Account {
+    
+    /// This property is used to calculate the total cash inflow to the account.
+    ///
+    /// - Returns: Returns the total sum of income.
     var totalIncome: Double {
         let total = payments
             .filter {
@@ -38,6 +43,10 @@ extension Account {
         return total
     }
     
+    
+    /// This calculated property is used to calculate the account's cash inflows.
+    ///
+    /// - Returns: Returns a sum of expenses.
     var totalExpense: Double {
         let total = payments
             .filter {
@@ -49,6 +58,10 @@ extension Account {
         return total
     }
     
+    
+    /// This property calculates the total amount of money available.
+    ///
+    /// - Returns: Returns the total amount of money in the account.
     var totalBalance: Double {
         return totalIncome - totalExpense
     }

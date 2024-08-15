@@ -9,19 +9,11 @@ import Charts
 import SwiftData
 import SwiftUI
 
-//MARK: TransactionDisplayType is enum for selection the transaction type
-enum TransactionDisplayType_TotalDetailView {
-    case all
-    case income
-    case expense
-}
-
-
 struct TotalDetailView: View {
     
     var account: Account
     
-    @State private var listType: TransactionDisplayType_TotalDetailView = .all
+    @State private var listType: TransactionDisplayType = .all
     @State private var sortList: SortPayment = .standard
     
     
@@ -238,7 +230,7 @@ private struct DetailMenu: View {
 
 private struct AccountPaymentsSortingMenu: View {
     
-    @Binding public var listType: TransactionDisplayType_TotalDetailView
+    @Binding public var listType: TransactionDisplayType
     @Binding public var sortList: SortPayment
     
     var body: some View {

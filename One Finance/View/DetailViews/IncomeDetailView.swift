@@ -9,12 +9,6 @@ import Charts
 import SwiftData
 import SwiftUI
 
-//MARK: TransactionDisplayType is enum for selection the transaction type
-enum sortIcome {
-    case standard
-    case inverse
-}
-
 struct IncomeDetailView: View {
     var account: Account
     
