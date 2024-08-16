@@ -145,7 +145,9 @@ struct AccountDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        shwoingNewPaymentActivity = true
+                        withAnimation(.default) {
+                            shwoingNewPaymentActivity = true
+                        }
                     } label: {
                         Label("Add a new transaction", systemImage: "plus")
                     }
@@ -369,6 +371,7 @@ private struct DetailMenu: View {
                 Image(systemName: "arrow.up.arrow.down")
                     .font(.system(.title2, design: .rounded, weight: .bold))
                     .foregroundColor(Color.accentColor)
+                    .shadow(radius: 0.8)
             }
             .accessibilityElement(children: .ignore)
             .accessibilityAddTraits(.isButton)

@@ -20,6 +20,9 @@ struct CustomButtonStyle: ButtonStyle {
             .background(colorButton)
             .font(.system(.headline, design: .rounded))
             .clipShape(.rect(cornerRadius: 8))
+            .shadow(radius: configuration.isPressed ? 0 : 8)
+            .scaleEffect(configuration.isPressed ? 0.8 : 1.0)
+            .animation(.easeInOut(duration: 0.35), value: configuration.isPressed)
             .accessibilityHint(descriptionForVO)
     }
 }
