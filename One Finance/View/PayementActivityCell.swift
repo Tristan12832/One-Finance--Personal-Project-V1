@@ -31,12 +31,13 @@ struct PayementActivityCell: View {
                     .font(.system(.subheadline, weight: .semibold))
                     .foregroundStyle(.primary)
                     .padding(.horizontal, 5)
-                    .frame(width: 120, alignment: .leading)
+                    .frame(width: 120, alignment: .center)
                     .frame(maxWidth: 140)
                     .frame(height: 40)
                     .background(.backgroundColor5, in: .rect(cornerRadius: 8))
                     .padding(.horizontal, 2)
-
+                    .offset(x: 20)
+                
                 Text(payment.amount, format: .localCurrency)
                     .lineLimit(1)
                     .frame(width: 100, alignment: .trailing)
