@@ -19,7 +19,7 @@ enum TypePayement: String, RawRepresentable, CaseIterable, Codable {
 
 @Model class PaymentActivity {
     let id = UUID()
-    let name: String = ""
+    @Attribute(.unique) let name: String = ""
     let amount: Double = 0.0
     let date: Date?
     let type: TypePayement

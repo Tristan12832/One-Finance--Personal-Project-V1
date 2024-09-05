@@ -9,6 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct DashboardView: View {
+    @Environment(\.modelContext) var modelContext
     @Environment(\.horizontalSizeClass) var sizeClass
     
     @Query(animation: .default) var accounts: [Account]
@@ -111,6 +112,16 @@ struct DashboardView: View {
 
         }
         .toolbar {
+        #if DEBUG
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    addSamples()
+                } label: {
+                    Label("ADD SAMPLES", systemImage: "flame")
+                }
+                .help("ADD SAMPLES")
+            }
+        #endif
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     self.showingNewAccount = true
@@ -127,6 +138,91 @@ struct DashboardView: View {
         }
     }
     
+#if DEBUG
+    private func addSamples() {
+        try? modelContext.delete(model: Account.self)
+        
+        let payments_1 = [
+            PaymentActivity(name: "Salaire", amount: 2600.00, date: Date(), type: .income),
+            PaymentActivity(name: "Loyer", amount: 850.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Courses Supermarché", amount: 150.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Électricité", amount: 60.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Internet", amount: 40.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Abonnement Téléphone", amount: 30.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Essence", amount: 50.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Remboursement assurance santé", amount: 120.00, date: Date(), type: .income),
+            PaymentActivity(name: "Restaurant", amount: 45.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Vêtements", amount: 80.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Abonnement Netflix", amount: 12.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Café et snacks", amount: 25.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Dépenses Loisir", amount: 100.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Épargne Mensuelle", amount: 200.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Prime Salaire", amount: 300.00, date: Date(), type: .income),
+            PaymentActivity(name: "Transport en commun", amount: 50.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Assurance Voiture", amount: 100.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Livres", amount: 30.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Remboursement Impôt", amount: 500.00, date: Date(), type: .income),
+            PaymentActivity(name: "Dons", amount: 20.00, date: Date(), type: .expense)
+
+        ]
+        let account1 = Account(
+            name: "Compte à Vue",
+            icon: "house.fill",
+            payments: [],
+            isFavorite: true,
+            isMarked: false
+        )
+        modelContext.insert(account1)
+        for payment in payments_1 {
+            account1.payments.append(payment)
+        }
+        
+        let payments_2 = [
+            PaymentActivity(name: "Épargne Mensuelle", amount: 4000.00, date: .distantPast, type: .income),
+            PaymentActivity(name: "Épargne Mensuelle", amount: 500.00, date: Date(), type: .income),
+            PaymentActivity(name: "Intérêts Épargne", amount: 15.00, date: Date(), type: .income),
+            PaymentActivity(name: "Transfert d'épargne", amount: 200.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Remboursement épargne", amount: 100.00, date: Date(), type: .income),
+            PaymentActivity(name: "Versement Extra", amount: 300.00, date: Date(), type: .expense)
+        ]
+        let account2 = Account(
+            name: "Compte Épargne",
+            icon: "tree.fill",
+            payments: [],
+            isFavorite: false,
+            isMarked: true
+        )
+        modelContext.insert(account2)
+        
+        for payment in payments_2 {
+            account2.payments.append(payment)
+        }
+        
+        let account3 = Account(
+            name: "Compte Commun",
+            icon: "creditcard.fill",
+            payments: [],
+            isFavorite: false,
+            isMarked: false
+        )
+        modelContext.insert(account3)
+        
+        let payments_3 = [
+            PaymentActivity(name: "Paiement Facture Eau", amount: 80.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Paiement Facture Gaz", amount: 100.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Courses Ménagères", amount: 200.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Remboursement Amis", amount: 50.00, date: Date(), type: .income),
+            PaymentActivity(name: "Prime Commun", amount: 150.00, date: Date(), type: .income),
+            PaymentActivity(name: "Réparations Voiture", amount: 300.00, date: Date(), type: .expense),
+            PaymentActivity(name: "Dépense Commune Loisirs", amount: 120.00, date: Date(), type: .expense)
+
+        ]
+        for payment in payments_3 {
+            account3.payments.append(payment)
+        }
+
+    }
+#endif
 }
 
 #Preview("Preview") {

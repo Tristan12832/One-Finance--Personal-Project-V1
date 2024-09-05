@@ -19,6 +19,7 @@ struct PayementActivityCell: View {
                 Text(payment.name)
                     .multilineTextAlignment(.leading)
             }
+            .padding(.horizontal, 2)
             .frame(maxWidth: 250, alignment: .leading)
             .foregroundStyle(payment.color)
             
@@ -30,18 +31,16 @@ struct PayementActivityCell: View {
                     .font(.system(.subheadline, weight: .semibold))
                     .foregroundStyle(.primary)
                     .padding(.horizontal, 5)
-                    .frame(width: 120)
+                    .frame(width: 120, alignment: .leading)
                     .frame(maxWidth: 140)
                     .frame(height: 40)
                     .background(.backgroundColor5, in: .rect(cornerRadius: 8))
                     .padding(.horizontal, 2)
-                
+
                 Text(payment.amount, format: .localCurrency)
                     .lineLimit(1)
-                    .frame(width: 100)
-                    .frame(alignment: .trailing)
+                    .frame(width: 100, alignment: .trailing)
                     .padding(.horizontal, 2)
-                
             }
             .frame(width: 200, alignment: .trailing)
             .fixedSize(horizontal: true, vertical: true)

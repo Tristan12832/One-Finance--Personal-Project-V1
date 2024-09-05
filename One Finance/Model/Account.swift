@@ -20,7 +20,7 @@ import SwiftData
     init(name: String, icon: String, payments: [PaymentActivity], isFavorite: Bool, isMarked: Bool) {
         self.name = name
         self.icon = icon
-        self.payments = payments
+        self.payments = []
         self.isFavorite = isFavorite
         self.isMarked = isMarked
     }
