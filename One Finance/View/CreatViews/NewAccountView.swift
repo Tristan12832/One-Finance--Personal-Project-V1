@@ -16,12 +16,10 @@ struct NewAccountView: View {
     
     @State private var nameAccount = ""
     @State private var iconeAccount = "house.fill"
-    
-    let paddingHorizontal: CGFloat = 20
-    
+        
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical) {
                 VStack(spacing: 32) {
                     VStack(alignment: .leading) {
                         Text("Name of new account")
@@ -51,9 +49,10 @@ struct NewAccountView: View {
                         }
                     }
                 }
-                .padding(.horizontal, paddingHorizontal)
+                .paddingHorizontal()
             }
             .scrollContentBackground(.hidden)
+            .scrollIndicators(.hidden)
             .toolbarBackground(Color.backgroundColor5)
             .background(.backgroundColor5)
             .navigationTitle("Creat account")
@@ -67,9 +66,7 @@ struct NewAccountView: View {
                             .font(.system(.title2, design: .rounded, weight: .bold))
                             .foregroundColor(.primary)
                             .padding()
-
                     }
-
                 }
             }
         }

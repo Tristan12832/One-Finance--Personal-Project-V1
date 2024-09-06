@@ -157,7 +157,6 @@ struct AccountDetailView: View {
                     NewPaymentActivity(account: account)
                 }
             }
-            
         }
         .navigationTitle(account.name)
         .toolbarBackground(Color.backgroundColor5)
@@ -363,7 +362,6 @@ private struct DetailMenu: View {
                     }
                 }
                 .pickerStyle(.inline)
-                
             } label: {
                 Image(systemName: "arrow.up.arrow.down")
                     .font(.system(.title2, design: .rounded, weight: .bold))

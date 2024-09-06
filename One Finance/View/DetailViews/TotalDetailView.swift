@@ -16,7 +16,6 @@ struct TotalDetailView: View {
     @State private var listType: TransactionDisplayType = .all
     @State private var sortList: SortPayment = .standard
     
-    
     private var paymentDataForView: [PaymentActivity] {
         switch sortList {
         case .standard:

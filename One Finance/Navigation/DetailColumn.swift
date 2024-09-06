@@ -28,7 +28,7 @@ struct DetailColumn: View {
 }
 
 #Preview {
-    @State  var selection: Panel? = Panel.dashboard
+    @State var selection: Panel? = Panel.dashboard
 
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: Account.self, configurations: config)

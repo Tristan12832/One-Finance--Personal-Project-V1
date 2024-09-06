@@ -121,7 +121,6 @@ private struct HeaderDetailView: View {
                 }
             }
             .padding(.top)
-            
         }
         .frame(maxWidth: .infinity)
         .frame(height: 125)
@@ -149,9 +148,7 @@ private struct HistoricalChartView: View {
                 )
                 .foregroundStyle(Color.red)
                 .symbol(Circle().strokeBorder(lineWidth: 2))
-                
             }
-            
         }
         .padding(.horizontal, 5)
     }

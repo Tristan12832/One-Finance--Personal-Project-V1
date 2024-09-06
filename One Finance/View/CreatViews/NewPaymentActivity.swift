@@ -11,18 +11,17 @@ import SwiftUI
 struct NewPaymentActivity: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
-
+    
     @Bindable var account: Account
-
+    
     @State private var namePaymentActivity = ""
     @State private var amount = 0.0
     @State private var date = Date.now
     @State private var type: TypePayement = .expense
-
-    let paddingHorizontal: CGFloat = 20
+    
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical) {
                 VStack(spacing: 32) {
                     VStack(alignment: .leading) {
                         Text("Name of new payment activity")
@@ -79,9 +78,10 @@ struct NewPaymentActivity: View {
                         }
                     }
                 }
-                .padding(.horizontal, paddingHorizontal)
+                .paddingHorizontal()
             }
             .scrollContentBackground(.hidden)
+            .scrollIndicators(.hidden)
             .toolbarBackground(Color.backgroundColor5)
             .background(.backgroundColor5)
             .navigationTitle("New transaction")
@@ -95,9 +95,7 @@ struct NewPaymentActivity: View {
                             .font(.system(.title2, design: .rounded, weight: .bold))
                             .foregroundColor(.primary)
                             .padding()
-                        
                     }
-                    
                 }
             }
         }
