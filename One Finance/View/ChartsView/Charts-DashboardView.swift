@@ -24,8 +24,6 @@ struct ChartsView: View {
         return totals
     }
     
-    
-    
     var body: some View {
         VStack {
             HStack(alignment: .top) {

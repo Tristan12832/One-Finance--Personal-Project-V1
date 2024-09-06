@@ -364,7 +364,7 @@ private struct DetailMenu: View {
             } label: {
                 Image(systemName: "arrow.up.arrow.down")
                     .font(.system(.title2, design: .rounded, weight: .bold))
-                    .foregroundColor(Color.accentColor)
+                    .foregroundStyle(Color.accentColor)
                     .shadow(radius: 0.8)
             }
             .accessibilityElement(children: .ignore)

@@ -98,13 +98,13 @@ private struct HeaderDetailView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Expenses")
                         .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .accessibilityAddTraits(.isHeader)
                         .padding(.top)
                     
                     Text("\(account.totalBalance, format: .localCurrency)")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .accessibilityAddTraits(.isHeader)
                 }
                 .padding()
@@ -116,7 +116,7 @@ private struct HeaderDetailView: View {
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding()
                 }
             }
@@ -181,7 +181,7 @@ private struct DetailMenu: View {
                 } label: {
                     Image(systemName: "arrow.up.arrow.down")
                         .font(.system(.title2, design: .rounded, weight: .bold))
-                        .foregroundColor(Color.red)
+                        .foregroundStyle(Color.red)
                 }
                 .accessibilityElement(children: .ignore)
                 .accessibilityAddTraits(.isButton)
