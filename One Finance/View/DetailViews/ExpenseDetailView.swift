@@ -136,8 +136,8 @@ private struct HistoricalChartView: View {
         VStack(alignment: .leading, spacing: 2) {
             HStack {
                 Text("Overall History")
-                    .font(.system(.title, design: .rounded, weight: .bold))
-                    .accessibilityAddTraits(.isHeader)
+                    .headerStyle()
+
                 Spacer()
             }
             //MARK: CHART
@@ -162,8 +162,7 @@ private struct DetailMenu: View {
         VStack(spacing: 2){
             HStack(alignment: .center) {
                 Text("Detail")
-                    .font(.system(.title, design: .rounded, weight: .bold))
-                    .accessibilityAddTraits(.isHeader)
+                    .headerStyle()
                 
                 Spacer()
                 

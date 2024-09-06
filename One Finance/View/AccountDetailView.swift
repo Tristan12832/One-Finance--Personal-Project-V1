@@ -347,8 +347,7 @@ private struct DetailMenu: View {
     var body: some View {
         HStack(alignment: .center) {
             Text("Detail")
-                .font(.system(.title, design: .rounded, weight: .bold))
-                .accessibilityAddTraits(.isHeader)
+                .headerStyle()
             
             Spacer()
             

@@ -24,32 +24,28 @@ struct DashboardView: View {
             ScrollView(.vertical) {
                 LazyVStack(alignment:.leading, spacing: 18) {
                     Text("Favorite")
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                        .accessibilityAddTraits(.isHeader)
+                        .headerStyle()
                         .paddingHorizontal()
                     AccountsSectionListView(accounts: favoriteAccounts)
                     
                     Spacer()
                     
                     Text("Marked")
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                        .accessibilityAddTraits(.isHeader)
+                        .headerStyle()
                         .paddingHorizontal()
                     AccountsSectionListView(accounts: markedAccounts)
                     
                     Spacer()
                     
                     Text("All Accounts")
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                        .accessibilityAddTraits(.isHeader)
+                        .headerStyle()
                         .paddingHorizontal()
                     AccountsSectionListView(accounts: accounts)
                     
                     Spacer()
                     
                     Text("Some Charts")
-                        .font(.system(.title, design: .rounded, weight: .bold))
-                        .accessibilityAddTraits(.isHeader)
+                        .headerStyle()
                         .paddingHorizontal()
 
                     Group {

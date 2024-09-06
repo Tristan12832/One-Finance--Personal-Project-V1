@@ -26,16 +26,14 @@ struct AccountsView: View {
                     ScrollView {
                         LazyVStack(alignment:.leading, spacing: 18){
                             Text("Favorite")
-                                .font(.system(.title, design: .rounded, weight: .bold))
-                                .accessibilityAddTraits(.isHeader)
+                                .headerStyle()
                                 .paddingHorizontal()
                             AccountsSectionListView(accounts: favoriteAccounts)
                             
                             Spacer()
                             
                             Text("Marked")
-                                .font(.system(.title, design: .rounded, weight: .bold))
-                                .accessibilityAddTraits(.isHeader)
+                                .headerStyle()
                                 .paddingHorizontal()
                             AccountsSectionListView(accounts: markedAccounts)
                             
@@ -43,8 +41,7 @@ struct AccountsView: View {
                             Spacer()
                             
                             Text("All Accounts")
-                                .font(.system(.title, design: .rounded, weight: .bold))
-                                .accessibilityAddTraits(.isHeader)
+                                .headerStyle()
                                 .paddingHorizontal()
                             AccountsSectionListView(accounts: accounts)
                             
@@ -59,8 +56,7 @@ struct AccountsView: View {
                             AccountsSectionCellListView(accounts: favoriteAccounts)
                         } header: {
                             Text("Favorite")
-                                .font(.system(.title, design: .rounded, weight: .bold))
-                                .accessibilityAddTraits(.isHeader)
+                                .headerStyle()
                         }
                         .headerProminence(.increased)
                         
@@ -68,8 +64,7 @@ struct AccountsView: View {
                             AccountsSectionCellListView(accounts: markedAccounts)
                         } header: {
                             Text("Marked")
-                                .font(.system(.title, design: .rounded, weight: .bold))
-                                .accessibilityAddTraits(.isHeader)
+                                .headerStyle()
                         }
                         .headerProminence(.increased)
                         
@@ -77,8 +72,7 @@ struct AccountsView: View {
                             AccountsSectionCellListView(accounts: accounts)
                         } header: {
                             Text("All Account")
-                                .font(.system(.title, design: .rounded, weight: .bold))
-                                .accessibilityAddTraits(.isHeader)
+                                .headerStyle()
                         }
                         .headerProminence(.increased)
                         

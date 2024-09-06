@@ -30,7 +30,7 @@ struct ChartsView: View {
         VStack {
             HStack(alignment: .top) {
                 Text("Your Total Money")
-                    .font(.system(.title2, design: .rounded, weight: .bold))
+                    .headerSecondaryStyle()
                 
                 Spacer()
                 
@@ -42,7 +42,6 @@ struct ChartsView: View {
 
             }
             .accessibilityElement(children: .ignore)
-            .accessibilityAddTraits(.isHeader)
             .accessibilityLabel("Your Total Money, \(totalExpensesAndIncome, format: .localCurrency)")
                         
             Chart {
@@ -94,10 +93,9 @@ struct DonutChartView: View {
         VStack {
             HStack(alignment: .center) {
                 Text("Percentage by account")
-                    .font(.system(.title2, design: .rounded, weight: .bold))
+                    .headerSecondaryStyle()
                 Spacer()
             }
-            .accessibilityAddTraits(.isHeader)
             
             Chart {
                 ForEach(accountsData, id: \.name) { account in
