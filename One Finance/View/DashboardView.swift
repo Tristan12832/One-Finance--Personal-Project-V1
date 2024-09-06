@@ -12,82 +12,45 @@ struct DashboardView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.horizontalSizeClass) var sizeClass
     
+    @Binding var navigationSelection: Panel?
+    @State private var showingNewAccount = false
+
     @Query(animation: .default) var accounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isFavorite == true }, animation: .default) var favoriteAccounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isMarked == true}, animation: .default) var markedAccounts: [Account]
-    @Binding var navigationSelection: Panel?
     
-    private let columns = [
-        GridItem(.adaptive(minimum: 200, maximum: .infinity))
-    ]
-    
-    private let paddingHorizontal: CGFloat = 20
-    
-    @State private var showingNewAccount = false
-    
-
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVStack(alignment:.leading, spacing: 18){
+            ScrollView(.vertical) {
+                LazyVStack(alignment:.leading, spacing: 18) {
                     Text("Favorite")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, paddingHorizontal)
                         .accessibilityAddTraits(.isHeader)
-                    
-                    LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(favoriteAccounts) { account in
-                            NavigationLink {
-                                AccountDetailView(account: account)
-                            } label: {
-                                AccountCellView(account: account)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, paddingHorizontal)
+                        .paddingHorizontal()
+                    AccountsSectionListView(accounts: favoriteAccounts)
                     
                     Spacer()
                     
                     Text("Marked")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, paddingHorizontal)
                         .accessibilityAddTraits(.isHeader)
-
-                    LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(markedAccounts) { account in
-                            NavigationLink {
-                                AccountDetailView(account: account)
-                            } label: {
-                                AccountCellView(account: account)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, paddingHorizontal)
+                        .paddingHorizontal()
+                    AccountsSectionListView(accounts: markedAccounts)
                     
                     Spacer()
                     
                     Text("All Accounts")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, paddingHorizontal)
                         .accessibilityAddTraits(.isHeader)
-
-                    LazyVGrid(columns: columns, spacing: 18) {
-                        ForEach(accounts) { account in
-                            NavigationLink {
-                                AccountDetailView(account: account)
-                            } label: {
-                                AccountCellView(account: account)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, paddingHorizontal)
+                        .paddingHorizontal()
+                    AccountsSectionListView(accounts: accounts)
                     
                     Spacer()
-
+                    
                     Text("Some Charts")
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .padding(.horizontal, paddingHorizontal)
                         .accessibilityAddTraits(.isHeader)
+                        .paddingHorizontal()
 
                     Group {
                         if sizeClass == .compact {
@@ -102,29 +65,34 @@ struct DashboardView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, paddingHorizontal)
+                    .paddingHorizontal()
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
+            .scrollIndicators(.hidden)
             .background(.backgroundColor5)
             .toolbarBackground(Color.backgroundColor5)
             .navigationTitle("Dashboar")
-
+            
         }
         .toolbar {
-        #if DEBUG
+#if DEBUG
             ToolbarItem(placement: .automatic) {
                 Button {
-                    addSamples()
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        addSamples()
+                    }
                 } label: {
                     Label("ADD SAMPLES", systemImage: "flame")
                 }
                 .help("ADD SAMPLES")
             }
-        #endif
+#endif
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    self.showingNewAccount = true
+                    withAnimation(.bouncy) {
+                        self.showingNewAccount = true
+                    }
                 } label: {
                     Label("Add a new account", systemImage: "plus")
                 }
@@ -132,7 +100,7 @@ struct DashboardView: View {
             }
         }
         .sheet(isPresented: $showingNewAccount) {
-            withAnimation(.snappy) {                
+            withAnimation(.snappy) {
                 NewAccountView()
             }
         }
@@ -163,7 +131,7 @@ struct DashboardView: View {
             PaymentActivity(name: "Livres", amount: 30.00, date: Date(), type: .expense),
             PaymentActivity(name: "Remboursement Impôt", amount: 500.00, date: Date(), type: .income),
             PaymentActivity(name: "Dons", amount: 20.00, date: Date(), type: .expense)
-
+            
         ]
         let account1 = Account(
             name: "Compte à Vue",
@@ -215,12 +183,12 @@ struct DashboardView: View {
             PaymentActivity(name: "Prime Commun", amount: 150.00, date: Date(), type: .income),
             PaymentActivity(name: "Réparations Voiture", amount: 300.00, date: Date(), type: .expense),
             PaymentActivity(name: "Dépense Commune Loisirs", amount: 120.00, date: Date(), type: .expense)
-
+            
         ]
         for payment in payments_3 {
             account3.payments.append(payment)
         }
-
+        
     }
 #endif
 }

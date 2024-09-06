@@ -13,24 +13,11 @@ struct AccountsView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.horizontalSizeClass) var sizeClass
     
+    @State private var showingNewAccount = false
+
     @Query(animation: .default) var accounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isFavorite == true }, animation: .default) var favoriteAccounts: [Account]
     @Query(filter: #Predicate<Account> { account in account.isMarked == true}, animation: .default) var markedAccounts: [Account]
-    @State private var showingNewAccount = false
-    
-    let paddingHorizontalList: CGFloat = -14
-    let paddingHorizontal: CGFloat = 20
-    
-    let columns = [
-        GridItem(.adaptive(minimum: 200))
-    ]
-    
-    func deleteAccounts(_ indexSet: IndexSet) {
-        for index in indexSet {
-            let account = accounts[index]
-            modelContext.delete(account)
-        }
-    }
     
     var body: some View {
         NavigationStack {
@@ -41,54 +28,25 @@ struct AccountsView: View {
                             Text("Favorite")
                                 .font(.system(.title, design: .rounded, weight: .bold))
                                 .accessibilityAddTraits(.isHeader)
-                                .padding(.horizontal, paddingHorizontal)
-                            
-                            LazyVGrid(columns: columns, spacing: 18) {
-                                ForEach(favoriteAccounts) { account in
-                                    NavigationLink {
-                                        AccountDetailView(account: account)
-                                    } label: {
-                                        AccountCellView(account: account)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal, paddingHorizontal)
+                                .paddingHorizontal()
+                            AccountsSectionListView(accounts: favoriteAccounts)
                             
                             Spacer()
                             
                             Text("Marked")
                                 .font(.system(.title, design: .rounded, weight: .bold))
                                 .accessibilityAddTraits(.isHeader)
-                                .padding(.horizontal, paddingHorizontal)
+                                .paddingHorizontal()
+                            AccountsSectionListView(accounts: markedAccounts)
                             
-                            LazyVGrid(columns: columns, spacing: 18) {
-                                ForEach(markedAccounts) { account in
-                                    NavigationLink {
-                                        AccountDetailView(account: account)
-                                    } label: {
-                                        AccountCellView(account: account)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal, paddingHorizontal)
                             
                             Spacer()
                             
                             Text("All Accounts")
                                 .font(.system(.title, design: .rounded, weight: .bold))
                                 .accessibilityAddTraits(.isHeader)
-                                .padding(.horizontal, paddingHorizontal)
-                            
-                            LazyVGrid(columns: columns, spacing: 18) {
-                                ForEach(accounts) { account in
-                                    NavigationLink {
-                                        AccountDetailView(account: account)
-                                    } label: {
-                                        AccountCellView(account: account)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal, paddingHorizontal)
+                                .paddingHorizontal()
+                            AccountsSectionListView(accounts: accounts)
                             
                         }
                         .fixedSize(horizontal: false, vertical: true)
@@ -98,22 +56,7 @@ struct AccountsView: View {
                 } else {
                     List {
                         Section {
-                            ForEach(favoriteAccounts) { account in
-                                ZStack {
-                                    NavigationLink {
-                                        AccountDetailView(account: account)
-                                    } label: {
-                                       EmptyView()
-                                    }
-                                    .opacity(0)
-                                    AccountCellListView(account: account)
-                                }
-                            }
-                            .onDelete(perform: self.deleteAccounts)
-                            .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 0))
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.backgroundColor5)
-                            
+                            AccountsSectionCellListView(accounts: favoriteAccounts)
                         } header: {
                             Text("Favorite")
                                 .font(.system(.title, design: .rounded, weight: .bold))
@@ -122,22 +65,7 @@ struct AccountsView: View {
                         .headerProminence(.increased)
                         
                         Section {
-                            ForEach(markedAccounts) { account in
-                                ZStack {
-                                    NavigationLink {
-                                        AccountDetailView(account: account)
-                                    } label: {
-                                        EmptyView()
-                                    }
-                                    .opacity(0)
-                                    AccountCellListView(account: account)
-                                }
-                            }
-                            .onDelete(perform: self.deleteAccounts)
-                            .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 0))
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.backgroundColor5)
-                            
+                            AccountsSectionCellListView(accounts: markedAccounts)
                         } header: {
                             Text("Marked")
                                 .font(.system(.title, design: .rounded, weight: .bold))
@@ -146,22 +74,7 @@ struct AccountsView: View {
                         .headerProminence(.increased)
                         
                         Section {
-                            ForEach(accounts) { account in
-                                ZStack {
-                                    NavigationLink {
-                                        AccountDetailView(account: account)
-                                    } label: {
-                                        EmptyView()
-                                    }
-                                    .opacity(0)
-                                    AccountCellListView(account: account)
-                                }
-                            }
-                            .onDelete(perform: self.deleteAccounts)
-                            .listRowInsets(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 0))
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.backgroundColor5)
-                            
+                            AccountsSectionCellListView(accounts: accounts)
                         } header: {
                             Text("All Account")
                                 .font(.system(.title, design: .rounded, weight: .bold))
@@ -170,10 +83,10 @@ struct AccountsView: View {
                         .headerProminence(.increased)
                         
                     }
-                    .padding(.horizontal, paddingHorizontalList)
+                    .paddingHorizontalList()
                     .scrollContentBackground(.hidden)
+                    .scrollIndicators(.hidden)
                     .background(.backgroundColor5)
-                    
                 }
             }
             .navigationTitle("Accounts")
@@ -191,13 +104,14 @@ struct AccountsView: View {
                     } else {
                         Label("Show as list", systemImage: "list.dash")
                             .accessibilityHint("Press to switch to grid presentation.")
-                        
                     }
                 }
             }
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    self.showingNewAccount = true
+                    withAnimation(.bouncy) {
+                        self.showingNewAccount = true
+                    }
                 } label: {
                     Label("Add a new account", systemImage: "plus")
                 }
@@ -210,7 +124,6 @@ struct AccountsView: View {
                 NewAccountView()
             }
         }
-        
     }
 }
 

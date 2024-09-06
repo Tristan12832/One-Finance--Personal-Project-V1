@@ -44,9 +44,6 @@ struct AccountDetailView: View {
     @State private var sortList: SortPayment = .standard
     @State private var sortMonth: Monthly = .all
     
-    
-    let paddingHorizontal: CGFloat = 20
-    
     var paymentsToDisplayForView: [PaymentActivity] {
         switch sortList {
         case .standard:
@@ -103,7 +100,7 @@ struct AccountDetailView: View {
                     }
                 }
             }
-            .padding(.horizontal, paddingHorizontal)
+            .paddingHorizontal()
             .fixedSize(horizontal: false, vertical: true)
             
             
@@ -128,24 +125,24 @@ struct AccountDetailView: View {
             .background(.backgroundColor5)
             
             .fullScreenCover(isPresented: $showingTotalDetailView, content: {
-                withAnimation(.snappy) {
+                withAnimation(.bouncy) {
                     TotalDetailView(account: account)
                 }
             })
             .fullScreenCover(isPresented: $shwoingIncomeDetailView, content: {
-                withAnimation(.snappy) {
+                withAnimation(.bouncy) {
                     IncomeDetailView(account: account)
                 }
             })
             .fullScreenCover(isPresented: $shwoingExpenseDetailView, content: {
-                withAnimation(.snappy) {
+                withAnimation(.bouncy) {
                     ExpenseDetailView(account: account)
                 }
             })
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        withAnimation(.default) {
+                        withAnimation(.bouncy) {
                             shwoingNewPaymentActivity = true
                         }
                     } label: {
@@ -291,12 +288,12 @@ private struct AccountPaymentsList: View {
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .background(Color.backgroundColor5)
-        .scrollIndicators(.never)
+        .scrollIndicators(.hidden)
     }
     
-    func deletePayments(_ indexSet: IndexSet){
+    private func deletePayments(_ indexSet: IndexSet){
         for index in indexSet {
-            withAnimation {
+            withAnimation(.easeIn) {
                 let payment = payments[index]
                 modelContext.delete(payment)
             }
